@@ -2,9 +2,15 @@ package accounts;
 
 public class SmallBusinessAccount extends Account {
 
-    String overdraftLimit = "1000";
+    final String overdraftLimit = "1000";
 
-    public SmallBusinessAccount(String[] accountDetails, double currentBalance) {
-        super(accountDetails, currentBalance);
+    public SmallBusinessAccount() {
+        super();
     }
+
+    public SmallBusinessAccount(String[] accountDetails) {
+        super(accountDetails);
+        setOverdraftLimit(this.overdraftLimit);
+    }
+
 }

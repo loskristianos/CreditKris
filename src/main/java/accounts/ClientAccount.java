@@ -2,11 +2,18 @@ package accounts;
 
 public class ClientAccount extends Account {
 
-    double overdraftLimit = 1500;
+    final String overdraftLimit = "1500";
 
-   public ClientAccount(String[] accountDetails, double currentBalance) {
-       super(accountDetails, currentBalance);
-   }
+    public ClientAccount(){
+        super();
+    }
+
+    public ClientAccount(String[] accountDetails) {
+        super(accountDetails);
+        setOverdraftLimit(this.overdraftLimit);
+    }
+
 }
+
 
 

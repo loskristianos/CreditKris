@@ -2,10 +2,15 @@ package accounts;
 
 public class CommunityAccount extends Account {
 
-    double overdraftLimit = 2500;
+    final String overdraftLimit = "2500";
 
-    public CommunityAccount(String[] accountDetails, double currentBalance) {
-        super(accountDetails, currentBalance);
+    public CommunityAccount() {
+        super();
+    }
+
+    public CommunityAccount(String[] accountDetails) {
+        super(accountDetails);
+        setOverdraftLimit(this.overdraftLimit);
     }
 
 }
