@@ -2,9 +2,16 @@ package transactions;
 
 public class DepositTransaction extends Transaction {
 
-    public DepositTransaction(String[] accountDetails, double transactionAmount, double currentBalance) {
-        super(accountDetails, transactionAmount, currentBalance);
+    public DepositTransaction(){
+        super();
     }
+
+    public DepositTransaction(String[] transactionDetails) {
+        super(transactionDetails);
+        setTransactionType("Deposit");
+    }
+
+
 
     public void amendBalance(){
         // method to add transactionAmount to currentBalance

@@ -2,8 +2,13 @@ package transactions;
 
 public class WithdrawalTransaction extends Transaction {
 
-    public WithdrawalTransaction(String[] accountDetails, double transactionAmount, double currentBalance) {
-        super(accountDetails, transactionAmount, currentBalance);
+    public WithdrawalTransaction(){
+        super();
+    }
+
+    public WithdrawalTransaction(String[] transactionDetails) {
+        super(transactionDetails);
+        setTransactionType("Withdrawal");
     }
 
     public void amendBalance(){

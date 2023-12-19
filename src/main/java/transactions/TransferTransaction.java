@@ -6,10 +6,16 @@ package transactions;
  */
 public class TransferTransaction extends Transaction {
 
-    public TransferTransaction(String[] accountDetails, double transactionAmount, double currentBalance) {
-        super(accountDetails, transactionAmount, currentBalance);
+    public TransferTransaction(){
+        super();
     }
-    public void amendBalance() {
 
+    public TransferTransaction(String[] transactionDetails) {
+        super(transactionDetails);
     }
+
+    public void amendBalance(){
+        // method to deduct transactionAmount from currentBalance
+    }
+
 }
