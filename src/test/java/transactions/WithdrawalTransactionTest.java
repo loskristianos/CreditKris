@@ -6,8 +6,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WithdrawalTransactionTest {
 
-    String[] nullData = {null, null, null, null, null, null, null, null};
-    String[] testData = {"1087", "12345678", "34.65", "Withdrawal", "538.75", "504.10", "2023/12/19 14:30:00", "Y"};
+    String[] nullData = {null, null, null, null, null, null, null, null, null};
+    String[] testData = {"1087", "12345678", "34.65", "Withdrawal", "538.75", "504.10", "2023/12/19 14:30:00", "Y", ""};
 
     @Test
     void noArgsConstructor() {

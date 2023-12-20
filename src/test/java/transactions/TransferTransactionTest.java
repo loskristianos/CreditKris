@@ -4,20 +4,20 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DepositTransactionTest {
+class TransferTransactionTest {
     String[] nullData = {null, null, null, null, null, null, null, null, null};
-    String[] testData = {"1087", "12345678", "34.65", "Deposit", "538.75", "573.40", "2023/12/19 14:30:00", "Y",""};
+    String[] testData = {"1087", "12345678", "34.65", "Transfer", "538.75", "504.10", "2023/12/19 14:30:00", "Y", "98765432"};
 
     @Test
     void noArgsConstructor() {
-        Transaction transaction = new DepositTransaction();
+        Transaction transaction = new TransferTransaction();
         String[] returnedDetails = transaction.getTransactionDetails();
         assertArrayEquals(nullData, returnedDetails);
     }
 
     @Test
     void noArgsConstructorSetData() {
-        Transaction transaction = new DepositTransaction();
+        Transaction transaction = new TransferTransaction();
         transaction.setTransactionDetails(testData);
         String[] returnedDetails = transaction.getTransactionDetails();
         assertArrayEquals(testData, returnedDetails);
@@ -25,8 +25,9 @@ class DepositTransactionTest {
 
     @Test
     void withArgsConstructor() {
-        Transaction transaction = new DepositTransaction(testData);
+        Transaction transaction = new TransferTransaction(testData);
         String[] returnedDetails = transaction.getTransactionDetails();
         assertArrayEquals(testData, returnedDetails);
     }
+
 }

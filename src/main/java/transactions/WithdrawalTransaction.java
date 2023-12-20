@@ -10,8 +10,4 @@ public class WithdrawalTransaction extends Transaction {
         super(transactionDetails);
         setTransactionType("Withdrawal");
     }
-
-    public void amendBalance(){
-        // method to deduct transactionAmount from currentBalance
-    }
 }

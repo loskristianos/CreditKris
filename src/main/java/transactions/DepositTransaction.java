@@ -11,9 +11,4 @@ public class DepositTransaction extends Transaction {
         setTransactionType("Deposit");
     }
 
-
-
-    public void amendBalance(){
-        // method to add transactionAmount to currentBalance
-    }
 }

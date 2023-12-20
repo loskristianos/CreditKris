@@ -9,6 +9,7 @@ abstract class Transaction {
     private String newBalance;
     private String transactionTime;
     private String authorised;
+    private String additionalInfo;
 
     public Transaction(){}
 
@@ -17,7 +18,7 @@ abstract class Transaction {
     }
 
     public String[] getTransactionDetails() {
-        return new String[] {transactionID, accountNumber, transactionAmount, transactionType, previousBalance, newBalance, transactionTime, authorised};
+        return new String[] {transactionID, accountNumber, transactionAmount, transactionType, previousBalance, newBalance, transactionTime, authorised, additionalInfo};
     }
 
     public void setTransactionDetails(String[] details){
@@ -29,15 +30,14 @@ abstract class Transaction {
         newBalance = details[5];
         transactionTime = details[6];
         authorised = details[7];
+        additionalInfo = details[8];
     }
 
     void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
-    abstract void amendBalance();   // void for now - I think this should set the balance and write it to the database
-                                    // where the account object will pick up the new value rather than just return the
-                                    // value from here as well. Will consider further.
 
-    // send transaction to database from here? Separate method (will need amendBalance to return a value if so)
-
+    void setAdditionalInfo(String info) {
+        this.additionalInfo = info;
+    }
 }
