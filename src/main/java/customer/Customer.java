@@ -1,6 +1,6 @@
 package customer;
 
-public class Customer implements java.io.Serializable {
+public class Customer {
     private String customerID;
     private String firstName;
     private String lastName;
