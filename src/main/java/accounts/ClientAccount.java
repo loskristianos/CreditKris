@@ -1,8 +1,6 @@
 package accounts;
 
-import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable (tableName = "client_account")
 public class ClientAccount extends Account {
 
     final String overdraftLimit = "1500";
