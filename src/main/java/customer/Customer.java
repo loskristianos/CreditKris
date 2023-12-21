@@ -1,13 +1,25 @@
 package customer;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable (tableName = "customer")
 public class Customer {
+    @DatabaseField (columnName = "customer_id", id = true, foreign = true)
     private String customerID;
+    @DatabaseField (columnName = "first_name")
     private String firstName;
+    @DatabaseField (columnName = "last_name")
     private String lastName;
+    @DatabaseField
     private String dob;
+    @DatabaseField
     private String address1;
+    @DatabaseField
     private String address2;
+    @DatabaseField (columnName = "town")
     private String addressTown;
+    @DatabaseField (columnName = "postcode")
     private String addressPostcode;
 
     public Customer(){}
