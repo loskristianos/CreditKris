@@ -2,7 +2,7 @@
 
 ## Project Stages (initial plan)
 
-- Stage 1 - CLI only, csv (or similar) data storage
+- Stage 1 - ~~CLI only, csv (or similar) data storage~~
 - Stage 2 - CLI only, database data storage
 - Stage 3 - GUI and CLI, database data storage[^1]
 - Stage 4 - password hashes/encryption/security/etc.
