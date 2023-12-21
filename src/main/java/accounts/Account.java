@@ -1,11 +1,19 @@
 package accounts;
 
+import com.j256.ormlite.field.DatabaseField;
+
 abstract class Account {
+    @DatabaseField (columnName = "customer_id", foreign = true)
     private String customerID;
+    @DatabaseField (columnName = "sort_code")
     private String sortCode;
+    @DatabaseField (columnName = "account_number", id = true)
     private String accountNumber;
+    @DatabaseField (columnName = "current_balance")
     private String currentBalance;
+    @DatabaseField (columnName = "overdraft_limit")
     private String overdraftLimit;
+    @DatabaseField (columnName = "signatories")
     private String signatories;
 
     public Account() {}
