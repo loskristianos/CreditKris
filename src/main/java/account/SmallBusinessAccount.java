@@ -1,4 +1,4 @@
-package accounts;
+package account;
 
 public class SmallBusinessAccount extends Account {
 

@@ -1,4 +1,4 @@
-package accounts;
+package account;
 
 
 public class ClientAccount extends Account {

@@ -1,4 +1,4 @@
-package transactions;
+package transaction;
 
 abstract class Transaction {
     private String transactionID;

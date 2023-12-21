@@ -10,4 +10,6 @@ class DatabaseWriteTest {
         DatabaseWrite x = new DatabaseWrite(testData);
         x.writeData();
     }
+
+
 }

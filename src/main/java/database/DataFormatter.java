@@ -19,10 +19,10 @@ public class DataFormatter {
         String[] inputArray;
         Method method = null;
         switch (tableName) {
-            case "accounts":
+            case "account":
                 method = inputObject.getClass().getDeclaredMethod("getAccountDetails");
                 break;
-            case "transactions":
+            case "transaction":
                 method = inputObject.getClass().getDeclaredMethod("getTransactionDetails");
                 break;
             case "login":
