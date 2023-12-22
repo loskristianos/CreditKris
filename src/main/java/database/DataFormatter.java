@@ -42,9 +42,4 @@ public class DataFormatter {
         }
         return x.toString();
     }
-
-    public String buildWriteQuery() throws Exception {
-        String writeQuery = "insert into " + tableName + " values(" + extractValuesToString() + ")";
-        return writeQuery;
-    }
 }

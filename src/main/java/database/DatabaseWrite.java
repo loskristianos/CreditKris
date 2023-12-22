@@ -1,4 +1,4 @@
-/*  Take a String[] of values and write to the appropriate table on
+/*  Take a String of values and write to the appropriate table on
 *   the database. The various Object types will be processed/prepared elsewhere
 *   so that they can all be written by this class. Or that's the plan anyway...
 */

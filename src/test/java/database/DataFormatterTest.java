@@ -27,20 +27,4 @@ class DataFormatterTest {
         assertEquals("insert into accounts values('123','40-25-99','12345678','308.50','1500','1')", query);
     }
 
-    @Test
-    void buildWriteQueryFromObject() throws Exception {
-        ClientAccount z = new ClientAccount(testAccountData);
-        DataFormatter y = new DataFormatter(z);
-        String sqlQuery = y.buildWriteQuery();
-        assertEquals("insert into accounts values('123','40-25-99','12345678','308.50','1500','1')", sqlQuery);
-    }
-
-    @Test
-    void integrationThroughToDatabaseWrite() throws Exception {
-        ClientAccount z = new ClientAccount(testAccountData);
-        DataFormatter y = new DataFormatter(z);
-        String sqlQuery = y.buildWriteQuery();
-        DatabaseWrite dbw = new DatabaseWrite(sqlQuery);
-        dbw.writeData();
-    }
 }
