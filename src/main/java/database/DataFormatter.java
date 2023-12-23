@@ -1,7 +1,8 @@
 
 package database;
 
-import java.lang.reflect.Method;
+import interfaces.Banking;
+
 
 public class DataFormatter {
 
@@ -13,8 +14,11 @@ public class DataFormatter {
         this.tableName = inputObject.getClass().getPackageName();
     }
 
+    public DataFormatter(Banking object){
+        object.getDetails();
+    }
 
-    public String extractValuesToString() throws Exception {
+/*    public String extractValuesToString() throws Exception {
         String[] inputArray;
         Method method = null;
         switch (tableName) {
@@ -42,7 +46,7 @@ public class DataFormatter {
         return x.toString();
 
     }
-
+*/
     public String testMappings(String searchField) {
         String dbField = MapFieldsToColumns.mappings.get(searchField);
         return dbField;

@@ -11,11 +11,6 @@ public class ClientAccount extends Account {
         super();
     }
 
-    public ClientAccount(String[] accountDetails) {
-        super(accountDetails);
-        setOverdraftLimit(this.overdraftLimit);
-    }
-
     public ClientAccount(HashMap<String,String> accountDetails) {
         super(accountDetails);
         setOverdraftLimit(this.overdraftLimit);

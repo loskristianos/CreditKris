@@ -1,8 +1,10 @@
 package customer;
 
+import interfaces.Banking;
+
 import java.util.HashMap;
 
-public class Customer {
+public class Customer implements Banking {
     private String customerID;
     private String firstName;
     private String lastName;

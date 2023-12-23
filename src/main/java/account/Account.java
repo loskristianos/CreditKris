@@ -1,9 +1,10 @@
 package account;
 
+import interfaces.Banking;
 
 import java.util.HashMap;
 
-abstract class Account {
+abstract class Account implements Banking {
     private String customerID;
     private String sortCode;
     private String accountNumber;
@@ -13,16 +14,8 @@ abstract class Account {
 
     public Account() {}
 
-    public Account(String[] accountDetails) {
-        setAccountDetails(accountDetails);
-    }
-
     public Account(HashMap<String,String> accountDetails) {
         setDetails(accountDetails);
-    }
-
-    public String[] getAccountDetails() {
-        return new String[] {customerID, sortCode, accountNumber, currentBalance, overdraftLimit, signatories};
     }
 
     public HashMap<String, String> getDetails() {
@@ -36,14 +29,7 @@ abstract class Account {
         return details;
     }
 
-    public void setAccountDetails(String[] details) {
-        customerID = details[0];
-        sortCode = details[1];
-        accountNumber = details[2];
-        currentBalance = details[3];
-        overdraftLimit = details[4];
-        signatories = details[5];
-    }
+
 
     public void setDetails(HashMap<String, String> details) {
         customerID = details.get("customerID");
