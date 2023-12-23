@@ -15,15 +15,8 @@ abstract class Transaction {
 
     public Transaction(){}
 
-    public Transaction(String[] transactionDetails) {
-        setTransactionDetails(transactionDetails);
-    }
-
     public Transaction(HashMap<String, String> transactionDetails) {
         setDetails(transactionDetails);
-    }
-    public String[] getTransactionDetails() {
-        return new String[] {transactionID, accountNumber, transactionAmount, transactionType, previousBalance, newBalance, transactionTime, authorised, additionalInfo};
     }
 
     public HashMap<String, String> getDetails() {
@@ -50,18 +43,6 @@ abstract class Transaction {
         transactionTime = details.get("transactionTime");
         authorised = details.get("authorised");
         additionalInfo = details.get("additionalInfo");
-    }
-
-    public void setTransactionDetails(String[] details){
-        transactionID = details[0];
-        accountNumber = details[1];
-        transactionAmount = details[2];
-        transactionType = details[3];
-        previousBalance = details[4];
-        newBalance = details[5];
-        transactionTime = details[6];
-        authorised = details[7];
-        additionalInfo = details[8];
     }
 
     void setTransactionType(String transactionType) {
