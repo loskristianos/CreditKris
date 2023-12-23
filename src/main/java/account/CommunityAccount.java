@@ -1,6 +1,8 @@
 package account;
 
 
+import java.util.HashMap;
+
 public class CommunityAccount extends Account {
 
     final String overdraftLimit = "2500";
@@ -9,7 +11,7 @@ public class CommunityAccount extends Account {
         super();
     }
 
-    public CommunityAccount(String[] accountDetails) {
+    public CommunityAccount(HashMap<String,String> accountDetails) {
         super(accountDetails);
         setOverdraftLimit(this.overdraftLimit);
     }

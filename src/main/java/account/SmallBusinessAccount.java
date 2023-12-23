@@ -1,5 +1,7 @@
 package account;
 
+import java.util.HashMap;
+
 public class SmallBusinessAccount extends Account {
 
     final String overdraftLimit = "1000";
@@ -8,7 +10,7 @@ public class SmallBusinessAccount extends Account {
         super();
     }
 
-    public SmallBusinessAccount(String[] accountDetails) {
+    public SmallBusinessAccount(HashMap<String,String> accountDetails) {
         super(accountDetails);
         setOverdraftLimit(this.overdraftLimit);
     }
