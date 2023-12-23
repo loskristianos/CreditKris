@@ -1,5 +1,7 @@
 package transaction;
 
+import java.util.HashMap;
+
 abstract class Transaction {
     private String transactionID;
     private String accountNumber;
@@ -19,6 +21,32 @@ abstract class Transaction {
 
     public String[] getTransactionDetails() {
         return new String[] {transactionID, accountNumber, transactionAmount, transactionType, previousBalance, newBalance, transactionTime, authorised, additionalInfo};
+    }
+
+    public HashMap<String, String> getDetails() {
+        HashMap<String, String> details = new HashMap<>();
+        details.put("transactionID",transactionID);
+        details.put("accountNumber",accountNumber);
+        details.put("transactionAmount", transactionAmount);
+        details.put("transactionType",transactionType);
+        details.put("previousBalance",previousBalance);
+        details.put("newBalance",newBalance);
+        details.put("transactionTime",transactionTime);
+        details.put("authorised",authorised);
+        details.put("additionalInfo",additionalInfo);
+        return details;
+    }
+
+    public void setDetails(HashMap<String, String> details) {
+        transactionID = details.get("transactionID");
+        accountNumber = details.get("accountNumber");
+        transactionAmount = details.get("transactionAmount");
+        transactionType = details.get("transactionType");
+        previousBalance = details.get("previousBalance");
+        newBalance = details.get("newBalance");
+        transactionTime = details.get("transactionTime");
+        authorised = details.get("authorised");
+        additionalInfo = details.get("additionalInfo");
     }
 
     public void setTransactionDetails(String[] details){

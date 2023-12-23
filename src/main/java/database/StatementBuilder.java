@@ -19,7 +19,7 @@ public class StatementBuilder {
 
     public String updateBalance(String accountNumber, String newBalance) {
         tableName = "account";
-        finishedQuery = "UPDATE " + tableName + " SET BALANCE = " + newBalance +" WHERE ACCOUNT_NUMBER = " + accountNumber;
+        finishedQuery = "UPDATE " + tableName + " SET CURRENT_BALANCE = " + newBalance +" WHERE ACCOUNT_NUMBER = " + accountNumber;
         return finishedQuery;
     }
 
