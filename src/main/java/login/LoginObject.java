@@ -1,13 +1,12 @@
 package login;
 
-
 public class LoginObject {
 
     private String username;
 
     private String password;
 
-    private int customerID;     // this is generated when the record is first written to the database, so we don't need a method to set it
+    private String customerID;
 
     private boolean authorised;
 
@@ -22,6 +21,10 @@ public class LoginObject {
         this.authorised = authorised;
     }
 
+    public void setCustomerID(String customerID) {
+         this.customerID = customerID;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -30,7 +33,7 @@ public class LoginObject {
         return password;
     }
 
-    public int getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 
