@@ -8,12 +8,14 @@ public class StatementBuilder {
 
     String finishedQuery;
     String tableName;
+    String searchField;
+    String searchValue;
 
     public StatementBuilder() {
     }
 
     public String writeNewRecord(String values, String table) {
-        tableName = MapFieldsToColumns.account.get(table);
+        tableName = MapFieldsToColumns.mappings.get(table);
         finishedQuery = "INSERT INTO " + table + " VALUES(" + values + ")";
         return finishedQuery;
     }
@@ -25,7 +27,10 @@ public class StatementBuilder {
     }
 
     public String getRecords(String table, String searchField, String searchValue) {
-        finishedQuery = "SELECT * FROM " + table + " WHERE " + searchField + " = " + searchValue;
+        tableName = MapFieldsToColumns.mappings.get(table);
+        this.searchField = MapFieldsToColumns.mappings.get(searchField);
+        this.searchValue = MapFieldsToColumns.mappings.get(searchValue);
+        finishedQuery = "SELECT * FROM " + tableName + " WHERE " + searchField + " = " + searchValue;
         return finishedQuery;
     }
 }
