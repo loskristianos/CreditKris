@@ -19,6 +19,9 @@ abstract class Transaction {
         setTransactionDetails(transactionDetails);
     }
 
+    public Transaction(HashMap<String, String> transactionDetails) {
+        setDetails(transactionDetails);
+    }
     public String[] getTransactionDetails() {
         return new String[] {transactionID, accountNumber, transactionAmount, transactionType, previousBalance, newBalance, transactionTime, authorised, additionalInfo};
     }
