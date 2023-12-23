@@ -1,39 +1,45 @@
 package customer;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
 
-        String[] nullData = {null, null, null, null, null, null, null, null};
-        String[] testData = {"123", "Rodney", "Price", "12/09/1972", "1 The Street", "Amble", "MORPETH", "NE65 1BK"};
-        String[] testData2 = {"456", "Mark", "Myrie", "17/07/1973", "10 The Close", "Southwark", "LONDON", "SE1 1BB"};
+        HashMap<String,String> nullDataHM = new HashMap<>() {{
+            put("customerID",null); put("firstName",null); put("lastName",null); put("dob",null); put("address1",null); put("address2",null); put("addressTown",null); put("addressPostcode",null);
+        }};
+        HashMap<String,String> testDataHM = new HashMap<>(Map.of("customerID","123", "firstName","Rodney", "lastName","Price", "dob","12/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
+        HashMap<String,String> testData2HM = new HashMap<>(Map.of("customerID","456", "firstName","Mark", "lastName","Myrie", "dob","17/07/1973", "address1","10 The Close", "address2","Southwark", "addressTown","LONDON", "addressPostcode","SE1 1BB"));
 
     @Test
-    void noArgsConstructor() {
+    void noArgsConstructorHM() {
         var customer = new Customer();
-        String[] returnedDetails = customer.getCustomerDetails();
-        assertArrayEquals(nullData, returnedDetails);
+        HashMap<String, String> returnedDetails = customer.getDetails();
+        assertEquals(nullDataHM, returnedDetails);
     }
 
     @Test
-    void noArgsConstructorSetData() {
+    void noArgsConstructorSetDataHM() {
         var customer = new Customer();
-        customer.setCustomerDetails(testData);
-        String[] returnedDetails = customer.getCustomerDetails();
-        assertArrayEquals(testData, returnedDetails);
+        customer.setDetails(testDataHM);
+        HashMap<String, String> returnedDetails = customer.getDetails();
+        assertEquals(testDataHM, returnedDetails);
     }
     @Test
-    void withArgsConstructor()  {
-        var customer = new Customer(testData);
-        String[] returnedDetails = customer.getCustomerDetails();
-        assertArrayEquals(testData, returnedDetails);
+    void withArgsConstructorHM()  {
+        var customer = new Customer(testDataHM);
+        HashMap<String, String> returnedDetails = customer.getDetails();
+        assertEquals(testDataHM, returnedDetails);
     }
 
     @Test
-    void withArgsConstructorSetData() {
-        var customer = new Customer(testData);
-        customer.setCustomerDetails(testData2);
-        assertArrayEquals(testData2, customer.getCustomerDetails());
+    void withArgsConstructorSetDataHM() {
+        var customer = new Customer(testDataHM);
+        customer.setDetails(testData2HM);
+        assertEquals(testData2HM, customer.getDetails());
     }
 }
