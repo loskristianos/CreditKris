@@ -13,12 +13,13 @@ public class StatementBuilder {
     }
 
     public String writeNewRecord(String values, String table) {
+        tableName = MapFieldsToColumns.account.get(table);
         finishedQuery = "INSERT INTO " + table + " VALUES(" + values + ")";
         return finishedQuery;
     }
 
     public String updateBalance(String accountNumber, String newBalance) {
-        tableName = "account";
+        tableName = "accounts";
         finishedQuery = "UPDATE " + tableName + " SET CURRENT_BALANCE = " + newBalance +" WHERE ACCOUNT_NUMBER = " + accountNumber;
         return finishedQuery;
     }

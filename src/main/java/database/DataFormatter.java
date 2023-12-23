@@ -1,6 +1,4 @@
-/*  Will take an object (any of the data objects) and prepare the appropriate
-*   SQL statement String to be passed to the read/write classes. I hope.
-*/
+
 package database;
 
 import java.lang.reflect.Method;
@@ -14,6 +12,7 @@ public class DataFormatter {
         this.inputObject = inputObject;
         this.tableName = inputObject.getClass().getPackageName();
     }
+
 
     public String extractValuesToString() throws Exception {
         String[] inputArray;
@@ -41,5 +40,12 @@ public class DataFormatter {
             if (i != (inputArray.length - 1)) x.append(",");
         }
         return x.toString();
+
     }
+
+    public String testMappings(String searchField) {
+        String dbField = MapFieldsToColumns.mappings.get(searchField);
+        return dbField;
+    }
+
 }

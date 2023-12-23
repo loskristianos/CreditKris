@@ -26,5 +26,4 @@ class DataFormatterTest {
         String query = "insert into " + y.tableName + " values(" + y.extractValuesToString() + ")";
         assertEquals("insert into accounts values('123','40-25-99','12345678','308.50','1500','1')", query);
     }
-
 }
