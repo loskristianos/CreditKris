@@ -10,7 +10,7 @@ public class LoginObject {
 
     private boolean authorised;
 
-    public LoginObject() {}
+    public LoginObject() {}     // no-args constructor not used
 
     public LoginObject(String username, String password) {
         this.username = username;
