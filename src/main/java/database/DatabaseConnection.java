@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     private Connection dbConnection = null;
-    private final String dbUrl = "jdbc:sqlite:devdb";     // might move this out to a resource file later
+    private final String dbUrl = "jdbc:sqlite:devdb";
     public DatabaseConnection()  {
         try {
             this.dbConnection = DriverManager.getConnection(dbUrl);

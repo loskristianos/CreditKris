@@ -31,8 +31,8 @@ public class MapFieldsToColumns {
         put("transactionTime", "transaction_time");
         put("authorised", "authorised");
         put("additionalInfo", "additional_info");
+        put("currentBalance", "current_balance");
     }};
 
 
 }
-    

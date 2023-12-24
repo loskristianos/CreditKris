@@ -3,7 +3,6 @@ package interfaces;
 import java.util.HashMap;
 
 public interface Banking {
-
-    public HashMap<String, String> getDetails();
-    public void setDetails(HashMap<String,String> details);
+    HashMap<String, String> getDetails();
+    void setDetails(HashMap<String,String> details);
 }

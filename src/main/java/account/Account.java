@@ -4,10 +4,10 @@ import interfaces.Banking;
 
 import java.util.HashMap;
 
-abstract class Account implements Banking {
+public abstract class Account implements Banking {
     private String customerID;
-    private String sortCode;
     private String accountNumber;
+    private String accountType;
     private String currentBalance;
     private String overdraftLimit;
     private String signatories;
@@ -21,8 +21,8 @@ abstract class Account implements Banking {
     public HashMap<String, String> getDetails() {
         HashMap<String, String> details = new HashMap<>();
         details.put("customerID",customerID);
-        details.put("sortCode",sortCode);
         details.put("accountNumber", accountNumber);
+        details.put("accountType", accountType);
         details.put("currentBalance", currentBalance);
         details.put("overdraftLimit", overdraftLimit);
         details.put("signatories", signatories);
@@ -33,8 +33,8 @@ abstract class Account implements Banking {
 
     public void setDetails(HashMap<String, String> details) {
         customerID = details.get("customerID");
-        sortCode = details.get("sortCode");
         accountNumber = details.get("accountNumber");
+        accountType = details.get("accountType");
         currentBalance = details.get("currentBalance");
         overdraftLimit = details.get("overdraftLimit");
         signatories = details.get("signatories");
@@ -43,7 +43,9 @@ abstract class Account implements Banking {
     void setOverdraftLimit(String overdraftLimit) {
         this.overdraftLimit = overdraftLimit;
     }
-
+    void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
     public void setCurrentBalance(String newBalance) {
         currentBalance = newBalance;
     }
