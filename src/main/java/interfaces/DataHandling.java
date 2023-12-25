@@ -1,9 +1,11 @@
 package interfaces;
 
+import java.util.List;
+
 public interface DataHandling {
 
     void writeNewRecord();
-    void read();
+    List getRecords();
     void update();
     void delete();
 }

@@ -20,6 +20,9 @@ public class Customer implements Banking {
         setDetails(customerDetails);
     }
 
+    public String getCustomerID() {
+        return customerID;
+    }
     public HashMap<String,String> getDetails() {
         HashMap<String,String > details = new HashMap<>();
         details.put("customerID",customerID);

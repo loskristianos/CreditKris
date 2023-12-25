@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class MapFieldsToColumns {
 
-    static HashMap<String,String> mappings = new HashMap<>() {{
+    static HashMap<String,String> mappingsToDB = new HashMap<>() {{
         put("customerID", "customer_id");
         put("username", "username");
         put("password","password");
@@ -34,5 +34,29 @@ public class MapFieldsToColumns {
         put("currentBalance", "current_balance");
     }};
 
-
+    static HashMap<String,String> mappingsFromDB = new HashMap<>() {{
+        put("customer_id","customerID");
+        put("username", "username");
+        put("password","password");
+        put("first_name","firstName");
+        put("last_name", "lastName");
+        put("dob", "dob");
+        put("address1", "address1");
+        put("address2", "address2");
+        put("town","addressTown");
+        put("postcode","addressPostcode");
+        put("account_number", "accountNumber");
+        put("account_type", "accountType");
+        put("overdraft_limit", "overdraftLimit");
+        put("signatories", "signatories");
+        put("transaction_id", "transactionID");
+        put("transaction_amount", "transactionAmount");
+        put("transaction_type", "transactionType");
+        put("previous_balance", "previousBalance");
+        put("new_balance", "newBalance");
+        put("transaction_time", "transactionTime");
+        put("authorised", "authorised");
+        put("additional_info", "additionalInfo");
+        put("current_balance", "currentBalance");
+    }};
 }

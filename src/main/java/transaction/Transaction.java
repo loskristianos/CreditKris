@@ -3,7 +3,7 @@ package transaction;
 import interfaces.Banking;
 import java.util.HashMap;
 
-abstract class Transaction implements Banking {
+public abstract class Transaction implements Banking {
     private String transactionID;
     private String accountNumber;
     private String transactionAmount;
