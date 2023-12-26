@@ -55,7 +55,6 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
         return resultList;
     }
 
-
     public void update() {
         HashMap<String,String> transactionDetails = inputObject.getDetails();
         String accountNumber = transactionDetails.get("accountNumber");

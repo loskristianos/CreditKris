@@ -1,6 +1,5 @@
 package database;
 
-import account.Account;
 import interfaces.DataHandling;
 import interfaces.DataObject;
 import transaction.*;
@@ -11,7 +10,6 @@ import java.sql.Statement;
 import java.util.*;
 
 public class TransactionDataHandler extends DataHandler implements DataHandling {
-
 
     String transactionID;
 
@@ -28,8 +26,9 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
         // get all transactions for an account_number
         List<Transaction> resultList = new ArrayList<>();
         String accountNumber = inputObject.getDetails().get("accountNumber");
+        this.readQuery = "SELECT * FROM transactions WHERE account_number = " + accountNumber;
         try (Statement statement = dbConnection.createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM transactions WHERE account_number = " + accountNumber);
+            ResultSet resultSet = statement.executeQuery(readQuery);
             HashMap<String, String> outputMap = new HashMap<>();
             while (resultSet.next()) {
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
@@ -56,6 +55,7 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
     }
 
     public void update(){
+        this.transactionID = inputObject.getDetails().get("transactionID");
         try (Statement statement = dbConnection.createStatement())
         {
             statement.executeUpdate("UPDATE transactions SET authorised = 'Y' WHERE transaction_id = " + transactionID);

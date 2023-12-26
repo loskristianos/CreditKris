@@ -12,16 +12,13 @@ import java.util.*;
 
 public class CustomerDataHandler extends DataHandler implements DataHandling {
 
-
     public CustomerDataHandler(DataObject inputObject){
         super(inputObject);
     }
 
-
     public CustomerDataHandler(LoginObject login) {
         super(login);
     }
-
 
     public void writeNewRecord() {
         this.tableName = "customers";
