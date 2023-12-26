@@ -19,6 +19,8 @@ public abstract class DataHandler implements DataHandling {
      String outputType;
      List<DataObject> resultList;
 
+     public DataHandler(){}
+
     public DataHandler(DataObject inputObject) {
         this.dbConnection = new DatabaseConnection().getDbConnection();
         this.inputObject = inputObject;
@@ -93,5 +95,7 @@ public abstract class DataHandler implements DataHandling {
     }
 
     public void delete(){}
+
+
 
     }
