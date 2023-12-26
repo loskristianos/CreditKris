@@ -2,10 +2,7 @@ package database;
 
 import account.Account;
 import interfaces.DataHandling;
-import transaction.DepositTransaction;
-import transaction.Transaction;
-import transaction.TransferTransaction;
-import transaction.WithdrawalTransaction;
+import transaction.*;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
