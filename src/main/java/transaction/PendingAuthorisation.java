@@ -9,6 +9,12 @@ public class PendingAuthorisation implements DataObject {
     private String accountNumber;
     private String customerID;
 
+    public PendingAuthorisation(){}
+
+    public PendingAuthorisation(HashMap<String,String> details){
+        setDetails(details);
+    }
+
     @Override
     public HashMap<String, String> getDetails() {
         return new HashMap<>() {{
