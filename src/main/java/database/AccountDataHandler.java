@@ -64,7 +64,7 @@ public class AccountDataHandler implements DataHandling {
         List<Account> resultList = new ArrayList<>();
         try (Statement statement = dbConnection.createStatement())
         {
-           ResultSet resultSet = statement.executeQuery("SELECT * FROM accounts WHERE customer_id = '" + customerID + "'");
+           ResultSet resultSet = statement.executeQuery("SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " +customerID+")");
            HashMap<String,String> outputMap = new HashMap<>();
            while (resultSet.next()) {
                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
