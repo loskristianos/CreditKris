@@ -2,7 +2,7 @@ package interfaces;
 
 import java.util.HashMap;
 
-public interface Banking {
+public interface DataObject {
     HashMap<String, String> getDetails();
     void setDetails(HashMap<String,String> details);
 }

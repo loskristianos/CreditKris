@@ -1,10 +1,10 @@
 package customer;
 
-import interfaces.Banking;
+import interfaces.DataObject;
 
 import java.util.HashMap;
 
-public class Customer implements Banking {
+public class Customer implements DataObject {
     private String customerID;
     private String firstName;
     private String lastName;

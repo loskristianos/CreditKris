@@ -4,63 +4,31 @@ import account.Account;
 import account.ClientAccount;
 import account.CommunityAccount;
 import account.SmallBusinessAccount;
-import customer.Customer;
-import interfaces.DataHandling;
-import transaction.Transaction;
 
-import java.sql.Connection;
+import interfaces.DataHandling;
+import interfaces.DataObject;
+
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-public class AccountDataHandler implements DataHandling {
+public class AccountDataHandler extends DataHandler implements DataHandling {
 
-    Connection dbConnection;
-    Account inputAccount;
-    Customer customer;
-    Transaction transaction;
-
-    public AccountDataHandler() {} // no-args not needed
-
-    public AccountDataHandler(Account inputAccount) {
-        this.dbConnection = new DatabaseConnection().getDbConnection();
-        this.inputAccount = inputAccount;
-    }
-
-    public AccountDataHandler(Customer customer) {
-        this.dbConnection = new DatabaseConnection().getDbConnection();
-        this.customer = customer;
-    }
-
-    public AccountDataHandler(Transaction transaction) {
-        this.dbConnection = new DatabaseConnection().getDbConnection();
-        this.transaction = transaction;
+    public AccountDataHandler(DataObject inputObject) {
+        super(inputObject);
     }
 
     public void writeNewRecord() {
-        HashMap<String, String> accountDetails = inputAccount.getDetails();
-        StringJoiner columns = new StringJoiner("','","('","')");
-        StringJoiner values = new StringJoiner("','","('","');");
-        for (Map.Entry<String,String> entry : accountDetails.entrySet()) {
-            String key = entry.getKey();
-            String mappedKey = MapFieldsToColumns.mappingsToDB.get(key);
-            String value = entry.getValue();
-            columns.add(mappedKey);
-            values.add(value);
-        }
-
-        try (Statement statement = dbConnection.createStatement())
-        {
-            statement.executeUpdate("INSERT INTO accounts " + columns + " VALUES" + values);
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        this.tableName = "accounts";
+        super.writeNewRecord();
     }
 
     public List<Account> getRecords() {
-        String customerID = customer.getCustomerID();
+        String customerID = inputObject.getDetails().get("customerID");
+        String readQuery = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " +customerID+")";
+
         List<Account> resultList = new ArrayList<>();
         try (Statement statement = dbConnection.createStatement())
         {
@@ -94,7 +62,7 @@ public class AccountDataHandler implements DataHandling {
 
 
     public void update() {
-        HashMap<String,String> transactionDetails = transaction.getDetails();
+        HashMap<String,String> transactionDetails = inputObject.getDetails();
         String accountNumber = transactionDetails.get("accountNumber");
         String newBalance = transactionDetails.get("newBalance");
 
@@ -106,5 +74,4 @@ public class AccountDataHandler implements DataHandling {
             System.out.println(e.getMessage());
         }
     }
-    public void delete() {} // no implementation for Account data
 }

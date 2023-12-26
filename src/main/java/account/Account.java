@@ -1,10 +1,10 @@
 package account;
 
-import interfaces.Banking;
+import interfaces.DataObject;
 
 import java.util.HashMap;
 
-public abstract class Account implements Banking {
+public abstract class Account implements DataObject {
     private String customerID;
     private String accountNumber;
     private String accountType;

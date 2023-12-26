@@ -1,67 +1,38 @@
 package database;
 
-import account.Account;
 import customer.Customer;
 import interfaces.DataHandling;
+import interfaces.DataObject;
 import login.LoginObject;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-public class CustomerDataHandler implements DataHandling {
-    Connection dbConnection;
-    Customer customer;
-    String customerID;
-    String accountID;
+public class CustomerDataHandler extends DataHandler implements DataHandling {
 
-    public CustomerDataHandler() {
-        // not used
+
+    public CustomerDataHandler(DataObject inputObject){
+        super(inputObject);
     }
 
-    public CustomerDataHandler(Customer customer){
-        this.dbConnection = new DatabaseConnection().getDbConnection();
-        this.customer = customer;
-        this.customerID = customer.getCustomerID();
-    }
 
     public CustomerDataHandler(LoginObject login) {
-        this.dbConnection = new DatabaseConnection().getDbConnection();
-        this.customerID = login.getCustomerID();
+        super(login);
     }
 
-    public CustomerDataHandler(Account account) {
-        this.dbConnection = new DatabaseConnection().getDbConnection();
-        this.accountID = account.getDetails().get("accountID");
-    }
 
     public void writeNewRecord() {
-        HashMap<String,String> customerDetails = customer.getDetails();
-        StringJoiner columns = new StringJoiner("','","('","')");
-        StringJoiner values = new StringJoiner("','","('","');");
-        for (Map.Entry<String,String> entry : customerDetails.entrySet()) {
-            String key = entry.getKey();
-            String mappedKey = MapFieldsToColumns.mappingsToDB.get(key);
-            String value = entry.getValue();
-            columns.add(mappedKey);
-            values.add(value);
-        }
-
-        try (Statement statement = dbConnection.createStatement())
-        {
-            statement.executeUpdate("INSERT INTO customers " + columns + " VALUES" + values);
-        }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
+        this.tableName = "customers";
+        super.writeNewRecord();
     }
+
     public List getRecords() {
         List<Customer> resultList = new ArrayList<>();
         // check if we've been passed an Account to retrieve the associated customer records and get all linked
-        if (accountID != null) {
+        if (inputObject.getDetails().get("accountID") != null) {
+            String accountID = inputObject.getDetails().get("accountID");
             try (Statement statement = dbConnection.createStatement()) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM customers WHERE customer_id IN (SELECT customer_id FROM accounts WHERE account_number="+accountID+"UNION SELECT customer_id FROM signatories WHERE account_number="+accountID+")");
                 HashMap<String, String> outputMap = new HashMap<>();
@@ -82,7 +53,7 @@ public class CustomerDataHandler implements DataHandling {
 
         }
         else {
-
+            String customerID = inputObject.getDetails().get("customerID");
             try (Statement statement = dbConnection.createStatement()) {
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM customers WHERE customer_id = " + customerID);
                 HashMap<String, String> outputMap = new HashMap<>();
@@ -105,6 +76,5 @@ public class CustomerDataHandler implements DataHandling {
 
     }
     public void update(){} // not implemented to start - do we need to allow changing customer details?
-    public void delete(){} // not implemented for customer accounts
 
 }

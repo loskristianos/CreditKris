@@ -1,6 +1,10 @@
 package login;
 
-public class LoginObject {
+import interfaces.DataObject;
+
+import java.util.HashMap;
+
+public class LoginObject implements DataObject {
 
     private String username;
 
@@ -15,6 +19,20 @@ public class LoginObject {
     public LoginObject(String username, String password) {
         this.username = username;
         this.password = password;
+    }
+
+    @Override
+    public HashMap<String, String> getDetails() {
+        HashMap<String, String> details = new HashMap<>() {{
+           put("username",username);put("password",password);put("customerID",customerID);
+        }};
+        return details;
+    }
+
+    public void setDetails(HashMap<String,String> details) {
+        this.username = details.get("username");
+        this.password = details.get("password");
+        this.customerID = details.get("customerID");
     }
 
     public void setAuthorised(boolean authorised) {

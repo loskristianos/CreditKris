@@ -1,9 +1,9 @@
 package transaction;
 
-import interfaces.Banking;
+import interfaces.DataObject;
 import java.util.HashMap;
 
-public abstract class Transaction implements Banking {
+public abstract class Transaction implements DataObject {
     private String transactionID;
     private String accountNumber;
     private String transactionAmount;
