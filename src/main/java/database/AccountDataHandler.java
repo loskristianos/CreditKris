@@ -1,11 +1,9 @@
 package database;
 
-import account.*;
+
 import interfaces.DataHandling;
 import interfaces.DataObject;
 
-
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
@@ -21,38 +19,13 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
         super.writeNewRecord();
     }
 
-    public List<Account> getRecords() {
+    public List<DataObject> getRecords() {
         String customerID = inputObject.getDetails().get("customerID");
         this.readQuery = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " +customerID+")";
-        List<Account> resultList = new ArrayList<>();
-        try (Statement statement = dbConnection.createStatement())
-        {
-           ResultSet resultSet = statement.executeQuery(readQuery);
-           HashMap<String,String> outputMap = new HashMap<>();
-           while (resultSet.next()) {
-               for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                   String key = resultSet.getMetaData().getColumnName(i);
-                   String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
-                   String value = resultSet.getString(i);
-                   outputMap.put(mappedKey, value);
-               }
-               Account x = null;
-               switch (outputMap.get("accountType")){
-                   case "client": x = new ClientAccount(outputMap);
-                   break;
-                   case "community": x = new CommunityAccount(outputMap);
-                   break;
-                   case "business": x = new SmallBusinessAccount(outputMap);
-                   break;
-               }
-               resultList.add(x);
-           }
-        }
-        catch (SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return resultList;
+        this.resultList = new ArrayList<>();
+        this.outputType = "Account";
+        return super.getRecords();
+
     }
 
     public void update() {
