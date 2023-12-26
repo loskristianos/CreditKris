@@ -1,10 +1,8 @@
 package database;
 
+import interfaces.*;
 
-import interfaces.DataHandling;
-import interfaces.DataObject;
 import login.LoginObject;
-
 
 import java.util.*;
 

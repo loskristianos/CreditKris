@@ -1,17 +1,10 @@
 package database;
 
 
-import account.ClientAccount;
-import account.CommunityAccount;
-import account.SmallBusinessAccount;
+import account.*;
 import customer.Customer;
-import interfaces.DataHandling;
-import interfaces.DataObject;
-import transaction.DepositTransaction;
-import transaction.TransferTransaction;
-import transaction.WithdrawalTransaction;
-
-
+import interfaces.*;
+import transaction.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -100,4 +93,5 @@ public abstract class DataHandler implements DataHandling {
     }
 
     public void delete(){}
-}
+
+    }
