@@ -1,23 +1,20 @@
 package database;
 
-import account.Account;
-import customer.Customer;
+
 import interfaces.DataHandling;
 import interfaces.DataObject;
-import login.LoginObject;
-import transaction.Transaction;
+
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 
 public abstract class DataHandler implements DataHandling {
      Connection dbConnection;
      DataObject inputObject;
      String tableName;
+     String readQuery;
 
     public DataHandler(DataObject inputObject) {
         this.dbConnection = new DatabaseConnection().getDbConnection();
@@ -45,6 +42,8 @@ public abstract class DataHandler implements DataHandling {
             System.out.println(e.getMessage());
         }
     }
+
+
 
     public void delete(){}
 }
