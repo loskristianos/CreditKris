@@ -81,6 +81,7 @@ public abstract class DataHandler implements DataHandling {
                     yield new SmallBusinessAccount(inputMap);
             }
             case "Customer": yield new Customer(inputMap);
+            case "PendingAuthorisation": yield new PendingAuthorisation(inputMap);
             case "Transaction": switch (inputMap.get("transactionType")) {
                 case "deposit":
                     yield new DepositTransaction(inputMap);

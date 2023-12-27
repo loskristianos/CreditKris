@@ -2,6 +2,7 @@ package database;
 
 import interfaces.DataObject;
 
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -32,13 +33,22 @@ public class AuthorisationDataHandler extends DataHandler {
         }
     }
 
-    public List getRecords(){
+    public List<DataObject> getRecords(){
         /*  Needs two queries depending on object type passed in:
             - Return all records for a given transaction; and
             - Return all records for a given customer
             - (and possibly also return all records for a given account)
          */
-        return null;
+        this.resultList = new ArrayList<>();
+        String column = null; String value = null;
+        switch (inputObject.getClass().getSuperclass().getName()) {
+            case "Account": column = "account_number"; value = inputObject.getDetails().get("accountNumber");break;
+            case "Customer": column = "customer_id"; value = inputObject.getDetails().get("customerID");break;
+            case "Transaction": column = "transaction_id"; value = inputObject.getDetails().get("transactionID");break;
+        }
+        this.readQuery = "SELECT * FROM pending_authorisation WHERE "+column+" = "+value;
+        this.outputType = "PendingAuthorisation";
+        return super.getRecords();
     }
 
     public void update(){} // not required (unless we move delete functionality here and get rid of that method, since this is the only implementation)
