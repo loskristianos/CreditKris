@@ -33,6 +33,7 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
 
 
     public void update(){
+        // used only to update authorised status from pending to authorised
         this.transactionID = inputObject.getDetails().get("transactionID");
         try (Statement statement = dbConnection.createStatement())
         {

@@ -21,6 +21,6 @@ public class LoginDataHandler extends DataHandler {
     }
 
     public void update() {
-        // not required yet
+        // not required yet, maybe for change password functionality later on
     }
 }
