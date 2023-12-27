@@ -33,10 +33,15 @@ public class AuthorisationDataHandler extends DataHandler {
     }
 
     public List getRecords(){
+        /*  Needs two queries depending on object type passed in:
+            - Return all records for a given transaction; and
+            - Return all records for a given customer
+            - (and possibly also return all records for a given account)
+         */
         return null;
     }
 
-    public void update(){}
+    public void update(){} // not required (unless we move delete functionality here and get rid of that method, since this is the only implementation)
 
     public void delete() {
         HashMap<String,String> rowDetails = inputObject.getDetails();
