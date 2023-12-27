@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AuthorisationDataHandler extends DataHandler {
-    // needs to delete records (with customer_id and account_number as input somehow)
-
-    // needs to return all records for a transactionID so that main transaction table can be updated once they're done.
+        // needs to return all records for a transactionID so that main transaction table can be updated once they're done.
     ArrayList<DataObject> inputList;
 
     public AuthorisationDataHandler(DataObject inputObject){
