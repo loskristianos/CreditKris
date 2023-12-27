@@ -36,8 +36,10 @@ public abstract class DataHandler implements DataHandling {
             String key = entry.getKey();
             String mappedKey = MapFieldsToColumns.mappingsToDB.get(key);
             String value = entry.getValue();
-            columns.add(mappedKey);
-            values.add(value);
+            if (value != null) {
+                columns.add(mappedKey);
+                values.add(value);
+            }
         }
         try (Statement statement = dbConnection.createStatement())
         {
