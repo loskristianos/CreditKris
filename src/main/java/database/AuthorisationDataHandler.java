@@ -2,7 +2,6 @@ package database;
 
 import interfaces.DataObject;
 
-
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -66,10 +65,5 @@ public class AuthorisationDataHandler extends DataHandler {
         {
             System.out.println(e.getMessage());
         }
-
-
-
     }
-
-
 }
