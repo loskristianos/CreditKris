@@ -29,6 +29,7 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
     }
 
     public void update() {
+        // used only to update balance as a result of a transaction
         HashMap<String,String> transactionDetails = inputObject.getDetails();
         String accountNumber = transactionDetails.get("accountNumber");
         String newBalance = transactionDetails.get("newBalance");

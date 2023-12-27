@@ -4,6 +4,7 @@ package database;
 import account.*;
 import customer.Customer;
 import interfaces.*;
+import login.LoginObject;
 import transaction.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -84,6 +85,7 @@ public abstract class DataHandler implements DataHandling {
             }
             case "Customer": yield new Customer(inputMap);
             case "PendingAuthorisation": yield new PendingAuthorisation(inputMap);
+            case "Login": yield new LoginObject(inputMap);
             case "Transaction": switch (inputMap.get("transactionType")) {
                 case "deposit":
                     yield new DepositTransaction(inputMap);

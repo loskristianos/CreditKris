@@ -21,12 +21,15 @@ public class LoginObject implements DataObject {
         this.password = password;
     }
 
+    public LoginObject(HashMap<String, String> details) {
+        setDetails(details);
+    }
+
     @Override
     public HashMap<String, String> getDetails() {
-        HashMap<String, String> details = new HashMap<>() {{
+       return new HashMap<>() {{
            put("username",username);put("password",password);put("customerID",customerID);
         }};
-        return details;
     }
 
     public void setDetails(HashMap<String,String> details) {
