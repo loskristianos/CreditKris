@@ -8,15 +8,27 @@
 
 package controller;
 
+import account.Account;
+import account.ClientAccount;
+import customer.Customer;
+import database.CustomerDataHandler;
+import database.DataHandler;
+import database.LoginDataHandler;
+import interfaces.DataObject;
+import login.LoginObject;
+
+import java.util.HashMap;
+import java.util.List;
+
 public class Controller {
 
-    /*      Login:
-            new HashMap<S,S>(enteredDetails) from ui fields
-            create new loginObject(HashMap<>(enteredDetails) -> to LoginDataHandler
+    /*   //   Login:
+         //   new HashMap<S,S>(enteredDetails) from ui fields
+         //   create new loginObject(HashMap<>(enteredDetails) -> to LoginDataHandler
 
-            receive LoginObject (List<DataObject> from DataHandler)
-                -> send LoginObject to CustomerDataHandler
-                receive Customer from DataHandler -> to ui
+         //   receive LoginObject (List<DataObject> from DataHandler)
+         //       -> send LoginObject to CustomerDataHandler
+         //       receive Customer from DataHandler -> to ui
 
                 -> send Customer to AccountDataHandler
                 receive List<DataObject> Accounts -> to ui
@@ -57,7 +69,20 @@ public class Controller {
                             -> follow create new customer process (new login etc.)
                             -> AccountDataHandler to check for existing accounts
                             create signatory object - SignatoryDataHandler (writeNew)
-
      */
+    public Controller (){}
+
+    public Customer loginAttempt (String username, String password) {
+        LoginObject login = new LoginObject(username, password);
+        List<DataObject> returnedData = new LoginDataHandler(login).getRecords();
+        if (returnedData.isEmpty()) return null;
+        else {
+            login = (LoginObject) returnedData.getFirst();
+            returnedData.clear();
+            returnedData = new CustomerDataHandler(login).getRecords();
+            return (Customer) returnedData.getFirst();
+        }
+    }
+
 
 }
