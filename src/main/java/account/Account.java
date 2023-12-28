@@ -46,6 +46,9 @@ public abstract class Account implements DataObject {
     void setAccountType(String accountType) {
         this.accountType = accountType;
     }
+    public String getCurrentBalance() {
+        return this.currentBalance;
+    }
     public void setCurrentBalance(String newBalance) {
         currentBalance = newBalance;
     }

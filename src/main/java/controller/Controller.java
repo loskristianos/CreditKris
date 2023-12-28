@@ -140,13 +140,13 @@ public class Controller {
             dataHandlerCreator.createAuthorisationDataHandler(inputObject).delete();
             List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
             if (remainingPending.isEmpty()) {
-                dataHandlerCreator.createTransactiontDataHandler(inputObject).update();
+                Transaction completeTransaction = (Transaction) objectCreator.createNewTransaction(inputObject.getDetails());
+                Account account = (Account) dataHandlerCreator.createAccountDataHandler(inputObject).getRecords().getFirst();
+                String currentBalance = account.getCurrentBalance();
+                completeTransaction.setPreviousBalance(currentBalance);
+                completeTransaction.setNewBalance(completeTransaction.calculateNewBalance());
+                dataHandlerCreator.createTransactiontDataHandler(completeTransaction).writeNewRecord();
             }
-            /*  Needs a database table/object redesign to complete this (pending_authorisation
-                table needs to hold the full transaction details, then on completion write a
-                brand new transaction to the main transaction table (rather than update an old
-                row and have to recalculate previous/new balance etc)).
-            */
 
         }
 
