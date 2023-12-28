@@ -25,7 +25,6 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
         this.resultList = new ArrayList<>();
         this.outputType = "Account";
         return super.getRecords();
-
     }
 
     public void update() {
