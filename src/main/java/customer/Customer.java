@@ -23,6 +23,9 @@ public class Customer implements DataObject {
     public String getCustomerID() {
         return customerID;
     }
+    public void setCustomerID(String customerID){
+        this.customerID = customerID;
+    }
     public HashMap<String,String> getDetails() {
         HashMap<String,String > details = new HashMap<>();
         details.put("customerID",customerID);

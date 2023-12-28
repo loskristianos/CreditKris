@@ -9,16 +9,15 @@
 package controller;
 
 import account.Account;
-import account.ClientAccount;
 import customer.Customer;
 import database.*;
 import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
 import login.LoginObject;
+import transaction.PendingAuthorisation;
 import transaction.Transaction;
 
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,16 +30,9 @@ public class Controller {
                 to do:
 
 
-                confirmation of authorisation from ui
-                    send PendingAuthorisation -> AuthorisationDataHandler (delete)
-                    if last PendingAuthorisation for that transaction
-                        -> send PendingAuthorisation -> TransactionDataHandler (update)
-                        -> send Transaction -> AccountDataHandler (update)
 
-               create new customer request from ui
-                    Create LoginObject (username,password) -> to LoginDataHandler (writeNew)
-                    receive LoginObject from LoginDataHandler with assigned CustomerID
-                    create Customer -> to CustomerDataHandler (writeNew)
+
+
 
                 open new account request from ui
                     Create Account object, populate from ui
@@ -117,7 +109,8 @@ public class Controller {
         dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
         dataHandlerCreator.createAccountDataHandler(inputTransaction).update();
     }
-    // DOESN'T HANDLE TRANSFERS YET!
+    // DOESN'T HANDLE TRANSFERS YET! - needs to split into two transactions to show correctly
+    // on each account (same transaction ID?)
 
     public void newPendingTransaction(Transaction inputTransaction) {
         dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
@@ -136,6 +129,40 @@ public class Controller {
         AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
         x.writeAllRecords();
     }
+
+//    confirmation of authorisation from ui
+//    send PendingAuthorisation -> AuthorisationDataHandler (delete)
+//                    if last PendingAuthorisation for that transaction
+//                        -> send PendingAuthorisation -> TransactionDataHandler (update)
+//                        -> send Transaction -> AccountDataHandler (update)
+
+        public void confirmPendingAuthorisation(PendingAuthorisation inputObject) {
+            dataHandlerCreator.createAuthorisationDataHandler(inputObject).delete();
+            List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
+            if (remainingPending.isEmpty()) {
+                dataHandlerCreator.createTransactiontDataHandler(inputObject).update();
+            }
+            /*  Needs a database table/object redesign to complete this (pending_authorisation
+                table needs to hold the full transaction details, then on completion write a
+                brand new transaction to the main transaction table (rather than update an old
+                row and have to recalculate previous/new balance etc)).
+            */
+
+        }
+
+    //    create new customer request from ui
+    //    Create LoginObject (username,password) -> to LoginDataHandler (writeNew)
+    //    receive LoginObject from LoginDataHandler with assigned CustomerID
+    //    create Customer -> to CustomerDataHandler (writeNew)
+
+        public void createNewCustomer(LoginObject inputlogin, Customer inputObject) {
+           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputlogin);
+           newLogin.writeNewRecord();
+           String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
+           inputObject.setCustomerID(customerID);
+           dataHandlerCreator.createCustomerDataHandler(inputObject).writeNewRecord();
+        }
+
 
 
 }
