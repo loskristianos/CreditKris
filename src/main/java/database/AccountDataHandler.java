@@ -36,7 +36,7 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
 
         try (Statement statement = dbConnection.createStatement())
         {
-            statement.executeUpdate("UPDATE accounts SET current_balance = " + newBalance + " WHERE account_number = " + accountNumber);
+            statement.executeUpdate("UPDATE accounts SET current_balance = '" + newBalance + "' WHERE account_number = '" + accountNumber + "'");
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
