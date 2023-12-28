@@ -3,6 +3,8 @@ package database;
 import interfaces.DataObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class SignatoryDataHandler extends DataHandler {
     ArrayList<DataObject> inputList;
@@ -27,6 +29,13 @@ public class SignatoryDataHandler extends DataHandler {
         }
     }
 
+    public List<DataObject> getRecords() {      // get list of signatories from an account for a transaction
+        HashMap<String,String> transactionDetails = inputObject.getDetails();
+        String accountNumber = transactionDetails.get("accountNumber");
+        this.readQuery = "SELECT * FROM signatories WHERE account_number = '" + accountNumber + "'";
+        this.resultList = new ArrayList<>();
+        return super.getRecords();
+    }
     @Override
     public void update() {
         // not required for this object

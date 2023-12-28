@@ -11,43 +11,25 @@ package controller;
 import account.Account;
 import account.ClientAccount;
 import customer.Customer;
-import database.CustomerDataHandler;
-import database.DataHandler;
-import database.LoginDataHandler;
+import database.*;
+import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
+import interfaces.DataObjectCreator;
 import login.LoginObject;
+import transaction.Transaction;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Controller {
 
-    /*   //   Login:
-         //   new HashMap<S,S>(enteredDetails) from ui fields
-         //   create new loginObject(HashMap<>(enteredDetails) -> to LoginDataHandler
-
-         //   receive LoginObject (List<DataObject> from DataHandler)
-         //       -> send LoginObject to CustomerDataHandler
-         //       receive Customer from DataHandler -> to ui
-
-                -> send Customer to AccountDataHandler
-                receive List<DataObject> Accounts -> to ui
-
-                send Account to TransactionDataHandler
-                receive List<DataObject> Transactions -> to ui
-                send [Customer/Account] to AuthorisationDataHandler to get List<PendingAuthorisation> -> to ui
+    /*
 
 
-            Transaction (deposit, withdraw, transfer) request from ui
-                signatories = 1
-                    create Transaction  -> send to TransactionDataHandler
-                                            -> send to AccountDataHandler to update balance
-                signatories > 1
-                    create Transaction (authorisation column = pending)
-                        -> send to TransactionDataHandler (writeNew) (don't send to AccountHandler, unless we're going to show put funds on hold?)
-                            -> send Account to signatories to get CustomerIDs
-                        create PendingAuthorisation for each customerID
-                            -> send List<PendingAuthorisation> to AuthorisationDataHandler (writeAll)
+                to do:
+
 
                 confirmation of authorisation from ui
                     send PendingAuthorisation -> AuthorisationDataHandler (delete)
@@ -70,18 +52,89 @@ public class Controller {
                             -> AccountDataHandler to check for existing accounts
                             create signatory object - SignatoryDataHandler (writeNew)
      */
-    public Controller (){}
+
+    DataObjectCreator objectCreator;
+    DataHandlerCreator dataHandlerCreator;
+    public Controller (DataObjectCreator objectCreator, DataHandlerCreator dataHandlerCreator){
+        this.objectCreator = objectCreator;
+        this.dataHandlerCreator = dataHandlerCreator;
+    }
+
+    //   Login:
+    //   new HashMap<S,S>(enteredDetails) from ui fields
+    //   create new loginObject(HashMap<>(enteredDetails) -> to LoginDataHandler
+    //   receive LoginObject (List<DataObject> from DataHandler)
+    //       -> send LoginObject to CustomerDataHandler
+    //       receive Customer from DataHandler -> to ui
 
     public Customer loginAttempt (String username, String password) {
-        LoginObject login = new LoginObject(username, password);
-        List<DataObject> returnedData = new LoginDataHandler(login).getRecords();
+        LoginObject login = (LoginObject) objectCreator.createLoginObject(username, password);
+        List<DataObject> returnedData = dataHandlerCreator.createLoginDataHandler(login).getRecords();
         if (returnedData.isEmpty()) return null;
         else {
             login = (LoginObject) returnedData.getFirst();
             returnedData.clear();
-            returnedData = new CustomerDataHandler(login).getRecords();
+            returnedData = dataHandlerCreator.createCustomerDataHandler(login).getRecords();
             return (Customer) returnedData.getFirst();
         }
+    }
+
+    // -> send Customer to AccountDataHandler
+    // receive List<DataObject> Accounts -> to ui
+
+    public List<DataObject> getCustomerAccounts (Customer inputCustomer){
+        return dataHandlerCreator.createAccountDataHandler(inputCustomer).getRecords();
+    }
+
+//    send Account to TransactionDataHandler
+//    receive List<DataObject> Transactions -> to ui
+//    send [Customer/Account] to AuthorisationDataHandler to get List<PendingAuthorisation> -> to ui
+
+    public List<DataObject> getAccountTransactions (Account inputAccount) {
+        return dataHandlerCreator.createTransactiontDataHandler(inputAccount).getRecords();
+    }
+
+    public List<DataObject> getPendingTransactionsForAccount(Account inputAccount) {
+        return dataHandlerCreator.createAuthorisationDataHandler(inputAccount).getRecords();
+    }
+
+    public List<DataObject> getPendingTransactionsForCustomer(Customer inputCustomer) {
+        return dataHandlerCreator.createAuthorisationDataHandler(inputCustomer).getRecords();
+    }
+
+//    Transaction (deposit, withdraw, transfer) request from ui
+//    signatories = 1
+//    create Transaction  -> send to TransactionDataHandler
+//                                            -> send to AccountDataHandler to update balance
+//    signatories > 1
+//    create Transaction (authorisation column = pending)
+//                        -> send to TransactionDataHandler (writeNew) (don't send to AccountHandler, unless we're going to show put funds on hold?)
+//            -> send Account to signatories to get CustomerIDs
+//    create PendingAuthorisation for each customerID
+//                            -> send List<PendingAuthorisation> to AuthorisationDataHandler (writeAll)
+
+    public void newTransaction(Transaction inputTransaction) {
+        dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
+        dataHandlerCreator.createAccountDataHandler(inputTransaction).update();
+    }
+    // DOESN'T HANDLE TRANSFERS YET!
+
+    public void newPendingTransaction(Transaction inputTransaction) {
+        dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
+        List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
+        String transactionID = inputTransaction.getDetails().get("transactionID");
+        ArrayList<DataObject> pendingTransactions = new ArrayList<>();
+        for (DataObject result : results) {
+            String customerID = result.getDetails().get("customerID");
+            String accountNumber = result.getDetails().get("accountNumber");
+            HashMap<String, String> resultMap = new HashMap<>();
+            resultMap.put("transactionID",transactionID);
+            resultMap.put("customerID", customerID);
+            resultMap.put("accountNumber", accountNumber);
+            pendingTransactions.add(objectCreator.createPendingAuthorisation(resultMap));
+        }
+        AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
+        x.writeAllRecords();
     }
 
 
