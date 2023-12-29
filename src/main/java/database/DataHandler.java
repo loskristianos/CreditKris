@@ -20,7 +20,9 @@ public abstract class DataHandler implements DataHandling {
      String outputType;
      List<DataObject> resultList;
 
-     public DataHandler(){}
+     public DataHandler(){
+         this.dbConnection = new DatabaseConnection().getDbConnection();
+     }
 
     public DataHandler(DataObject inputObject) {
         this.dbConnection = new DatabaseConnection().getDbConnection();
