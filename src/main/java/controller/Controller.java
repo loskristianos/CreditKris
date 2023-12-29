@@ -54,10 +54,9 @@ public class Controller {
         List<DataObject> returnedData = dataHandlerCreator.createLoginDataHandler(login).getRecords();
         if (returnedData.isEmpty()) return null;
         else {
-            login = (LoginObject) returnedData.getFirst();
-            returnedData.clear();
-            returnedData = dataHandlerCreator.createCustomerDataHandler(login).getRecords();
-            return (Customer) returnedData.getFirst();
+            String customerID = returnedData.getFirst().getDetails().get("customerID");
+            List<DataObject> customerData = dataHandlerCreator.createCustomerDataHandler(login).getRecords();
+            return (Customer) customerData.getFirst();
         }
     }
 
