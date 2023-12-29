@@ -24,8 +24,10 @@ public class SignatoryDataHandler extends DataHandler {
     }
 
     public void writeAllRecords(){
+        this.tableName = "signatories";
         for (DataObject dataObject : inputList) {
-           new SignatoryDataHandler(dataObject).writeNewRecord();
+            this.inputObject = dataObject;
+            super.writeNewRecord();
         }
     }
 
