@@ -8,6 +8,8 @@ public class PendingAuthorisation implements DataObject {
     private String transactionID;
     private String accountNumber;
     private String customerID;
+    private String transactionAmount;
+    private String transactionType;
 
     public PendingAuthorisation(){}
 
@@ -18,7 +20,11 @@ public class PendingAuthorisation implements DataObject {
     @Override
     public HashMap<String, String> getDetails() {
         return new HashMap<>() {{
-            put("transactionID",transactionID);put("accountNumber",accountNumber);put("customerID",customerID);
+            put("transactionID",transactionID);
+            put("accountNumber",accountNumber);
+            put("customerID",customerID);
+            put("transactionAmount", transactionAmount);
+            put("transactionType", transactionType);
         }};
     }
 
@@ -27,5 +33,7 @@ public class PendingAuthorisation implements DataObject {
         transactionID = details.get("transactionID");
         accountNumber = details.get("accountNumber");
         customerID = details.get("customerID");
+        transactionAmount= details.get("transactionAmount");
+        transactionType = details.get("transactionType");
     }
 }

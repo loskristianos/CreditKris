@@ -1,9 +1,10 @@
-/*  Intermediate layer between UI views and database DataHandlers. Takes objects returned from the database (ArrayLists for the most part), and prepares them
-    into a nice format for the UI classes to display, and vice versa. So it should work with any UI.
+/*  Intermediate layer between UI views and database DataHandlers. Takes objects returned from the database
+    (ArrayLists of DataObjects for the most part), and prepares them into a nice format
+    for the UI classes to display, and vice versa. So it should work with any UI.
 
-    This might end up not being necessary, the plan was (and still is) for the abstract DataHandler class to
-    play that role, this is just a precaution in case the UI classes still end up getting
-    database-specific stuff in them when I start writing them.
+    Might need a controller on the UI side as well to put the input fields into HashMaps
+    and create the DataObject to send here because I don't really want that in all the UI
+    classes. Or I might refactor this later to take HashMaps as input instead.
  */
 
 package controller;
@@ -11,12 +12,9 @@ package controller;
 import account.Account;
 import customer.Customer;
 import database.*;
-import interfaces.DataHandlerCreator;
-import interfaces.DataObject;
-import interfaces.DataObjectCreator;
+import interfaces.*;
 import login.LoginObject;
-import transaction.PendingAuthorisation;
-import transaction.Transaction;
+import transaction.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,15 +22,7 @@ import java.util.List;
 
 public class Controller {
 
-    /*
-
-
-                to do:
-
-
-
-
-
+    /*        to do:
 
                 open new account request from ui
                     Create Account object, populate from ui
@@ -113,6 +103,27 @@ public class Controller {
     // on each account (same transaction ID?)
 
     public void newPendingTransaction(Transaction inputTransaction) {
+        String transactionAmount = inputTransaction.getDetails().get("transactionAmount");
+        String transactionType = inputTransaction.getDetails().get("transactionType");
+        List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
+        ArrayList<DataObject> pendingTransactions = new ArrayList<>();
+        for (DataObject result : results) {
+            String customerID = result.getDetails().get("customerID");
+            String accountNumber = result.getDetails().get("accountNumber");
+            HashMap<String, String> resultMap = new HashMap<>();
+            resultMap.put("customerID", customerID);
+            resultMap.put("accountNumber", accountNumber);
+            resultMap.put("transactionAmount", transactionAmount);
+            resultMap.put("transactionType", transactionType);
+            pendingTransactions.add(objectCreator.createPendingAuthorisation(resultMap));
+        }
+        AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
+        x.writeAllRecords();
+    }
+
+/*  public void newPendingTransaction(Transaction inputTransaction) {
+        // old method (where pending transaction would already exist on transaction table)
+
         dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
         List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
         String transactionID = inputTransaction.getDetails().get("transactionID");
@@ -128,7 +139,7 @@ public class Controller {
         }
         AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
         x.writeAllRecords();
-    }
+*/
 
 //    confirmation of authorisation from ui
 //    send PendingAuthorisation -> AuthorisationDataHandler (delete)
@@ -140,14 +151,15 @@ public class Controller {
             dataHandlerCreator.createAuthorisationDataHandler(inputObject).delete();
             List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
             if (remainingPending.isEmpty()) {
-                Transaction completeTransaction = (Transaction) objectCreator.createNewTransaction(inputObject.getDetails());
+                HashMap<String, String> transactionDetails = inputObject.getDetails();
+                transactionDetails.remove("transactionID");     // remove the pendingAuthorisation transactionID, completed transaction will get one when written to the database
+                Transaction completeTransaction = (Transaction) objectCreator.createNewTransaction(transactionDetails);
                 Account account = (Account) dataHandlerCreator.createAccountDataHandler(inputObject).getRecords().getFirst();
                 String currentBalance = account.getCurrentBalance();
                 completeTransaction.setPreviousBalance(currentBalance);
                 completeTransaction.setNewBalance(completeTransaction.calculateNewBalance());
                 dataHandlerCreator.createTransactiontDataHandler(completeTransaction).writeNewRecord();
             }
-
         }
 
     //    create new customer request from ui
