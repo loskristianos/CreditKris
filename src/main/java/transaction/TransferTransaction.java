@@ -13,4 +13,9 @@ public class TransferTransaction extends Transaction {
         setTransactionType("Transfer");
     }
 
+    @Override
+    public String calculateNewBalance() {
+        return null;
+    }
+
 }

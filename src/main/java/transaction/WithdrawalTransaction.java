@@ -13,4 +13,8 @@ public class WithdrawalTransaction extends Transaction {
         setTransactionType("Withdrawal");
     }
 
+    public String calculateNewBalance() {
+        return null;
+    }
+
 }
