@@ -105,11 +105,13 @@ public class Controller {
         String accountNumber = inputTransaction.getDetails().get("accountNumber");
         String transactionAmount = inputTransaction.getDetails().get("transactionAmount");
         String transactionType = inputTransaction.getDetails().get("transactionType");
+        String transactionID = accountNumber + System.currentTimeMillis();
         List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
         ArrayList<DataObject> pendingTransactions = new ArrayList<>();
         for (DataObject result : results) {
             String customerID = result.getDetails().get("customerID");
             HashMap<String, String> resultMap = new HashMap<>();
+            resultMap.put("transactionID", transactionID);
             resultMap.put("customerID", customerID);
             resultMap.put("accountNumber", accountNumber);
             resultMap.put("transactionAmount", transactionAmount);
