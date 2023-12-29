@@ -139,8 +139,8 @@ public class Controller {
                 String currentBalance = account.getCurrentBalance();
                 completeTransaction.setPreviousBalance(currentBalance);
                 completeTransaction.setNewBalance(completeTransaction.calculateNewBalance());
-                dataHandlerCreator.createTransactiontDataHandler(completeTransaction).writeNewRecord();
-            }
+                newTransaction(completeTransaction);
+                }
         }
 
     //    create new customer request from ui
