@@ -31,17 +31,7 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
 
 
 
-    public void update(){
-        // maybe not used at all
-//        this.transactionID = inputObject.getDetails().get("transactionID");
-//        try (Statement statement = dbConnection.createStatement())
-//        {
-//            statement.executeUpdate("UPDATE transactions SET authorised = 'Y' WHERE transaction_id = " + transactionID);
-//        }
-//        catch (SQLException e){
-//            System.out.println(e.getMessage());
-//        }
-    }
+    public void update(){} // not implemented for transactions
 
     public void delete() {} // not implemented for transactions
 }
