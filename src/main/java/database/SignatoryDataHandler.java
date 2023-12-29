@@ -36,6 +36,7 @@ public class SignatoryDataHandler extends DataHandler {
         String accountNumber = transactionDetails.get("accountNumber");
         this.readQuery = "SELECT * FROM signatories WHERE account_number = '" + accountNumber + "'";
         this.resultList = new ArrayList<>();
+        this.outputType = "Signatory";
         return super.getRecords();
     }
     @Override
