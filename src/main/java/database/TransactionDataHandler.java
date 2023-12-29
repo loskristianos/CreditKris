@@ -21,19 +21,26 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
     }
 
     public List<DataObject> getRecords(){
-        // get all transactions for an account_number
+        // get all transactions for an account_number, or a single transaction from a pending_authorisation
         this.outputType = "Transaction";
         this.resultList = new ArrayList<>();
-        String accountNumber = inputObject.getDetails().get("accountNumber");
-        this.readQuery = "SELECT * FROM transactions WHERE account_number = " + accountNumber;
+        String column = null; String value = null;
+        if (inputObject.getClass().getSuperclass().getSimpleName().equals("Account")) {
+            value = inputObject.getDetails().get("accountNumber");
+            column = "account_number";
+        }
+        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Transaction")) {
+            value = inputObject.getDetails().get("transactionID");
+            column = "transaction_id";
+        }
+        this.readQuery = "SELECT * FROM transactions WHERE " + column + " =  " + value;
         return super.getRecords();
-
     }
 
 
 
     public void update(){
-        // used only to update authorised status from pending to authorised
+        // maybe not used at all
         this.transactionID = inputObject.getDetails().get("transactionID");
         try (Statement statement = dbConnection.createStatement())
         {
