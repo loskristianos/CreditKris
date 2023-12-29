@@ -122,26 +122,6 @@ public class Controller {
         x.writeAllRecords();
     }
 
-/*  public void newPendingTransaction(Transaction inputTransaction) {
-        // old method (where pending transaction would already exist on transaction table)
-
-        dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
-        List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
-        String transactionID = inputTransaction.getDetails().get("transactionID");
-        ArrayList<DataObject> pendingTransactions = new ArrayList<>();
-        for (DataObject result : results) {
-            String customerID = result.getDetails().get("customerID");
-            String accountNumber = result.getDetails().get("accountNumber");
-            HashMap<String, String> resultMap = new HashMap<>();
-            resultMap.put("transactionID",transactionID);
-            resultMap.put("customerID", customerID);
-            resultMap.put("accountNumber", accountNumber);
-            pendingTransactions.add(objectCreator.createPendingAuthorisation(resultMap));
-        }
-        AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
-        x.writeAllRecords();
-*/
-
 //    confirmation of authorisation from ui
 //    send PendingAuthorisation -> AuthorisationDataHandler (delete)
 //                    if last PendingAuthorisation for that transaction
