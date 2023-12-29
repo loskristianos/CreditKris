@@ -27,8 +27,10 @@ public class AuthorisationDataHandler extends DataHandler {
     }
 
     public void writeAllRecords(){
+        this.tableName = "pending_authorisation";
         for (DataObject o : inputList) {
-            new AuthorisationDataHandler(o).writeNewRecord();
+            this.inputObject = o;
+            super.writeNewRecord();
         }
     }
 
