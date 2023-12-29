@@ -20,19 +20,11 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
         super.writeNewRecord();
     }
 
-    public List<DataObject> getRecords(){
-        // get all transactions for an account_number, or a single transaction from a pending_authorisation
+    public List<DataObject> getRecords(){   // get all transactions for an account number
         this.outputType = "Transaction";
         this.resultList = new ArrayList<>();
-        String column = null; String value = null;
-        if (inputObject.getClass().getSuperclass().getSimpleName().equals("Account")) {
-            value = inputObject.getDetails().get("accountNumber");
-            column = "account_number";
-        }
-        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Transaction")) {
-            value = inputObject.getDetails().get("transactionID");
-            column = "transaction_id";
-        }
+        String value = inputObject.getDetails().get("accountNumber");
+        String column = "account_number";
         this.readQuery = "SELECT * FROM transactions WHERE " + column + " =  " + value;
         return super.getRecords();
     }
