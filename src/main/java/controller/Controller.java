@@ -42,13 +42,8 @@ public class Controller {
         this.dataHandlerCreator = dataHandlerCreator;
     }
 
-    //   Login:
-    //   new HashMap<S,S>(enteredDetails) from ui fields
-    //   create new loginObject(HashMap<>(enteredDetails) -> to LoginDataHandler
-    //   receive LoginObject (List<DataObject> from DataHandler)
-    //       -> send LoginObject to CustomerDataHandler
-    //       receive Customer from DataHandler -> to ui
 
+    // customer login procedure
     public Customer loginAttempt (String username, String password) {
         LoginObject login = (LoginObject) objectCreator.createLoginObject(username, password);
         List<DataObject> returnedData = dataHandlerCreator.createLoginDataHandler(login).getRecords();
@@ -60,40 +55,27 @@ public class Controller {
         }
     }
 
-    // -> send Customer to AccountDataHandler
-    // receive List<DataObject> Accounts -> to ui
-
+    // get all accounts for a customer
     public List<DataObject> getCustomerAccounts (Customer inputCustomer){
         return dataHandlerCreator.createAccountDataHandler(inputCustomer).getRecords();
     }
 
-//    send Account to TransactionDataHandler
-//    receive List<DataObject> Transactions -> to ui
-//    send [Customer/Account] to AuthorisationDataHandler to get List<PendingAuthorisation> -> to ui
-
+    // get all completed transactions for an account
     public List<DataObject> getAccountTransactions (Account inputAccount) {
         return dataHandlerCreator.createTransactiontDataHandler(inputAccount).getRecords();
     }
 
+    // get all pending transactions for an account
     public List<DataObject> getPendingTransactionsForAccount(Account inputAccount) {
         return dataHandlerCreator.createAuthorisationDataHandler(inputAccount).getRecords();
     }
 
+    // get all transactions awaiting authorisation for a customer
     public List<DataObject> getPendingTransactionsForCustomer(Customer inputCustomer) {
         return dataHandlerCreator.createAuthorisationDataHandler(inputCustomer).getRecords();
     }
 
-//    Transaction (deposit, withdraw, transfer) request from ui
-//    signatories = 1
-//    create Transaction  -> send to TransactionDataHandler
-//                                            -> send to AccountDataHandler to update balance
-//    signatories > 1
-//    create Transaction (authorisation column = pending)
-//                        -> send to TransactionDataHandler (writeNew) (don't send to AccountHandler, unless we're going to show put funds on hold?)
-//            -> send Account to signatories to get CustomerIDs
-//    create PendingAuthorisation for each customerID
-//                            -> send List<PendingAuthorisation> to AuthorisationDataHandler (writeAll)
-
+    // create new authorised transaction
     public void newTransaction(Transaction inputTransaction) {
         dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
         dataHandlerCreator.createAccountDataHandler(inputTransaction).update();
@@ -101,6 +83,7 @@ public class Controller {
     // DOESN'T HANDLE TRANSFERS YET! - needs to split into two transactions to show correctly
     // on each account (same transaction ID?)
 
+    // create new transaction requiring authorisation by signatories
     public void newPendingTransaction(Transaction inputTransaction) {
         String accountNumber = inputTransaction.getDetails().get("accountNumber");
         String transactionAmount = inputTransaction.getDetails().get("transactionAmount");
@@ -121,13 +104,8 @@ public class Controller {
         AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
         x.writeAllRecords();
     }
-
-//    confirmation of authorisation from ui
-//    send PendingAuthorisation -> AuthorisationDataHandler (delete)
-//                    if last PendingAuthorisation for that transaction
-//                        -> send PendingAuthorisation -> TransactionDataHandler (update)
-//                        -> send Transaction -> AccountDataHandler (update)
-
+        //  authorise a pending transaction (includes procedure when authorisation being confirmed
+        //  is the last pending authorisation for that transaction)
         public void confirmPendingAuthorisation(PendingAuthorisation inputObject) {
             dataHandlerCreator.createAuthorisationDataHandler(inputObject).delete();
             List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
@@ -143,11 +121,7 @@ public class Controller {
                 }
         }
 
-    //    create new customer request from ui
-    //    Create LoginObject (username,password) -> to LoginDataHandler (writeNew)
-    //    receive LoginObject from LoginDataHandler with assigned CustomerID
-    //    create Customer -> to CustomerDataHandler (writeNew)
-
+        // create new customer record (including login details)
         public void createNewCustomer(LoginObject inputlogin, Customer inputObject) {
            DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputlogin);
            newLogin.writeNewRecord();
