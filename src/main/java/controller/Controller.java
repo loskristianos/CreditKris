@@ -102,13 +102,13 @@ public class Controller {
     // on each account (same transaction ID?)
 
     public void newPendingTransaction(Transaction inputTransaction) {
+        String accountNumber = inputTransaction.getDetails().get("accountNumber");
         String transactionAmount = inputTransaction.getDetails().get("transactionAmount");
         String transactionType = inputTransaction.getDetails().get("transactionType");
         List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
         ArrayList<DataObject> pendingTransactions = new ArrayList<>();
         for (DataObject result : results) {
             String customerID = result.getDetails().get("customerID");
-            String accountNumber = result.getDetails().get("accountNumber");
             HashMap<String, String> resultMap = new HashMap<>();
             resultMap.put("customerID", customerID);
             resultMap.put("accountNumber", accountNumber);
@@ -151,7 +151,7 @@ public class Controller {
             List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
             if (remainingPending.isEmpty()) {
                 HashMap<String, String> transactionDetails = inputObject.getDetails();
-                transactionDetails.remove("transactionID");     // remove the pendingAuthorisation transactionID, completed transaction will get one when written to the database
+                transactionDetails.remove("transactionID");     // remove the generated pendingAuthorisation transactionID from HashMap
                 Transaction completeTransaction = (Transaction) objectCreator.createNewTransaction(transactionDetails);
                 Account account = (Account) dataHandlerCreator.createAccountDataHandler(inputObject).getRecords().getFirst();
                 String currentBalance = account.getCurrentBalance();
