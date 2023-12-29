@@ -46,11 +46,21 @@ public abstract class Transaction implements DataObject {
         additionalInfo = details.get("additionalInfo");
     }
 
-    void setTransactionType(String transactionType) {
+    public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
 
-    void setAdditionalInfo(String info) {
+    public void setAdditionalInfo(String info) {
         this.additionalInfo = info;
     }
+
+    public void setPreviousBalance(String currentBalance) {
+        this.previousBalance = currentBalance;
+    }
+
+    public void setNewBalance(String newBalance) {
+        this.newBalance = newBalance;
+    }
+
+    public abstract String calculateNewBalance();
 }
