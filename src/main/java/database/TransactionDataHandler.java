@@ -9,7 +9,7 @@ import java.util.*;
 
 public class TransactionDataHandler extends DataHandler implements DataHandling {
 
-    String transactionID;
+ //   String transactionID;
 
     public TransactionDataHandler(DataObject inputObject) {
         super(inputObject);
@@ -41,14 +41,14 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
 
     public void update(){
         // maybe not used at all
-        this.transactionID = inputObject.getDetails().get("transactionID");
-        try (Statement statement = dbConnection.createStatement())
-        {
-            statement.executeUpdate("UPDATE transactions SET authorised = 'Y' WHERE transaction_id = " + transactionID);
-        }
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-        }
+//        this.transactionID = inputObject.getDetails().get("transactionID");
+//        try (Statement statement = dbConnection.createStatement())
+//        {
+//            statement.executeUpdate("UPDATE transactions SET authorised = 'Y' WHERE transaction_id = " + transactionID);
+//        }
+//        catch (SQLException e){
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public void delete() {} // not implemented for transactions
