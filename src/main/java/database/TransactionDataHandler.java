@@ -3,13 +3,9 @@ package database;
 import interfaces.DataHandling;
 import interfaces.DataObject;
 
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.*;
 
 public class TransactionDataHandler extends DataHandler implements DataHandling {
-
- //   String transactionID;
 
     public TransactionDataHandler(DataObject inputObject) {
         super(inputObject);
