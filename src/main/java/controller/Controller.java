@@ -144,20 +144,16 @@ public class Controller {
             newAccount.writeNewRecord();
             Account createdAccount = (Account) newAccount.getRecords().getFirst();
             String newAccountNumber = createdAccount.getDetails().get("accountNumber");
-            List<DataObject> output = new ArrayList<>();
+            List<DataObject> outputList = new ArrayList<>();
             for (DataObject dataObject : signatoryList) {
                 String customerID = dataObject.getDetails().get("customerID");
-                HashMap<String,String> x = new HashMap<>();
-                x.put("customerID",customerID); x.put("accountNumber",newAccountNumber);
-                Signatory bb = new Signatory(x);
-                output.add(bb);
+                HashMap<String,String> signatoryDetails = new HashMap<>();
+                signatoryDetails.put("customerID",customerID);
+                signatoryDetails.put("accountNumber",newAccountNumber);
+                Signatory listEntry = new Signatory(signatoryDetails);
+                outputList.add(listEntry);
             }
-            SignatoryDataHandler sigData = new SignatoryDataHandler(output);
-            sigData.writeAllRecords();
-
-
+            SignatoryDataHandler newSignatories = new SignatoryDataHandler(outputList);
+            newSignatories.writeAllRecords();
         }
-
-
-
 }
