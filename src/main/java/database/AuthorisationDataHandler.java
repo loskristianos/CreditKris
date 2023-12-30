@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AuthorisationDataHandler extends DataHandler {
-    ArrayList<DataObject> inputList;
+    List<DataObject> inputList;
 
     public AuthorisationDataHandler(DataObject inputObject){
         super(inputObject);
     }
 
-    public AuthorisationDataHandler(ArrayList<DataObject> inputObjects) {
+    public AuthorisationDataHandler(List<DataObject> inputObjects) {
         super();
         this.inputList = inputObjects;
     }
