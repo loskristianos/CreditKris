@@ -1,5 +1,6 @@
 package transaction;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class TransferTransaction extends Transaction {
@@ -10,12 +11,20 @@ public class TransferTransaction extends Transaction {
 
     public TransferTransaction(HashMap<String, String> transactionDetails) {
         super(transactionDetails);
-        setTransactionType("Transfer");
+        if(getTransactionType()==null) {
+            setTransactionType("Transfer");
+        }
     }
 
     @Override
     public String calculateNewBalance() {
-        return null;
-    }
+        BigDecimal previousBalance = new BigDecimal(getPreviousBalance());
+        BigDecimal transactionAmount = new BigDecimal(getTransactionAmount());
+        return switch (getTransactionType()) {
+            case "TransferIn": yield previousBalance.add(transactionAmount).toString();
+            case "TransferOut": yield previousBalance.subtract(transactionAmount).toString();
+            default: yield null;
+        };
 
+    }
 }

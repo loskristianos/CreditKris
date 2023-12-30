@@ -64,7 +64,9 @@ public abstract class Transaction implements DataObject {
     public void setPreviousBalance(String currentBalance) {
         this.previousBalance = currentBalance;
     }
-
+    public String getPreviousBalance(){ return this.previousBalance;}
+    public void setTransactionAmount(String transactionAmount){this.transactionAmount = transactionAmount;}
+    public String getTransactionAmount(){return this.transactionAmount;}
     public void setNewBalance(String newBalance) {
         this.newBalance = newBalance;
     }
