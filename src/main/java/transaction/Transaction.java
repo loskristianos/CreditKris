@@ -50,6 +50,15 @@ public abstract class Transaction implements DataObject {
         this.transactionType = transactionType;
     }
 
+    public String getTransactionType() {
+        return transactionType;
+    }
+    public String getAdditionalInfo() {
+        return additionalInfo;
+    }
+    public String getAccountNumber() {
+        return accountNumber;
+    }
     public void setAdditionalInfo(String info) {
         this.additionalInfo = info;
     }
@@ -63,4 +72,5 @@ public abstract class Transaction implements DataObject {
     }
 
     public abstract String calculateNewBalance();
+
 }

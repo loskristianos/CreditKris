@@ -9,8 +9,7 @@
 
 package controller;
 
-import account.Account;
-import account.Signatory;
+import account.*;
 import customer.Customer;
 import database.*;
 import interfaces.*;
@@ -24,22 +23,10 @@ import java.util.List;
 
 public class Controller {
 
-    /*        to do:
-
-                open new account request from ui
-                    Create Account object, populate from ui
-                        send account to AccountDataHandler (writeNew)
-                    signatories > 1
-                      for each:
-                        create Customer -> CustomerDataHandler to check for existing Customer
-                            -> follow create new customer process (new login etc.)
-                            -> AccountDataHandler to check for existing accounts
-                            create signatory object - SignatoryDataHandler (writeNew)
-     */
-
     DataObjectCreator objectCreator;
     DataHandlerCreator dataHandlerCreator;
-    public Controller (DataObjectCreator objectCreator, DataHandlerCreator dataHandlerCreator){
+
+    public Controller (DataObjectCreator objectCreator, DataHandlerCreator dataHandlerCreator) {
         this.objectCreator = objectCreator;
         this.dataHandlerCreator = dataHandlerCreator;
     }
@@ -79,11 +66,31 @@ public class Controller {
 
     // create new authorised transaction
     public void newTransaction(Transaction inputTransaction) {
-        dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
-        dataHandlerCreator.createAccountDataHandler(inputTransaction).update();
+        String transactionType = inputTransaction.getTransactionType();
+        if (transactionType.equals("Deposit") || transactionType.equals("Withdrawal")) {
+            dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
+            dataHandlerCreator.createAccountDataHandler(inputTransaction).update();
+        }
+        else if (transactionType.equals("Transfer")) {
+            HashMap<String,String> transferDetails = inputTransaction.getDetails();
+            String transferFrom = transferDetails.get("accountNumber");
+            String transferTo = transferDetails.get("additionalInfo");
+            Transaction transferOut = inputTransaction;
+            transferOut.setTransactionType("TransferOut");
+            transferDetails.put("accountNumber", transferTo);
+            transferDetails.put("additionalInfo", transferFrom);
+            Transaction transferIn = (Transaction) objectCreator.createNewTransaction(transferDetails);
+            Account payeeAccount = (Account) dataHandlerCreator.createAccountDataHandler(transferIn).getRecords().getFirst();
+            String currentBalance = payeeAccount.getCurrentBalance();
+            transferIn.setPreviousBalance(currentBalance);
+            transferIn.setTransactionType("transferIn");
+            transferIn.setNewBalance(transferIn.calculateNewBalance());
+            dataHandlerCreator.createTransactiontDataHandler(transferOut).writeNewRecord();
+            dataHandlerCreator.createAccountDataHandler(transferOut).update();
+            dataHandlerCreator.createTransactiontDataHandler(transferIn).writeNewRecord();
+            dataHandlerCreator.createAccountDataHandler(transferIn).update();
+        }
     }
-    // DOESN'T HANDLE TRANSFERS YET! - needs to split into two transactions to show correctly
-    // on each account (same transaction ID?)
 
     // create new transaction requiring authorisation by signatories
     public void newPendingTransaction(Transaction inputTransaction) {
@@ -106,6 +113,7 @@ public class Controller {
         AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
         x.writeAllRecords();
     }
+
         //  authorise a pending transaction (includes procedure when authorisation being confirmed
         //  is the last pending authorisation for that transaction)
         public void confirmPendingAuthorisation(PendingAuthorisation inputObject) {
