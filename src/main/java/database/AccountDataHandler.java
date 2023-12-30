@@ -4,7 +4,6 @@ package database;
 import interfaces.DataHandling;
 import interfaces.DataObject;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,20 +22,20 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
     }
 
     public List<DataObject> getRecords() {
-        // get all accounts for a customer
-        if (inputObject.getClass().getSimpleName().equals("Customer")) {
-            String customerID = inputObject.getDetails().get("customerID");
+        HashMap<String,String> inputDetails = inputObject.getDetails();
+        if (inputObject.getObjectType().equals("Customer")) {
+            String customerID = inputDetails.get("customerID");
             this.readQuery = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " + customerID + ")";
         }
         // get an account from a transaction
-        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Transaction")) {
-            String accountNumber = inputObject.getDetails().get("accountNumber");
+        else if (inputObject.getObjectType().equals("Transaction")) {
+            String accountNumber = inputDetails.get("accountNumber");
             this.readQuery = "SELECT * FROM accounts WHERE account_number = " + accountNumber;
         }
         // get a newly created account (to get the account number)
-        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Account") && inputObject.getDetails().get("AccountNumber") == null) {
-            String customerID = inputObject.getDetails().get("customerID");
-            String accountType = inputObject.getDetails().get("accountType");
+        else if (inputObject.getObjectType().equals("Account") && inputDetails.get("AccountNumber") == null) {
+            String customerID = inputDetails.get("customerID");
+            String accountType = inputDetails.get("accountType");
             this.readQuery = "SELECT * FROM accounts WHERE customer_id = " + customerID + " AND account_type = '" + accountType+"'";
         }
         this.resultList = new ArrayList<>();

@@ -5,6 +5,7 @@ import interfaces.DataObject;
 import java.util.HashMap;
 
 public class PendingAuthorisation implements DataObject {
+    private String objectType = "Transaction";
     private String transactionID;
     private String accountNumber;
     private String customerID;
@@ -35,5 +36,10 @@ public class PendingAuthorisation implements DataObject {
         customerID = details.get("customerID");
         transactionAmount= details.get("transactionAmount");
         transactionType = details.get("transactionType");
+    }
+
+    @Override
+    public String getObjectType() {
+        return objectType;
     }
 }

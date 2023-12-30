@@ -38,10 +38,10 @@ public class AuthorisationDataHandler extends DataHandler {
     public List<DataObject> getRecords(){
         this.resultList = new ArrayList<>();
         String column = null; String value = null;
-        switch (inputObject.getClass().getPackageName()) {
-            case "account": column = "account_number"; value = inputObject.getDetails().get("accountNumber");break;
-            case "customer": column = "customer_id"; value = inputObject.getDetails().get("customerID");break;
-            case "transaction": column = "transaction_id"; value = inputObject.getDetails().get("transactionID");break;
+        switch (inputObject.getObjectType()) {
+            case "Account": column = "account_number"; value = inputObject.getDetails().get("accountNumber");break;
+            case "Customer": column = "customer_id"; value = inputObject.getDetails().get("customerID");break;
+            case "Transaction": column = "transaction_id"; value = inputObject.getDetails().get("transactionID");break;
         }
         this.readQuery = "SELECT * FROM pending_authorisation WHERE "+column+" = "+value;
         this.outputType = "PendingAuthorisation";

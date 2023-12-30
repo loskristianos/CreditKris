@@ -24,7 +24,7 @@ public class CustomerDataHandler extends DataHandler implements DataHandling {
     public List<DataObject> getRecords() {
         this.resultList = new ArrayList<>();
         // check if we've been passed an Account to retrieve the linked customer records
-        if (inputObject.getClass().getSuperclass().getSimpleName().equals("Account")) {
+        if (inputObject.getObjectType().equals("Account")) {
             String accountNumber = inputObject.getDetails().get("accountNumber");
             this.readQuery = "SELECT * FROM customers WHERE customer_id IN (SELECT customer_id FROM accounts WHERE account_number = " + accountNumber + " UNION SELECT customer_id FROM signatories WHERE account_number = " + accountNumber + ")";
         }

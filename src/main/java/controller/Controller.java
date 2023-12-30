@@ -16,7 +16,7 @@ import interfaces.*;
 import login.LoginObject;
 import transaction.*;
 
-import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -94,9 +94,11 @@ public class Controller {
 
     // create new transaction requiring authorisation by signatories
     public void newPendingTransaction(Transaction inputTransaction) {
-        String accountNumber = inputTransaction.getDetails().get("accountNumber");
-        String transactionAmount = inputTransaction.getDetails().get("transactionAmount");
-        String transactionType = inputTransaction.getDetails().get("transactionType");
+        HashMap<String,String> transactionDetails = inputTransaction.getDetails();
+        String accountNumber = transactionDetails.get("accountNumber");
+        String transactionAmount = transactionDetails.get("transactionAmount");
+        String transactionType = transactionDetails.get("transactionType");
+        String additionalInfo = transactionDetails.get("additionalInfo");
         String transactionID = accountNumber + System.currentTimeMillis();
         List<DataObject> results = dataHandlerCreator.createSignatoryDataHandler(inputTransaction).getRecords();
         ArrayList<DataObject> pendingTransactions = new ArrayList<>();
@@ -108,6 +110,7 @@ public class Controller {
             resultMap.put("accountNumber", accountNumber);
             resultMap.put("transactionAmount", transactionAmount);
             resultMap.put("transactionType", transactionType);
+            resultMap.put("additionalInfo", additionalInfo);
             pendingTransactions.add(objectCreator.createPendingAuthorisation(resultMap));
         }
         AuthorisationDataHandler x = (AuthorisationDataHandler) dataHandlerCreator.createAuthorisationDataHandler(pendingTransactions);
