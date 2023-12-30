@@ -6,23 +6,35 @@ import customer.Customer;
 import interfaces.*;
 import login.LoginObject;
 import transaction.*;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.io.IOException;
+import java.sql.*;
 import java.util.*;
 
 public abstract class DataHandler implements DataHandling {
-     DataObject inputObject;
-     String tableName;
-     String readQuery;
-     String outputType;
-     List<DataObject> resultList;
+    Properties properties = new Properties();
+    DataObject inputObject;
+    String tableName;
+    String readQuery;
+    String outputType;
+    String url;
+    List<DataObject> resultList;
 
-     public DataHandler(){
+     public DataHandler()  {
+       try {  properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
+         this.url = properties.getProperty("db.url");}
+       catch (IOException e) {
+           System.out.println(e.getMessage());
+       }
      }
 
     public DataHandler(DataObject inputObject) {
+        try {  properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
+            this.url = properties.getProperty("db.url");}
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
         this.inputObject = inputObject;
     }
 
@@ -41,8 +53,8 @@ public abstract class DataHandler implements DataHandling {
                 values.add(value);
             }
         }
-        try (   Connection dbConnection = new DatabaseConnection().getDbConnection();
-                Statement statement = dbConnection.createStatement())
+        try (Connection dbConnection = DriverManager.getConnection(url);
+             Statement statement = dbConnection.createStatement())
         {
             statement.executeUpdate("INSERT INTO "+tableName+" "+columns+" VALUES "+values);
         }
@@ -53,7 +65,7 @@ public abstract class DataHandler implements DataHandling {
 
     @Override
     public List<DataObject> getRecords() {
-        try (Connection dbConnection = new DatabaseConnection().getDbConnection();
+        try (Connection dbConnection = DriverManager.getConnection(url);
             Statement statement = dbConnection.createStatement())
         {
             ResultSet resultSet = statement.executeQuery(readQuery);
@@ -72,6 +84,7 @@ public abstract class DataHandler implements DataHandling {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
         return resultList;
     }
 

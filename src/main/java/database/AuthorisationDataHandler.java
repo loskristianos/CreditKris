@@ -2,6 +2,9 @@ package database;
 
 import interfaces.DataObject;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -9,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class AuthorisationDataHandler extends DataHandler {
-        // needs to return all records for a transactionID so that main transaction table can be updated once they're done.
     ArrayList<DataObject> inputList;
 
     public AuthorisationDataHandler(DataObject inputObject){
@@ -21,7 +23,7 @@ public class AuthorisationDataHandler extends DataHandler {
         this.inputList = inputObjects;
     }
 
-    public void writeNewRecord(){   // writes one record, calling method will have to loop the call however many times for number of customers
+    public void writeNewRecord() {
         this.tableName = "pending_authorisation";
         super.writeNewRecord();
     }
@@ -59,7 +61,8 @@ public class AuthorisationDataHandler extends DataHandler {
         String accountNumber = rowDetails.get("accountNumber");
         String customerID = rowDetails.get("customerID");
         String transactionID = rowDetails.get("transactionID");
-        try (Statement statement = dbConnection.createStatement())
+        try (Connection dbConnection = DriverManager.getConnection(url);
+             Statement statement = dbConnection.createStatement())
         {
             statement.executeUpdate("DELETE FROM pending_authorisation WHERE transaction_id = "+transactionID+" AND account_number = "+accountNumber+" AND customer_id = "+customerID );
         }

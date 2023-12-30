@@ -5,16 +5,18 @@
 package database;
 
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 class DatabaseConnectionTest {
 
     @Test
-    void testConnection() throws SQLException {
+    void testConnection() throws SQLException, IOException {
         var z = new DatabaseConnection().getDbConnection();
         Statement testStatement = z.createStatement();
-        testStatement.executeUpdate("insert into login values(null,'joseph', 'pass023')");
+        testStatement.executeUpdate("insert into login values(null,'barlowe', 'pass023')");
         z.close();
     }
 }

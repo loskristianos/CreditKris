@@ -4,6 +4,9 @@ package database;
 import interfaces.DataHandling;
 import interfaces.DataObject;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
@@ -47,11 +50,12 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
         String accountNumber = transactionDetails.get("accountNumber");
         String newBalance = transactionDetails.get("newBalance");
 
-        try (Statement statement = dbConnection.createStatement())
+            try (Connection dbConnection = DriverManager.getConnection(url);
+                 Statement statement = dbConnection.createStatement())
         {
             statement.executeUpdate("UPDATE accounts SET current_balance = '" + newBalance + "' WHERE account_number = '" + accountNumber + "'");
         }
-        catch (SQLException e){
+        catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }

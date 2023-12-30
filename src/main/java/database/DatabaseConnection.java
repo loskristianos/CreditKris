@@ -1,17 +1,25 @@
-package database;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
-public class DatabaseConnection {
-   private Connection dbConnection;
-    private final String dbUrl = "jdbc:sqlite:devdb";
-    public DatabaseConnection() throws SQLException {
-            this.dbConnection = DriverManager.getConnection(dbUrl);
-    }
-
-    public Connection getDbConnection() {
-        return this.dbConnection;
-    }
-}
+//package database;
+//
+//import java.io.IOException;
+//import java.sql.Connection;
+//import java.sql.DriverManager;
+//import java.sql.SQLException;
+//import java.util.Properties;
+//
+//public class DatabaseConnection {
+//
+//    Properties properties = new Properties();
+//
+//
+//    private Connection dbConnection;
+//
+//    public DatabaseConnection() throws SQLException, IOException {
+//        properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
+//        String url = properties.getProperty("db.url");
+//        this.dbConnection = DriverManager.getConnection(url);
+//    }
+//
+//    public Connection getDbConnection() {
+//        return this.dbConnection;
+//    }
+//}
