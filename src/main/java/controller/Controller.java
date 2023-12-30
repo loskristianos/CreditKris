@@ -39,6 +39,7 @@ public class Controller {
         if (returnedData.isEmpty()) return null;
         else {
             String customerID = returnedData.getFirst().getDetails().get("customerID");
+            login.setCustomerID(customerID);
             List<DataObject> customerData = dataHandlerCreator.createCustomerDataHandler(login).getRecords();
             return (Customer) customerData.getFirst();
         }
@@ -135,12 +136,13 @@ public class Controller {
         }
 
         // create new customer record (including login details)
-        public void createNewCustomer(LoginObject inputlogin, Customer inputObject) {
+        public Customer createNewCustomer(LoginObject inputlogin, Customer inputObject) {
            DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputlogin);
            newLogin.writeNewRecord();
            String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
            inputObject.setCustomerID(customerID);
-           dataHandlerCreator.createCustomerDataHandler(inputObject).writeNewRecord();
+           DataHandler newCustomer = dataHandlerCreator.createCustomerDataHandler(inputObject);
+           newCustomer.writeNewRecord(); return inputObject;
         }
 
         //  create new account for a customer with no additional signatories
