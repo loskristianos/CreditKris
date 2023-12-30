@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class CommunityAccount extends Account {
 
     final String overdraftLimit = "2500";
-    final String accountType = "community";
+    final String accountType = "Community";
 
     public CommunityAccount() {
         super();

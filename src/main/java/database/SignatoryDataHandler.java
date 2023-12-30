@@ -9,16 +9,16 @@ import java.util.List;
 public class SignatoryDataHandler extends DataHandler {
     List<DataObject> inputList;
 
-    public SignatoryDataHandler(List<DataObject> inputObjects){
+    public SignatoryDataHandler(List<DataObject> inputList){
         super();
-        this.inputList = inputObjects;
+        this.inputList = inputList;
     }
 
     public SignatoryDataHandler(DataObject inputObject) {
         super(inputObject);
     }
 
-    public void writeNewRecord(){
+    public void writeNewRecord() {
         this.tableName = "signatories";
         super.writeNewRecord();
     }

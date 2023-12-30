@@ -11,7 +11,6 @@ public abstract class Transaction implements DataObject {
     private String previousBalance;
     private String newBalance;
     private String transactionTime;
-    private String authorised;
     private String additionalInfo;
 
     public Transaction(){}
@@ -29,7 +28,6 @@ public abstract class Transaction implements DataObject {
         details.put("previousBalance",previousBalance);
         details.put("newBalance",newBalance);
         details.put("transactionTime",transactionTime);
-        details.put("authorised",authorised);
         details.put("additionalInfo",additionalInfo);
         return details;
     }
@@ -42,7 +40,6 @@ public abstract class Transaction implements DataObject {
         previousBalance = details.get("previousBalance");
         newBalance = details.get("newBalance");
         transactionTime = details.get("transactionTime");
-        authorised = details.get("authorised");
         additionalInfo = details.get("additionalInfo");
     }
 
@@ -72,5 +69,4 @@ public abstract class Transaction implements DataObject {
     }
 
     public abstract String calculateNewBalance();
-
 }

@@ -2,7 +2,6 @@ package database;
 
 import interfaces.DataObject;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,18 +29,13 @@ public class AuthorisationDataHandler extends DataHandler {
 
     public void writeAllRecords(){
         this.tableName = "pending_authorisation";
-        for (DataObject o : inputList) {
-            this.inputObject = o;
+        for (DataObject dataObject : inputList) {
+            this.inputObject = dataObject;
             super.writeNewRecord();
         }
     }
 
     public List<DataObject> getRecords(){
-        /*  Needs two queries depending on object type passed in:
-            - Return all records for a given transaction; and
-            - Return all records for a given customer
-            - (and possibly also return all records for a given account)
-         */
         this.resultList = new ArrayList<>();
         String column = null; String value = null;
         switch (inputObject.getClass().getPackageName()) {
@@ -54,7 +48,7 @@ public class AuthorisationDataHandler extends DataHandler {
         return super.getRecords();
     }
 
-    public void update(){} // not required (unless we move delete functionality here and get rid of that method, since this is the only implementation)
+    public void update(){} // not required for pending authorisations
 
     public void delete() {
         HashMap<String,String> rowDetails = inputObject.getDetails();

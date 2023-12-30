@@ -34,11 +34,7 @@ public class CustomerDataHandler extends DataHandler implements DataHandling {
         }
         this.outputType = "Customer";
         return super.getRecords();
-
     }
 
-
-
-    public void update(){} // not implemented to start - do we need to allow changing customer details?
-
+    public void update(){} // not implemented to start with - might extend to allow changing customer details
 }

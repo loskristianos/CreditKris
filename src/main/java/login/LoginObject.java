@@ -12,8 +12,6 @@ public class LoginObject implements DataObject {
 
     private String customerID;
 
-    private boolean authorised;
-
     public LoginObject() {}     // no-args constructor not used
 
     public LoginObject(String username, String password) {
@@ -38,10 +36,6 @@ public class LoginObject implements DataObject {
         this.customerID = details.get("customerID");
     }
 
-    public void setAuthorised(boolean authorised) {
-        this.authorised = authorised;
-    }
-
     public void setCustomerID(String customerID) {
          this.customerID = customerID;
     }
@@ -56,9 +50,5 @@ public class LoginObject implements DataObject {
 
     public String getCustomerID() {
         return customerID;
-    }
-
-    public boolean getAuthorised() {
-        return authorised;
     }
 }

@@ -49,5 +49,4 @@ public class Customer implements DataObject {
         addressTown = details.get("addressTown");
         addressPostcode = details.get("addressPostcode");
     }
-
 }

@@ -1,6 +1,5 @@
 package database;
 
-
 import account.*;
 import customer.Customer;
 import interfaces.*;
@@ -29,15 +28,13 @@ public abstract class DataHandler implements DataHandling {
      }
 
     public DataHandler(DataObject inputObject) {
+        this.inputObject = inputObject;
         try {  properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
             this.url = properties.getProperty("db.url");}
         catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
-        this.inputObject = inputObject;
     }
-
 
     @Override
     public void writeNewRecord() {
@@ -77,14 +74,13 @@ public abstract class DataHandler implements DataHandling {
                     String value = resultSet.getString(i);
                     outputMap.put(mappedKey, value);
                 }
-                DataObject x = createReturnedObject(outputMap);
-                resultList.add(x);
+                DataObject returnedObject = createReturnedObject(outputMap);
+                resultList.add(returnedObject);
             }
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return resultList;
     }
 
@@ -93,9 +89,9 @@ public abstract class DataHandler implements DataHandling {
             case "Account": switch (inputMap.get("accountType")) {
                 case "Client":
                     yield new ClientAccount(inputMap);
-                case "community":
+                case "Community":
                     yield new CommunityAccount(inputMap);
-                case "business":
+                case "Business":
                     yield new SmallBusinessAccount(inputMap);
             }
             case "Customer": yield new Customer(inputMap);
@@ -103,14 +99,13 @@ public abstract class DataHandler implements DataHandling {
             case "Signatory": yield new Signatory(inputMap);
             case "Login": yield new LoginObject(inputMap);
             case "Transaction": switch (inputMap.get("transactionType")) {
-                case "deposit":
+                case "Deposit":
                     yield new DepositTransaction(inputMap);
-                case "withdrawal":
+                case "Withdrawal":
                     yield new WithdrawalTransaction(inputMap);
-                case "transfer":
+                case "Transfer":
                     yield new TransferTransaction(inputMap);
             }
-
             default: yield null;
         };
     }

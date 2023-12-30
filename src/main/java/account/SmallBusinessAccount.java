@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class SmallBusinessAccount extends Account {
 
     final String overdraftLimit = "1000";
-    final String accountType = "business";
+    final String accountType = "Business";
 
     public SmallBusinessAccount() {
         super();
