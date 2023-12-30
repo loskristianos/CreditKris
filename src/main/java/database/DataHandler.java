@@ -103,7 +103,9 @@ public abstract class DataHandler implements DataHandling {
                     yield new DepositTransaction(inputMap);
                 case "Withdrawal":
                     yield new WithdrawalTransaction(inputMap);
-                case "Transfer":
+                case "TransferIn":
+                    yield new TransferTransaction(inputMap);
+                case "TransferOut":
                     yield new TransferTransaction(inputMap);
             }
             default: yield null;
