@@ -5,6 +5,7 @@ import interfaces.DataObject;
 import java.util.HashMap;
 
 public class Customer implements DataObject {
+    private String objectType = "Customer";
     private String customerID;
     private String firstName;
     private String lastName;
@@ -49,4 +50,10 @@ public class Customer implements DataObject {
         addressTown = details.get("addressTown");
         addressPostcode = details.get("addressPostcode");
     }
+
+    public String getObjectType(){
+        return this.objectType;
+    }
+
+
 }

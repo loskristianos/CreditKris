@@ -4,6 +4,7 @@ import interfaces.DataObject;
 import java.util.HashMap;
 
 public abstract class Transaction implements DataObject {
+    private String objectType = "Transaction";
     private String transactionID;
     private String accountNumber;
     private String transactionAmount;
@@ -66,6 +67,10 @@ public abstract class Transaction implements DataObject {
 
     public void setNewBalance(String newBalance) {
         this.newBalance = newBalance;
+    }
+
+    public String getObjectType(){
+        return this.objectType;
     }
 
     public abstract String calculateNewBalance();

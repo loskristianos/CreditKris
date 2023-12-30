@@ -5,6 +5,7 @@ import interfaces.DataObject;
 import java.util.HashMap;
 
 public abstract class Account implements DataObject {
+    private String objectType = "Account";
     private String customerID;
     private String accountNumber;
     private String accountType;
@@ -51,5 +52,9 @@ public abstract class Account implements DataObject {
     }
     public void setCurrentBalance(String newBalance) {
         currentBalance = newBalance;
+    }
+
+    public String getObjectType(){
+        return this.objectType;
     }
 }
