@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.*;
 
 public abstract class DataHandler implements DataHandling {
-     Connection dbConnection;
      DataObject inputObject;
      String tableName;
      String readQuery;
@@ -21,11 +20,9 @@ public abstract class DataHandler implements DataHandling {
      List<DataObject> resultList;
 
      public DataHandler(){
-         this.dbConnection = new DatabaseConnection().getDbConnection();
      }
 
     public DataHandler(DataObject inputObject) {
-        this.dbConnection = new DatabaseConnection().getDbConnection();
         this.inputObject = inputObject;
     }
 
@@ -44,7 +41,8 @@ public abstract class DataHandler implements DataHandling {
                 values.add(value);
             }
         }
-        try (Statement statement = dbConnection.createStatement())
+        try (   Connection dbConnection = new DatabaseConnection().getDbConnection();
+                Statement statement = dbConnection.createStatement())
         {
             statement.executeUpdate("INSERT INTO "+tableName+" "+columns+" VALUES "+values);
         }
@@ -55,7 +53,8 @@ public abstract class DataHandler implements DataHandling {
 
     @Override
     public List<DataObject> getRecords() {
-        try (Statement statement = dbConnection.createStatement())
+        try (Connection dbConnection = new DatabaseConnection().getDbConnection();
+            Statement statement = dbConnection.createStatement())
         {
             ResultSet resultSet = statement.executeQuery(readQuery);
             HashMap<String, String> outputMap = new HashMap<>();
@@ -104,7 +103,4 @@ public abstract class DataHandler implements DataHandling {
     }
 
     public void delete(){}
-
-
-
     }

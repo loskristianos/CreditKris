@@ -5,19 +5,13 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnection {
-    private Connection dbConnection = null;
+   private Connection dbConnection;
     private final String dbUrl = "jdbc:sqlite:devdb";
-    public DatabaseConnection()  {
-        try {
+    public DatabaseConnection() throws SQLException {
             this.dbConnection = DriverManager.getConnection(dbUrl);
-        }
-        catch (SQLException e) {
-           System.out.println(e.getMessage());
-        }
     }
 
     public Connection getDbConnection() {
         return this.dbConnection;
     }
-
 }
