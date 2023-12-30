@@ -1,5 +1,6 @@
 package interfaces;
 
+import customer.Customer;
 import login.LoginObject;
 import transaction.*;
 
@@ -23,5 +24,9 @@ public class DataObjectCreator {
             case "Transfer": yield new TransferTransaction(inputMap);
             default: yield null;
         };
+    }
+
+    public DataObject createNewCustomer(HashMap<String,String> inputMap) {
+        return new Customer(inputMap);
     }
 }
