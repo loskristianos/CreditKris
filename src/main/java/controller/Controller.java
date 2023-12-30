@@ -10,12 +10,14 @@
 package controller;
 
 import account.Account;
+import account.Signatory;
 import customer.Customer;
 import database.*;
 import interfaces.*;
 import login.LoginObject;
 import transaction.*;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -128,6 +130,32 @@ public class Controller {
            String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
            inputObject.setCustomerID(customerID);
            dataHandlerCreator.createCustomerDataHandler(inputObject).writeNewRecord();
+        }
+
+        //  create new account for a customer with no additional signatories
+        public void createAccount(Account inputObject) {
+            DataHandler newAccount = dataHandlerCreator.createAccountDataHandler(inputObject);
+            newAccount.writeNewRecord();
+        }
+
+        //  create new account for a customer with additional signatories
+        public void createAccountWithSignatories(Account inputAccount, List<DataObject> signatoryList) {
+            DataHandler newAccount = dataHandlerCreator.createAccountDataHandler(inputAccount);
+            newAccount.writeNewRecord();
+            Account createdAccount = (Account) newAccount.getRecords().getFirst();
+            String newAccountNumber = createdAccount.getDetails().get("accountNumber");
+            List<DataObject> output = new ArrayList<>();
+            for (DataObject dataObject : signatoryList) {
+                String customerID = dataObject.getDetails().get("customerID");
+                HashMap<String,String> x = new HashMap<>();
+                x.put("customerID",customerID); x.put("accountNumber",newAccountNumber);
+                Signatory bb = new Signatory(x);
+                output.add(bb);
+            }
+            SignatoryDataHandler sigData = new SignatoryDataHandler(output);
+            sigData.writeAllRecords();
+
+
         }
 
 

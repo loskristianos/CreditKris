@@ -25,9 +25,16 @@ public class AccountDataHandler extends DataHandler implements DataHandling {
             String customerID = inputObject.getDetails().get("customerID");
             this.readQuery = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " + customerID + ")";
         }
-        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Account")) {
+        // get an account from a transaction
+        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Transaction")) {
             String accountNumber = inputObject.getDetails().get("accountNumber");
             this.readQuery = "SELECT * FROM accounts WHERE account_number = " + accountNumber;
+        }
+        // get a newly created account (to get the account number)
+        else if (inputObject.getClass().getSuperclass().getSimpleName().equals("Account") && inputObject.getDetails().get("AccountNumber") == null) {
+            String customerID = inputObject.getDetails().get("customerID");
+            String accountType = inputObject.getDetails().get("accountType");
+            this.readQuery = "SELECT * FROM accounts WHERE customer_id = " + customerID + " AND account_type = '" + accountType+"'";
         }
         this.resultList = new ArrayList<>();
         this.outputType = "Account";

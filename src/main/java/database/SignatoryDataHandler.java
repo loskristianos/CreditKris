@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SignatoryDataHandler extends DataHandler {
-    ArrayList<DataObject> inputList;
+    List<DataObject> inputList;
 
-    public SignatoryDataHandler(ArrayList<DataObject> inputObjects){
+    public SignatoryDataHandler(List<DataObject> inputObjects){
         super();
         this.inputList = inputObjects;
     }
