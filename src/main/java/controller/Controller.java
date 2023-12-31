@@ -136,8 +136,8 @@ public class Controller {
         }
 
         // create new customer record (including login details)
-        public Customer createNewCustomer(LoginObject inputlogin, Customer inputObject) {
-           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputlogin);
+        public Customer createNewCustomer(LoginObject inputLogin, Customer inputObject) {
+           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputLogin);
            newLogin.writeNewRecord();
            String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
            inputObject.setCustomerID(customerID);
