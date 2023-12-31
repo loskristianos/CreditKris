@@ -7,6 +7,7 @@ import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
 import login.LoginObject;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -33,9 +34,16 @@ class ControllerTest {
 
     @InjectMocks Controller controllerMock;
 
+    private AutoCloseable x;
+
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.initMocks(this);
+       x = MockitoAnnotations.openMocks(this);
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        x.close();
     }
 
     @Test
