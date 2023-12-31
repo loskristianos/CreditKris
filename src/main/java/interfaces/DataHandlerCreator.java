@@ -34,4 +34,8 @@ public class DataHandlerCreator {
     public DataHandler createSignatoryDataHandler(DataObject inputObject) {
         return new SignatoryDataHandler(inputObject);
     }
+
+    public DataHandler createSignatoryDataHandler(List<DataObject> inputList) {
+        return new SignatoryDataHandler(inputList);
+    }
 }
