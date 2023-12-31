@@ -19,7 +19,7 @@ public class DataHandlerCreator {
         return new AccountDataHandler(inputObject);
     }
 
-    public DataHandler createTransactiontDataHandler(DataObject inputObject) {
+    public DataHandler createTransactionDataHandler(DataObject inputObject) {
         return new TransactionDataHandler(inputObject);
     }
 
