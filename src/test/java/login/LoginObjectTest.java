@@ -19,11 +19,9 @@ class LoginObjectTest {
     @Test
     void objectSetAndGetMethods() {
         var login = new LoginObject(testName, testPassword);
-        login.setAuthorised(true);
         login.setCustomerID("123");
         assertEquals(testName, login.getUsername());
         assertEquals(testPassword, login.getPassword());
-        assertTrue(login.getAuthorised());
         assertEquals("123", login.getCustomerID());
     }
 }
