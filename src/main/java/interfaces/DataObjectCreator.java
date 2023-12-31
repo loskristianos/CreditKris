@@ -17,7 +17,6 @@ public class DataObjectCreator {
     }
 
     public DataObject createNewTransaction(HashMap<String, String> inputMap) {
-
         return switch (inputMap.get("transactionType")) {
             case "Deposit": yield new DepositTransaction(inputMap);
             case "Withdrawal": yield new WithdrawalTransaction(inputMap);
