@@ -3,7 +3,6 @@ package database;
 import interfaces.DataObject;
 import login.LoginObject;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -11,13 +10,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class LoginDataHandlerTest {
+class LoginDataHandlerIntegrationTest {
     @BeforeAll
     static void beforeAll() {
         String url=null;
