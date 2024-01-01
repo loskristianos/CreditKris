@@ -7,6 +7,7 @@ public class DepositTransaction extends Transaction {
 
     public DepositTransaction(){
         super();
+        setTransactionType("Deposit");
     }
 
     public DepositTransaction(HashMap<String, String> transactionDetails) {

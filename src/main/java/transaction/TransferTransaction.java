@@ -7,6 +7,7 @@ public class TransferTransaction extends Transaction {
 
     public TransferTransaction(){
         super();
+        setTransactionType("Transfer");
     }
 
     public TransferTransaction(HashMap<String, String> transactionDetails) {
