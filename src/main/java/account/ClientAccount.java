@@ -10,6 +10,8 @@ public class ClientAccount extends Account {
 
     public ClientAccount(){
         super();
+        setOverdraftLimit(this.overdraftLimit);
+        setAccountType(this.accountType);
     }
 
     public ClientAccount(HashMap<String,String> accountDetails) {
