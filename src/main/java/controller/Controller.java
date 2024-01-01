@@ -76,7 +76,7 @@ public class Controller {
             HashMap<String,String> transferDetails = inputTransaction.getDetails();
             String transferFrom = transferDetails.get("accountNumber");
             String transferTo = transferDetails.get("additionalInfo");
-            Transaction transferOut = inputTransaction;
+            Transaction transferOut = (Transaction) objectCreator.createNewTransaction(transferDetails);
             transferOut.setTransactionType("TransferOut");
             transferDetails.put("accountNumber", transferTo);
             transferDetails.put("additionalInfo", transferFrom);

@@ -12,9 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import transaction.DepositTransaction;
-import transaction.Transaction;
-import transaction.WithdrawalTransaction;
+import org.mockito.internal.invocation.MockitoMethod;
+import org.mockito.listeners.MockitoListener;
+import transaction.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +22,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ControllerTest {
     @Mock DataObjectCreator objectCreator;
@@ -32,10 +32,12 @@ class ControllerTest {
     @Mock DataHandler mockDataHandler1;
     @InjectMocks Controller controllerMock;
     private AutoCloseable x;
+    Controller controller;
 
     @BeforeEach
     void setUp() {
        x = MockitoAnnotations.openMocks(this);
+       this.controller = controllerMock;
     }
 
     @AfterEach
@@ -45,7 +47,6 @@ class ControllerTest {
 
     @Test
     void loginAttemptNoMatch() {
-        Controller controller = controllerMock;
         LoginObject login = new LoginObject("user","password");
         List<DataObject> mockReturnList = new ArrayList<>();
         when(dataHandlerCreator.createLoginDataHandler(login)).thenReturn(mockDataHandler);
@@ -56,7 +57,6 @@ class ControllerTest {
 
     @Test
     void loginAttemptMatch() {
-        Controller controller = controllerMock;
         LoginObject login = new LoginObject("username","password");
         List<DataObject> mockReturnList = new ArrayList<>();
         LoginObject mockLoginReturn = new LoginObject("username","password");
@@ -79,7 +79,6 @@ class ControllerTest {
 
     @Test
     void getCustomerAccounts() {
-        Controller controller = controllerMock;
         Customer customer = new Customer();
         Account account1 = new ClientAccount();
         Account account2 = new SmallBusinessAccount();
@@ -93,7 +92,6 @@ class ControllerTest {
 
     @Test
     void getAccountTransactions() {
-        Controller controller = controllerMock;
         Account account = new ClientAccount();
         Transaction transaction1 = new DepositTransaction();
         Transaction transaction2 = new WithdrawalTransaction();
@@ -105,5 +103,45 @@ class ControllerTest {
         assertIterableEquals(transactionList,controller.getAccountTransactions(account));
     }
 
+    @Test
+    void getPendingTransactionsForAccount() {
+        Account account = new ClientAccount();
+        PendingAuthorisation pending1 = new PendingAuthorisation();
+        PendingAuthorisation pending2 = new PendingAuthorisation();
+        List<DataObject> pendingList = new ArrayList<>(){{
+            add(pending1); add(pending2);
+        }};
+        when(dataHandlerCreator.createAuthorisationDataHandler(account)).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(pendingList);
+        assertIterableEquals(pendingList,controller.getPendingTransactionsForAccount(account));
+    }
 
+    @Test
+    void getPendingTransactionsForCustomer() {
+        Customer customer = new Customer();
+        PendingAuthorisation pending1 = new PendingAuthorisation();
+        PendingAuthorisation pending2 = new PendingAuthorisation();
+        List<DataObject> pendingList = new ArrayList<>(){{
+            add(pending1); add(pending2);
+        }};
+        when(dataHandlerCreator.createAuthorisationDataHandler(customer)).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(pendingList);
+        assertIterableEquals(pendingList,controller.getPendingTransactionsForCustomer(customer));
+    }
+
+    @Test
+    void newTransaction() {
+        Transaction transaction1 = new DepositTransaction(); transaction1.setTransactionType("Deposit");
+        Transaction transaction2 = new WithdrawalTransaction(); transaction2.setTransactionType("Withdrawal");
+        Transaction transaction3 = new TransferTransaction(); transaction3.setTransactionType("Transfer");
+        when(dataHandlerCreator.createTransactionDataHandler(any())).thenReturn(mockDataHandler);
+        when(dataHandlerCreator.createAccountDataHandler(any())).thenReturn(mockDataHandler1);
+            controller.newTransaction(transaction1);
+            verify(mockDataHandler, times(1)).writeNewRecord();
+            verify(mockDataHandler1, times(1)).update();
+        controller.newTransaction(transaction2);
+            verify(mockDataHandler,times(2)).writeNewRecord();
+            verify(mockDataHandler1, times(2)).update();
+        // to add transfer transactions...
+    }
 }
