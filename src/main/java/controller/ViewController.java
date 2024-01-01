@@ -16,7 +16,14 @@ public class ViewController {
 
     DataHandlerCreator dataHandlerCreator;
     DataObjectCreator objectCreator;
-    Controller controller = new Controller(objectCreator,dataHandlerCreator);
+
+
+    Controller controller;
+
+    public ViewController(){
+        controller = new Controller(objectCreator,dataHandlerCreator);
+    }
+
 
     public void launchView(String view) {
         // method to launch the view (either CLI or GUI)
@@ -26,11 +33,11 @@ public class ViewController {
 
     public HashMap<String,String> loginView (HashMap<String,String> inputMap) {
         DataObject login = objectCreator.createLoginObject(inputMap.get("username"),inputMap.get("password"));
-        Customer customer = controller.loginAttempt(login);
+        DataObject customer = controller.loginAttempt(login);
         return customer.getDetails();
     }
 
     public HashMap<String,String> customerView (HashMap<String,String> inputMap) {
-return inputMap;
+        return inputMap;
     }
 }
