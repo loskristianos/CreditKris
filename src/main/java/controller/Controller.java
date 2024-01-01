@@ -33,15 +33,15 @@ public class Controller {
 
 
     // customer login, successful login returns Customer object (failed login returns null)
-    public Customer loginAttempt (String username, String password) {
-        LoginObject login = (LoginObject) objectCreator.createLoginObject(username, password);
+    public DataObject loginAttempt (DataObject inputObject) {
+        LoginObject login = (LoginObject) inputObject;
         List<DataObject> returnedData = dataHandlerCreator.createLoginDataHandler(login).getRecords();
         if (returnedData.isEmpty()) return null;
         else {
             String customerID = returnedData.getFirst().getDetails().get("customerID");
             login.setCustomerID(customerID);
             List<DataObject> customerData = dataHandlerCreator.createCustomerDataHandler(login).getRecords();
-            return (Customer) customerData.getFirst();
+            return customerData.getFirst();
         }
     }
 
@@ -52,7 +52,7 @@ public class Controller {
 
     // get all completed transactions for an account
     public List<DataObject> getAccountTransactions (Account inputAccount) {
-        return dataHandlerCreator.createTransactiontDataHandler(inputAccount).getRecords();
+        return dataHandlerCreator.createTransactionDataHandler(inputAccount).getRecords();
     }
 
     // get all pending transactions for an account
@@ -69,14 +69,14 @@ public class Controller {
     public void newTransaction(Transaction inputTransaction) {
         String transactionType = inputTransaction.getTransactionType();
         if (transactionType.equals("Deposit") || transactionType.equals("Withdrawal")) {
-            dataHandlerCreator.createTransactiontDataHandler(inputTransaction).writeNewRecord();
+            dataHandlerCreator.createTransactionDataHandler(inputTransaction).writeNewRecord();
             dataHandlerCreator.createAccountDataHandler(inputTransaction).update();
         }
         else if (transactionType.equals("Transfer")) {
             HashMap<String,String> transferDetails = inputTransaction.getDetails();
             String transferFrom = transferDetails.get("accountNumber");
             String transferTo = transferDetails.get("additionalInfo");
-            Transaction transferOut = inputTransaction;
+            Transaction transferOut = (Transaction) objectCreator.createNewTransaction(transferDetails);
             transferOut.setTransactionType("TransferOut");
             transferDetails.put("accountNumber", transferTo);
             transferDetails.put("additionalInfo", transferFrom);
@@ -86,9 +86,9 @@ public class Controller {
             transferIn.setPreviousBalance(currentBalance);
             transferIn.setTransactionType("transferIn");
             transferIn.setNewBalance(transferIn.calculateNewBalance());
-            dataHandlerCreator.createTransactiontDataHandler(transferOut).writeNewRecord();
+            dataHandlerCreator.createTransactionDataHandler(transferOut).writeNewRecord();
             dataHandlerCreator.createAccountDataHandler(transferOut).update();
-            dataHandlerCreator.createTransactiontDataHandler(transferIn).writeNewRecord();
+            dataHandlerCreator.createTransactionDataHandler(transferIn).writeNewRecord();
             dataHandlerCreator.createAccountDataHandler(transferIn).update();
         }
     }
@@ -136,8 +136,8 @@ public class Controller {
         }
 
         // create new customer record (including login details)
-        public Customer createNewCustomer(LoginObject inputlogin, Customer inputObject) {
-           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputlogin);
+        public Customer createNewCustomer(LoginObject inputLogin, Customer inputObject) {
+           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputLogin);
            newLogin.writeNewRecord();
            String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
            inputObject.setCustomerID(customerID);

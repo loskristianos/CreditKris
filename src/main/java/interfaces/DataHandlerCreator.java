@@ -19,7 +19,7 @@ public class DataHandlerCreator {
         return new AccountDataHandler(inputObject);
     }
 
-    public DataHandler createTransactiontDataHandler(DataObject inputObject) {
+    public DataHandler createTransactionDataHandler(DataObject inputObject) {
         return new TransactionDataHandler(inputObject);
     }
 
@@ -33,5 +33,9 @@ public class DataHandlerCreator {
 
     public DataHandler createSignatoryDataHandler(DataObject inputObject) {
         return new SignatoryDataHandler(inputObject);
+    }
+
+    public DataHandler createSignatoryDataHandler(List<DataObject> inputList) {
+        return new SignatoryDataHandler(inputList);
     }
 }

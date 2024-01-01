@@ -1,83 +1,144 @@
 package controller;
 
-import account.Account;
-import account.ClientAccount;
-import account.Signatory;
 import customer.Customer;
-import interfaces.DataHandlerCreator;
-import interfaces.DataObject;
-import interfaces.DataObjectCreator;
+import database.*;
+import interfaces.*;
+import account.*;
 import login.LoginObject;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import transaction.DepositTransaction;
-import transaction.Transaction;
-import transaction.TransferTransaction;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import transaction.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 class ControllerTest {
-    DataObjectCreator doc = new DataObjectCreator();
-    DataHandlerCreator han = new DataHandlerCreator();
-    HashMap<String, String> testDataHM = new HashMap<>(Map.of("transactionID","31826",  "accountNumber","909912", "transactionAmount","34.65", "transactionType","Deposit", "previousBalance","538.75", "newBalance","573.40", "transactionTime","2023/12/19 14:30:00", "authorised","Y", "additionalInfo",""));
+    @Mock DataObjectCreator objectCreator;
 
+    @Mock DataHandlerCreator dataHandlerCreator;
+    @Mock DataHandler mockDataHandler;
+    @Mock DataHandler mockDataHandler1;
+    @InjectMocks Controller controllerMock;
+    private AutoCloseable x;
+    Controller controller;
 
-    @Test
-    void newRecordTest() {
-        Transaction tx = new DepositTransaction(testDataHM);
-        Controller x = new Controller(doc, han);
-        x.newTransaction(tx);
+    @BeforeEach
+    void setUp() {
+       x = MockitoAnnotations.openMocks(this);
+       this.controller = controllerMock;
+    }
+
+    @AfterEach
+    void tearDown() throws Exception {
+        x.close();
     }
 
     @Test
-    void newPendingRecords() {
-        Transaction tx = new DepositTransaction(testDataHM);
-        Controller y = new Controller(new DataObjectCreator(), new DataHandlerCreator());
-        y.newPendingTransaction(tx);
+    void loginAttemptNoMatch() {
+        LoginObject login = new LoginObject("user","password");
+        List<DataObject> mockReturnList = new ArrayList<>();
+        when(dataHandlerCreator.createLoginDataHandler(login)).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(mockReturnList);
+        DataObject returnedObject = controller.loginAttempt(login);
+        assertNull(returnedObject);
     }
 
     @Test
-    void testTest() {
-        HashMap<String, String> testData1 = new HashMap<>(Map.of( "accountNumber","909912", "transactionAmount","34.65", "transactionType","Deposit", "previousBalance","538.75", "newBalance","573.40", "transactionTime","2023/12/19 14:30:00", "authorised","Y", "additionalInfo","445654"));
-        HashMap<String, String> testData2 = new HashMap<>(Map.of( "accountNumber","445654", "transactionAmount","34.65", "transactionType","Deposit", "previousBalance","538.75", "newBalance","573.40", "transactionTime","2023/12/19 14:30:00", "authorised","Y", "additionalInfo","909912"));
-        Transaction tx = new TransferTransaction(testData1);
-        Transaction ty = new TransferTransaction(testData2);
-        Controller z = new Controller(doc, han);
-        z.newTransaction(tx);
-        z.newTransaction(ty);
+    void loginAttemptMatch() {
+        LoginObject login = new LoginObject("username","password");
+        List<DataObject> mockReturnList = new ArrayList<>();
+        LoginObject mockLoginReturn = new LoginObject("username","password");
+        mockLoginReturn.setCustomerID("123456");
+        mockReturnList.add(mockLoginReturn);
+        Customer customer = new Customer();
+        customer.setCustomerID("123456");
+        HashMap <String,String> customerDetails = new HashMap<>(){{
+            put("firstName","Barry");put("lastName","Wilson");}};
+        customer.setDetails(customerDetails);
+        List<DataObject> mockCustomerList = new ArrayList<>();
+        mockCustomerList.add(customer);
+        when(dataHandlerCreator.createLoginDataHandler(login)).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(mockReturnList);
+        when(dataHandlerCreator.createCustomerDataHandler(any())).thenReturn(mockDataHandler1);
+        when(mockDataHandler1.getRecords()).thenReturn(mockCustomerList);
+        DataObject returnedObject = controller.loginAttempt(login);
+        assertEquals(customer.getDetails(),returnedObject.getDetails());
     }
 
     @Test
-    void newCustomer() {
-        HashMap<String,String> customerData = new HashMap<>(Map.of( "firstName","Rodney", "lastName","Price", "dob","12/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
-
-        var a = new Customer(customerData);
-        var b = new LoginObject("grungodzilla1","bounty92");
-        Controller k = new Controller(doc, han);
-        k.createNewCustomer(b, a);
-    }
-
-    @Test
-    void newAccountWithSignatories() {
-        HashMap<String, String> details = new HashMap<>() {{
-                put("customerID", "626262");
-                put("signatories", "9");
+    void getCustomerAccounts() {
+        Customer customer = new Customer();
+        Account account1 = new ClientAccount();
+        Account account2 = new SmallBusinessAccount();
+        List<DataObject> accountList = new ArrayList<>(){{
+            add(account1); add(account2);
         }};
+        when(dataHandlerCreator.createAccountDataHandler(any())).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(accountList);
+        assertIterableEquals(accountList,controller.getCustomerAccounts(customer));
+    }
 
-        HashMap<String,String> cust1 = new HashMap<>(Map.of( "customerID","101010","firstName","Rodney", "lastName","Price", "dob","12/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
-        HashMap<String,String> cust2 = new HashMap<>(Map.of( "customerID","202020","firstName","Albert", "lastName","Price", "dob","14/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
-        HashMap<String,String> cust3 = new HashMap<>(Map.of( "customerID","303030","firstName","Charlie", "lastName","Price", "dob","19/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
+    @Test
+    void getAccountTransactions() {
+        Account account = new ClientAccount();
+        Transaction transaction1 = new DepositTransaction();
+        Transaction transaction2 = new WithdrawalTransaction();
+        List<DataObject> transactionList = new ArrayList<>(){{
+            add(transaction1); add(transaction2);
+        }};
+        when(dataHandlerCreator.createTransactionDataHandler(any())).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(transactionList);
+        assertIterableEquals(transactionList,controller.getAccountTransactions(account));
+    }
 
-        Account zbz = new ClientAccount(details);
-        List<DataObject> sigList = new ArrayList<>();
-        //Customer a = new Customer(cust1); Customer b = new Customer(cust2); Customer c = new Customer(cust3);
-        Signatory a = new Signatory(cust1);Signatory b = new Signatory(cust2);Signatory c = new Signatory(cust3);
-        sigList.add(a); sigList.add(b); sigList.add(c);
-        Controller zz = new Controller(doc, han);
-        zz.createAccountWithSignatories(zbz,sigList);
+    @Test
+    void getPendingTransactionsForAccount() {
+        Account account = new ClientAccount();
+        PendingAuthorisation pending1 = new PendingAuthorisation();
+        PendingAuthorisation pending2 = new PendingAuthorisation();
+        List<DataObject> pendingList = new ArrayList<>(){{
+            add(pending1); add(pending2);
+        }};
+        when(dataHandlerCreator.createAuthorisationDataHandler(account)).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(pendingList);
+        assertIterableEquals(pendingList,controller.getPendingTransactionsForAccount(account));
+    }
+
+    @Test
+    void getPendingTransactionsForCustomer() {
+        Customer customer = new Customer();
+        PendingAuthorisation pending1 = new PendingAuthorisation();
+        PendingAuthorisation pending2 = new PendingAuthorisation();
+        List<DataObject> pendingList = new ArrayList<>(){{
+            add(pending1); add(pending2);
+        }};
+        when(dataHandlerCreator.createAuthorisationDataHandler(customer)).thenReturn(mockDataHandler);
+        when(mockDataHandler.getRecords()).thenReturn(pendingList);
+        assertIterableEquals(pendingList,controller.getPendingTransactionsForCustomer(customer));
+    }
+
+    @Test
+    void newTransaction() {
+        Transaction transaction1 = new DepositTransaction(); transaction1.setTransactionType("Deposit");
+        Transaction transaction2 = new WithdrawalTransaction(); transaction2.setTransactionType("Withdrawal");
+        Transaction transaction3 = new TransferTransaction(); transaction3.setTransactionType("Transfer");
+        when(dataHandlerCreator.createTransactionDataHandler(any())).thenReturn(mockDataHandler);
+        when(dataHandlerCreator.createAccountDataHandler(any())).thenReturn(mockDataHandler1);
+            controller.newTransaction(transaction1);
+            verify(mockDataHandler, times(1)).writeNewRecord();
+            verify(mockDataHandler1, times(1)).update();
+        controller.newTransaction(transaction2);
+            verify(mockDataHandler,times(2)).writeNewRecord();
+            verify(mockDataHandler1, times(2)).update();
+        // to add transfer transactions...
     }
 }
