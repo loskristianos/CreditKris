@@ -40,8 +40,12 @@ public abstract class DataHandler implements DataHandling {
     public void writeNewRecord() {
         HashMap<String, String> inputObjectDetails = inputObject.getDetails();
         StringJoiner columns = new StringJoiner("','","('","')");
-        StringJoiner values = new StringJoiner("','","('","');");
-        for (Map.Entry<String,String> entry : inputObjectDetails.entrySet()) {
+        StringJoiner values = new StringJoiner("','","('","')");
+        /*  convert the HashMap to an ordered TreeMap - not functionally necessary for the
+        *   constructing the query, but always having the output columns in the same order
+        *   makes automated unit testing a lot more pleasant */
+        TreeMap<String,String> sortedInputObjectDetails = new TreeMap<>(){{putAll(inputObjectDetails);}};
+        for (Map.Entry<String,String> entry : sortedInputObjectDetails.entrySet()) {
             String key = entry.getKey();
             String mappedKey = MapFieldsToColumns.mappingsToDB.get(key);
             String value = entry.getValue();

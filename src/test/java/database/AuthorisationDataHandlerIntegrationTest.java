@@ -16,7 +16,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AuthorisationDataHandlerTest {
+class AuthorisationDataHandlerIntegrationTest {
 
     HashMap<String,String> testData = new HashMap<>() {{
        put("accountNumber","123445");put("customerID","3");put("transactionID","465");

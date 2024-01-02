@@ -37,7 +37,7 @@ public abstract class Transaction implements DataObject {
         transactionID = details.get("transactionID");
         accountNumber = details.get("accountNumber");
         transactionAmount = details.get("transactionAmount");
-        transactionType = details.get("transactionType");
+       // transactionType = details.get("transactionType");
         previousBalance = details.get("previousBalance");
         newBalance = details.get("newBalance");
         transactionTime = details.get("transactionTime");

@@ -10,6 +10,8 @@ public class CommunityAccount extends Account {
 
     public CommunityAccount() {
         super();
+        setOverdraftLimit(this.overdraftLimit);
+        setAccountType(this.accountType);
     }
 
     public CommunityAccount(HashMap<String,String> accountDetails) {
