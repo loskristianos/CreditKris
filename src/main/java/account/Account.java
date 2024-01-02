@@ -35,9 +35,7 @@ public abstract class Account implements DataObject {
     public void setDetails(HashMap<String, String> details) {
         customerID = details.get("customerID");
         accountNumber = details.get("accountNumber");
-        accountType = details.get("accountType");
         currentBalance = details.get("currentBalance");
-        overdraftLimit = details.get("overdraftLimit");
         signatories = details.get("signatories");
     }
 

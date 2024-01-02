@@ -9,6 +9,8 @@ public class SmallBusinessAccount extends Account {
 
     public SmallBusinessAccount() {
         super();
+        setOverdraftLimit(this.overdraftLimit);
+        setAccountType(this.accountType);
     }
 
     public SmallBusinessAccount(HashMap<String,String> accountDetails) {
