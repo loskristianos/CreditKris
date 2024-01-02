@@ -8,14 +8,17 @@ package controller;
 
 import customer.Customer;
 import interfaces.*;
+import login.LoginObject;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ViewController {
 
-    DataHandlerCreator dataHandlerCreator;
-    DataObjectCreator objectCreator;
+    DataHandlerCreator dataHandlerCreator = new DataHandlerCreator();
+    DataObjectCreator objectCreator = new DataObjectCreator();
 
 
     Controller controller;
@@ -25,27 +28,34 @@ public class ViewController {
     }
 
 
-    public void launchView(String view) {
-        // method to launch the view (either CLI or GUI)
-        // called by main method, input string view controls what view is launched
-
+    public void loginView() {
+            HashMap<String, String> loginDetails = new cli.LoginPrompt().displayPrompt();
+            DataObject newlogin = objectCreator.createLoginObject(loginDetails.get("username"),loginDetails.get("password"));
+            DataObject customer = controller.loginAttempt(newlogin);
+            if (customer != null) {
+                customerView(customer.getDetails());
+            } else createCustomerView();
     }
-
-    public void loginView () {
-        /*  display the loginPrompt ui class
-            loginPrompt returns HashMap inputMap
-        */
-        //HashMap<String,String> inputMap = loginPrompt();
-//        DataObject login = objectCreator.createLoginObject(inputMap.get("username"),inputMap.get("password"));
-//        DataObject customer = controller.loginAttempt(login);
-//        customerView(customer.getDetails());
-    }
-
     public void customerView (HashMap<String,String> inputMap) {
-        // display the customer menu screen
+            String customerMenu = new cli.CustomerPrompt(inputMap).displayPrompt();
+            switch (customerMenu) {
+                case "editDetails": editCustomerView(inputMap);break;
+                case "logOut": System.exit(0);break;
+                case "manageAccounts": {Customer customer = (Customer) objectCreator.createNewCustomer(inputMap);
+                List<DataObject> accountList = controller.getCustomerAccounts(customer);
+                accountsView(accountList,inputMap);}
+            }
     }
 
-    public void accountsView(){    }
+    public void createCustomerView(){}
+    public void editCustomerView(HashMap<String,String> inputMap){}
+    public void accountsView(List<DataObject> inputList, HashMap<String,String> inputMap){
+        List<HashMap<String,String>> accountDetailList = new ArrayList<>();
+        for (DataObject object : inputList) {
+            accountDetailList.add(object.getDetails());
+        }
+    String accountSelection = new cli.AccountsPrompt(accountDetailList,inputMap).displayPrompt();
+    }
 
     public void transactionsView(){    }
 
