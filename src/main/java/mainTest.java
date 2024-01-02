@@ -1,10 +1,7 @@
-import cli.LoginPrompt;
 import controller.ViewController;
 
-import java.util.HashMap;
-
 public class mainTest {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         System.out.println("Initializing command line interface...");
         System.out.println();
