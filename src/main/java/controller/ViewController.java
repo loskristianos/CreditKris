@@ -31,13 +31,28 @@ public class ViewController {
 
     }
 
-    public HashMap<String,String> loginView (HashMap<String,String> inputMap) {
-        DataObject login = objectCreator.createLoginObject(inputMap.get("username"),inputMap.get("password"));
-        DataObject customer = controller.loginAttempt(login);
-        return customer.getDetails();
+    public void loginView () {
+        /*  display the loginPrompt ui class
+            loginPrompt returns HashMap inputMap
+        */
+        //HashMap<String,String> inputMap = loginPrompt();
+//        DataObject login = objectCreator.createLoginObject(inputMap.get("username"),inputMap.get("password"));
+//        DataObject customer = controller.loginAttempt(login);
+//        customerView(customer.getDetails());
     }
 
-    public HashMap<String,String> customerView (HashMap<String,String> inputMap) {
-        return inputMap;
+    public void customerView (HashMap<String,String> inputMap) {
+        // display the customer menu screen
     }
+
+    public void accountsView(){    }
+
+    public void transactionsView(){    }
+
+    public void newTransactionView(){    }
+
+    public void newCustomerView(){      }
+
+
 }
+
