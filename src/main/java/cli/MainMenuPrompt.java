@@ -2,25 +2,33 @@ package cli;
 
 import de.codeshelf.consoleui.prompt.*;
 import de.codeshelf.consoleui.prompt.builder.PromptBuilder;
+import interfaces.UI;
 
 import java.io.IOException;
 import java.util.HashMap;
 
 import static org.fusesource.jansi.Ansi.ansi;
-public class CustomerPrompt {
+public class MainMenuPrompt implements UI {
     HashMap<String,String> customerDetails;
 
-    public CustomerPrompt(HashMap<String,String> customerDetails){
+    public MainMenuPrompt(HashMap<String,String> customerDetails){
         this.customerDetails = customerDetails;
     }
 
-    public String displayPrompt() {
-        String name = customerDetails.get("firstName")+" "+customerDetails.get("lastName");
+    public void displayPrompt() {
+        String name = customerDetails.get("firstName") + " " + customerDetails.get("lastName");
         String customerID = customerDetails.get("customerID");
-        System.out.println(ansi().eraseScreen().render("Welcome to CreditKris.\n\nName: " + name + "Customer Reference: "+ customerID
-            +"\nPlease choose from the following options."));
+        System.out.println(ansi().eraseScreen().render("Welcome to CreditKris.\n\nName: " + name + "Customer Reference: " + customerID
+                + "\nPlease choose from the following options."));
+    }
 
-        try {
+    @Override
+    public HashMap<String, String> getInputDetails() {
+    return null;
+    }
+
+    public String optionSelection() {
+    try {
             ConsolePrompt prompt = new ConsolePrompt();
             PromptBuilder promptBuilder = prompt.getPromptBuilder();
 

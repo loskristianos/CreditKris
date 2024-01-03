@@ -7,8 +7,7 @@ public class mainTest {
         System.out.println();
         System.out.println();
 
-        new ViewController().loginView();
-
+    new ViewController().loginView();
     }
 }
 

@@ -4,6 +4,7 @@ import de.codeshelf.consoleui.prompt.ConsolePrompt;
 import de.codeshelf.consoleui.prompt.InputResult;
 import de.codeshelf.consoleui.prompt.PromtResultItemIF;
 import de.codeshelf.consoleui.prompt.builder.PromptBuilder;
+import interfaces.UI;
 import jline.TerminalFactory;
 
 import org.fusesource.jansi.AnsiConsole;
@@ -13,14 +14,15 @@ import java.util.HashMap;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
-public class LoginPrompt {
+public class LoginPrompt implements UI {
 
-    public HashMap<String, String> displayPrompt() {
-        HashMap<String,String> outputMap = new HashMap<>();
-
+    public void displayPrompt() {
         AnsiConsole.systemInstall();
         System.out.println(ansi().eraseScreen().render("Welcome to CreditKris.\nPlease enter your login details below.\n"));
+    }
 
+    public HashMap<String,String> getInputDetails() {
+        HashMap<String, String> outputMap = new HashMap<>();
         try {
             ConsolePrompt prompt = new ConsolePrompt();
             PromptBuilder promptBuilder = prompt.getPromptBuilder();
@@ -54,4 +56,10 @@ public class LoginPrompt {
             }
         }
         return outputMap;
-    }}
+    }
+
+    @Override
+    public String optionSelection() {
+        return null;
+    }
+}

@@ -1,29 +1,41 @@
 package view;
-
+import cli.*;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
+import interfaces.UI;
 
 import java.util.HashMap;
 
 public class LoginView extends View {
+    UI uitype;
     String username;
     String password;
     DataObjectCreator objectCreator;
+
+
+    public LoginView() {
+        this.uitype= new LoginPrompt();
+    }
+
     @Override
-    View displayView() {
+    public void displayView() {
+        // launch login prompt
+        uitype.displayPrompt();
+
+    }
+
+    @Override
+    public String getSelectedOption() {
         return null;
     }
 
     @Override
-    HashMap<String, String> getViewFields() {
-        HashMap<String,String> outputMap = new HashMap<>();
-        outputMap.put("username",username);
-        outputMap.put("password",password);
-        return outputMap;
+    public HashMap<String, String> getViewFields() {
+        return uitype.getInputDetails();
     }
 
     @Override
-    DataObject createObject(HashMap<String, String> inputMap) {
+    public DataObject createObject(HashMap<String, String> inputMap) {
         DataObject outputObject = objectCreator.createLoginObject(username,password);
         return outputObject;
     }

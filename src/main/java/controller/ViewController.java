@@ -6,12 +6,14 @@
  */
 package controller;
 
+import account.Account;
 import customer.Customer;
 import interfaces.*;
-
+import view.*;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,50 +21,68 @@ public class ViewController {
 
     DataHandlerCreator dataHandlerCreator = new DataHandlerCreator();
     DataObjectCreator objectCreator = new DataObjectCreator();
-
-
     Controller controller;
 
     public ViewController(){
         controller = new Controller(objectCreator,dataHandlerCreator);
     }
 
-
     public void loginView() {
-            HashMap<String, String> loginDetails = new cli.LoginPrompt().displayPrompt();
-            DataObject newlogin = objectCreator.createLoginObject(loginDetails.get("username"),loginDetails.get("password"));
-            DataObject customer = controller.loginAttempt(newlogin);
-            if (customer != null) {
-                customerView(customer.getDetails());
-            } else createCustomerView();
+        View x = new LoginView();
+        x.displayView();
+        HashMap<String, String> details = x.getViewFields();
+        DataObject newlogin = objectCreator.createLoginObject(details.get("username"), details.get("password"));
+        DataObject customer = controller.loginAttempt(newlogin);
+        if (customer != null) {
+            mainMenuView(customer);
+        } else System.out.println("Not found.");
     }
-    public void customerView (HashMap<String,String> inputMap) {
-            String customerMenu = new cli.CustomerPrompt(inputMap).displayPrompt();
-            switch (customerMenu) {
-                case "editDetails": editCustomerView(inputMap);break;
-                case "logOut": System.exit(0);break;
-                case "manageAccounts": {Customer customer = (Customer) objectCreator.createNewCustomer(inputMap);
-                List<DataObject> accountList = controller.getCustomerAccounts(customer);
-                accountsView(accountList,inputMap);}
+
+    public void mainMenuView(DataObject customer) {
+        View x = new MainMenuView(customer);
+        x.displayView();
+        String menuChoice = x.getSelectedOption();
+        switch (menuChoice) {
+            case "editDetails":
+                System.out.println("to be implemented");break;
+            case "logOut": System.exit(0);break;
+            case "manageAccounts": {
+                List<DataObject> accountList = controller.getCustomerAccounts((Customer)customer);
+                accountsView(accountList,customer);break;
             }
-    }
-
-    public void createCustomerView(){}
-    public void editCustomerView(HashMap<String,String> inputMap){}
-    public void accountsView(List<DataObject> inputList, HashMap<String,String> inputMap){
-        List<HashMap<String,String>> accountDetailList = new ArrayList<>();
-        for (DataObject object : inputList) {
-            accountDetailList.add(object.getDetails());
         }
-    String accountSelection = new cli.AccountsPrompt(accountDetailList,inputMap).displayPrompt();
     }
 
-    public void transactionsView(){    }
+    public void accountsView(List<DataObject> accountList,DataObject customer){
+        View x = new AccountsView(accountList,customer);
+        x.displayView();
+        String menuChoice = x.getSelectedOption();
+        DataObject account = null;
+        for (DataObject object : accountList) {
+            if (menuChoice == object.getDetails().get("accountNumber")) {
+                int i = accountList.indexOf(object);
+                account = accountList.get(i);
+            }
+        }
+
+        Account accountObject = (Account) account;
+        List <DataObject> transactionList = controller.getAccountTransactions(accountObject);
+        transactionsView(transactionList,accountObject);
+    }
+
+    public void transactionsView(List<DataObject> transactionList, DataObject account){
+        View x = new TransactionsView(transactionList,account);
+        x.displayView();
+        String menuChoice = x.getSelectedOption();
+        System.out.println(menuChoice);
+    }
 
     public void newTransactionView(){    }
 
     public void newCustomerView(){      }
 
+    public void createCustomerView(){}
+    public void editCustomerView(HashMap<String,String> inputMap){}
 
 }
 
