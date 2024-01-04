@@ -5,4 +5,5 @@ module CreditKris {
     requires java.sql;
 
     exports gui;
+    exports interfaces;
 }
