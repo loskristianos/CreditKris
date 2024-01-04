@@ -31,7 +31,7 @@ public class CustomerScreen extends Application {
     *
     */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
         String customerID = customer.getCustomerID();
         HashMap<String,String> customerDetails = customer.getDetails();
@@ -42,8 +42,13 @@ public class CustomerScreen extends Application {
         GridPane customerPane = new GridPane();
 
         customerPane.add(new Label("Customer Name:"),0,0,1,1);
+        customerPane.add(new Label(customerName),1,0,1,1);
         customerPane.add(new Label("Date of Birth"),0,1,1,1);
+        customerPane.add(new Label(dob),1,1,1,1);
         customerPane.add(new Label("Customer Reference"),2,0,1,1);
+        customerPane.add(new Label(customerID),3,0,1,1);
+        customerPane.add(new Label("Customer Address"),2,1,1,1);
+        customerPane.add(new Label(customerAddress),3,1,1,1);
 
         // tableView accountTable
         TableView accountsTable = new TableView();
