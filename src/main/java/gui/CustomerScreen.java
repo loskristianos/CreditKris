@@ -58,12 +58,12 @@ public class CustomerScreen extends Application {
         customerPane.add(new Label(customerAddress),3,1,1,1);
 
         // initialise a TableView for the bottom half (list of accounts)
-        TableView accountsTable = new TableView();
+        TableView<Account> accountsTable = new TableView<>();
 
         // set column headers
         TableColumn<Account,String> accountNumber = new TableColumn<>("Account Number");
         TableColumn<Account, String> accountType = new TableColumn<>("Account Type");
-        TableColumn<Account, String> accountBalance = new TableColumn("Current Balance");
+        TableColumn<Account, String> accountBalance = new TableColumn<>("Current Balance");
 
         // set the values that will be pulled from the Account objects
         accountNumber.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
@@ -90,5 +90,9 @@ public class CustomerScreen extends Application {
         stage.setScene(scene);
         stage.setTitle("Customer Accounts");
         stage.show();
+
+        // when row selected from accounts list launch AccountScreen (showing account details and transactions)
+        Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
+        new AccountScreen(selectedAccount,customer);
     }
 }
