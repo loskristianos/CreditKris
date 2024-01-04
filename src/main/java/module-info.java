@@ -6,4 +6,6 @@ module CreditKris {
 
     exports gui;
     exports interfaces;
+    exports account;
+    exports customer;
 }
