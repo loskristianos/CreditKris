@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class DataObjectCreator {
 
-    public DataObject createLoginObject(String username, String password){
+    public LoginObject createLoginObject(String username, String password){
         return new LoginObject(username, password);
     }
 
