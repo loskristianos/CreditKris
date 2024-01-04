@@ -22,7 +22,7 @@ public class CustomerView extends View {
 
     @Override
     public void displayView() {
-        new CustomerScreen(accountsList,customer).start();
+        new CustomerScreen(accountsList,customer).displayScreen();
     }
 
 }
