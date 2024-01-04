@@ -88,6 +88,7 @@ public class CustomerScreen extends Application {
         // add to scene and add to stage
         Scene scene = new Scene(splitPane);
         stage.setScene(scene);
+        stage.setTitle("Customer Accounts");
         stage.show();
     }
 }
