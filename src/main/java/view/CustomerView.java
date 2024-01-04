@@ -1,32 +1,24 @@
 package view;
 
-import customer.Customer;
+import gui.CustomerScreen;
 import interfaces.DataObject;
 
-import java.util.HashMap;
+import java.util.List;
 
 public class CustomerView extends View {
-    Customer customer;
+    DataObject customer;
+    List<DataObject> accounts;
 
-    public CustomerView(DataObject inputObject) {
-        this.customer = (Customer) inputObject;
+    public CustomerView(List<DataObject> inputList, DataObject inputObject) {
+        this.customer = inputObject;
+        this.accounts = inputList;
         displayView();
     }
 
     @Override
-    View displayView() {
-        customer.getDetails();
-        return null;
+    public void displayView() {
+        CustomerScreen customerScreen = new CustomerScreen(accounts,customer);
+        customerScreen.launch();
     }
 
-
-    @Override
-    HashMap<String, String> getViewFields() {
-        return null;
-    }
-
-    @Override
-    DataObject createObject(HashMap<String, String> inputMap) {
-        return null;
-    }
 }
