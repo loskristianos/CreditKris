@@ -65,7 +65,7 @@ public class CustomerScreen extends Application {
         TableColumn<Account, String> accountType = new TableColumn<>("Account Type");
         TableColumn<Account, String> accountBalance = new TableColumn("Current Balance");
 
-        // set the values that will be pulled from the Acccount objects
+        // set the values that will be pulled from the Account objects
         accountNumber.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
         accountType.setCellValueFactory(new PropertyValueFactory<>("accountType"));
         accountBalance.setCellValueFactory(new PropertyValueFactory<>("accountBalance"));
