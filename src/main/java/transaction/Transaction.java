@@ -60,6 +60,9 @@ public abstract class Transaction implements DataObject {
     public void setAdditionalInfo(String info) {
         this.additionalInfo = info;
     }
+    public String getTransactionID(){ return transactionID;}
+    public String getNewBalance(){return newBalance;}
+    public String getTransactionTime(){return transactionTime;}
 
     public void setPreviousBalance(String currentBalance) {
         this.previousBalance = currentBalance;
