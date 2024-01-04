@@ -47,7 +47,6 @@ public abstract class Transaction implements DataObject {
     public void setTransactionType(String transactionType) {
         this.transactionType = transactionType;
     }
-
     public String getTransactionType() {
         return transactionType;
     }
@@ -63,7 +62,6 @@ public abstract class Transaction implements DataObject {
     public String getTransactionID(){ return transactionID;}
     public String getNewBalance(){return newBalance;}
     public String getTransactionTime(){return transactionTime;}
-
     public void setPreviousBalance(String currentBalance) {
         this.previousBalance = currentBalance;
     }
@@ -73,10 +71,8 @@ public abstract class Transaction implements DataObject {
     public void setNewBalance(String newBalance) {
         this.newBalance = newBalance;
     }
-
     public String getObjectType(){
         return this.objectType;
     }
-
     public abstract String calculateNewBalance();
 }
