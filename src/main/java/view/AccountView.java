@@ -25,6 +25,6 @@ public class AccountView extends View{
     }
     @Override
     public void displayView() {
-        new AccountScreen(account,customer,transactionList).start();
+        new AccountScreen(account,customer,transactionList).displayScreen();
     }
 }

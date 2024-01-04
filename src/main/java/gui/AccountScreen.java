@@ -3,7 +3,6 @@ package gui;
 import account.Account;
 import customer.Customer;
 import interfaces.DataObject;
-import javafx.application.Application;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -17,7 +16,7 @@ import transaction.Transaction;
 
 import java.util.List;
 
-public class AccountScreen extends Application {
+public class AccountScreen {
     Account account;
     Customer customer;
     List<DataObject> transactionList;
@@ -28,8 +27,11 @@ public class AccountScreen extends Application {
         this.transactionList = inputList;
     }
 
-    @Override
-    public void start(Stage stage){
+    public void displayScreen(){
+        start();
+    }
+
+    public void start(){
         // get account details out of the Account object and customer Name
         String accountNumber = account.getAccountNumber();
         String accountType = account.getAccountType();
@@ -59,11 +61,11 @@ public class AccountScreen extends Application {
 
         // set the column headers
         TableColumn<Transaction, String> transactionTime = new TableColumn<>("Transaction Date");
-        TableColumn<Transaction,String> transactionID = new TableColumn<>("Transaction Reference");
         TableColumn<Transaction, String> transactionType = new TableColumn<>("Transaction Type");
         TableColumn<Transaction, String> transactionAmount = new TableColumn<>("Transaction Amount");
         TableColumn<Transaction, String> previousBalance = new TableColumn<>("Previous Balance");
         TableColumn<Transaction,String> newBalance = new TableColumn<>("New Balance");
+        TableColumn<Transaction,String> transactionID = new TableColumn<>("Transaction Reference");
 
         // set values for the columns
         transactionTime.setCellValueFactory(new PropertyValueFactory<>("transactionTime"));
@@ -75,11 +77,11 @@ public class AccountScreen extends Application {
 
         // add columns to the table
         transactionTableView.getColumns().add(transactionTime);
-        transactionTableView.getColumns().add(transactionID);
         transactionTableView.getColumns().add(transactionType);
         transactionTableView.getColumns().add(transactionAmount);
         transactionTableView.getColumns().add(previousBalance);
         transactionTableView.getColumns().add(newBalance);
+        transactionTableView.getColumns().add(transactionID);
 
         // set the cell values for each transaction in the list
         for (DataObject object : transactionList) {
@@ -92,6 +94,7 @@ public class AccountScreen extends Application {
         splitPane.setOrientation(Orientation.VERTICAL);
 
         Scene scene = new Scene(splitPane);
+        Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Viewing details for " + accountType + " account number" + accountNumber);
         stage.show();
