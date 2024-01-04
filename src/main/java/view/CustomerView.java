@@ -2,6 +2,7 @@ package view;
 
 import gui.CustomerScreen;
 import interfaces.DataObject;
+import javafx.application.Application;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class CustomerView extends View {
 
     @Override
     public void displayView() {
-        CustomerScreen customerScreen = new CustomerScreen(accounts,customer);
-        customerScreen.launch();
+        Application customerScreen = new CustomerScreen(accounts,customer);
+        Application.launch();
     }
 
 }
