@@ -9,4 +9,5 @@ module CreditKris {
     exports account;
     exports customer;
     exports login;
+    exports transaction;
 }
