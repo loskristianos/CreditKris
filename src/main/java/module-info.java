@@ -8,4 +8,5 @@ module CreditKris {
     exports interfaces;
     exports account;
     exports customer;
+    exports login;
 }
