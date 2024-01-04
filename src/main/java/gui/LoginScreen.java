@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.application.Application;
 
-public class LoginView extends Application {
+public class LoginScreen extends Application {
 
     @Override
     public void start(Stage stage)  {
