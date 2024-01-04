@@ -7,7 +7,7 @@ import gui.AccountScreen;
 import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
-import javafx.application.Application;
+
 
 import java.util.List;
 
@@ -25,7 +25,6 @@ public class AccountView extends View{
     }
     @Override
     public void displayView() {
-        Application accountScreen = new AccountScreen(account,customer,transactionList);
-        Application.launch();
+        new AccountScreen(account,customer,transactionList).start();
     }
 }

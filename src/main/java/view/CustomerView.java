@@ -6,7 +6,7 @@ import gui.CustomerScreen;
 import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
-import javafx.application.Application;
+
 
 import java.util.List;
 
@@ -22,8 +22,7 @@ public class CustomerView extends View {
 
     @Override
     public void displayView() {
-        Application customerScreen = new CustomerScreen(accountsList,customer);
-        Application.launch();
+        new CustomerScreen(accountsList,customer).start();
     }
 
 }
