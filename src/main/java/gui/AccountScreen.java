@@ -51,6 +51,8 @@ public class AccountScreen extends Application {
         accountDetailsPane.add(new Label(accountType + " Account"),3,0,1,1);
         accountDetailsPane.add(new Label("Current Balance:"),0,1,1,1);  // to move further down the pane
         accountDetailsPane.add(new Label(currentBalance),1,1,1,1);         // to move further down the pane
+        accountDetailsPane.add(new Label("Overdraft Limit"),2,1,1,1);   // to move down
+        accountDetailsPane.add(new Label(overdraftLimit),3,1,1,1);         // to move down
 
         // initialise a TableView
         TableView<Transaction> transactionTableView = new TableView<>();
