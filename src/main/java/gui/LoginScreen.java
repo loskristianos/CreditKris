@@ -1,5 +1,7 @@
 package gui;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -7,8 +9,13 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.application.Application;
+import view.LoginView;
 
 public class LoginScreen extends Application {
+
+    public void displayScreen(){
+        launch();
+    }
 
     @Override
     public void start(Stage stage)  {
@@ -50,10 +57,18 @@ public class LoginScreen extends Application {
         // add layout box to scene
         Scene scene = new Scene(layoutBox,800,300);
 
-        //add scene to Stage
+        // add scene to Stage
         stage.setScene(scene);
         stage.setTitle("Login Screen");
         stage.show();
+
+        // login button action
+        loginButton.setOnAction(action -> {
+                String username = usernameInput.getText();
+                String password = passwordInput.getText();
+                stage.close();
+                new LoginView().loginAttempt(username,password);
+        });
     }
 
 }
