@@ -1,37 +1,43 @@
 package gui;
 
 import account.Account;
+import customer.Customer;
 import interfaces.DataObject;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class CustomerScreen extends Application {
     List<DataObject> accountList;
-    public CustomerScreen(List<DataObject> inputAccounts){
+    Customer customer;
+    public CustomerScreen(List<DataObject> inputAccounts, DataObject inputCustomer){
         this.accountList = inputAccounts;
+        this.customer = (Customer) inputCustomer;
     }
 
-    /*  split pane vertical
-     *   top half - customer details
-     *   bottom half - table view list of accounts (clickable to launch relevant transactions list
-     *   highlighting on account list to show any pending transactions
-     */
+    /*  Still to add:
+    *       'Edit customer details' button in top pane
+    *       clickable account in tableview to launch Transactions view
+    *       highlighting on account list to show any pending transactions
+    *
+    */
     @Override
     public void start(Stage stage) throws Exception {
 
-        // text customerName = firstName + lastName
-        // text customerID = customerID
-        // text dob = dob
-        // text customerAddress = address1 +/n + address2+/n + addressTown + /n + addressPostcode
+        String customerID = customer.getCustomerID();
+        HashMap<String,String> customerDetails = customer.getDetails();
+        String customerName = customerDetails.get("firstName") + " " + customerDetails.get("lastName");
+        String dob = customerDetails.get("dob");
+        String customerAddress = customerDetails.get("address1") +"/n" + customerDetails.get("address2")+"/n" + customerDetails.get("addressTown") + "/n" + customerDetails.get("addressPostcode");
 
         GridPane customerPane = new GridPane();
 
@@ -58,8 +64,9 @@ public class CustomerScreen extends Application {
             accountsTable.getItems().add(account);
         }
 
-        // build the scene
-        Scene scene = new Scene(accountsTable);
+
+        SplitPane splitPane = new SplitPane(customerPane,accountsTable);
+        Scene scene = new Scene(splitPane);
         stage.setScene(scene);
         stage.show();
     }
