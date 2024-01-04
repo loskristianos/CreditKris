@@ -5,6 +5,7 @@ import gui.LoginScreen;
 import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
+import javafx.application.Application;
 import login.LoginObject;
 
 public class LoginView extends View {
@@ -12,7 +13,7 @@ public class LoginView extends View {
 
     @Override
     public void displayView() {
-        LoginScreen.launch();
+        new LoginScreen().displayScreen();
     }
 
     // need some sort of method to listen for submit from LoginScreen? or button calls this method directly?
@@ -22,6 +23,7 @@ public class LoginView extends View {
         if (returnedCustomer != null ){
             new CustomerView(returnedCustomer).displayView();
         } else {
+            System.out.println("failed");
             // display error/ launch new customer Screen (to do)
         }
     }
