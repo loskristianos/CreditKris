@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.AccountView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -93,6 +94,6 @@ public class CustomerScreen extends Application {
 
         // when row selected from accounts list launch AccountScreen (showing account details and transactions)
         Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
-        new AccountScreen(selectedAccount,customer);
+        new AccountView(selectedAccount,customer);
     }
 }
