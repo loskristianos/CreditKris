@@ -4,6 +4,7 @@ import account.Account;
 import customer.Customer;
 import interfaces.DataObject;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -11,6 +12,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import view.AccountView;
@@ -18,7 +20,7 @@ import view.AccountView;
 import java.util.HashMap;
 import java.util.List;
 
-public class CustomerScreen extends Application {
+public class CustomerScreen  {
     List<DataObject> accountList;
     Customer customer;
     public CustomerScreen(List<DataObject> inputAccounts, DataObject inputCustomer){
@@ -28,12 +30,15 @@ public class CustomerScreen extends Application {
 
     /*  Still to add:
     *       'Edit customer details' button in top pane
-    *       clickable account in tableview to launch Transactions view
     *       highlighting on account list to show any pending transactions
     *
     */
-    @Override
-    public void start(Stage stage) {
+
+    public void displayScreen(){
+        start();
+    }
+
+    public void start() {
         // get some String details out of the Customer object
         String customerID = customer.getCustomerID();
         HashMap<String,String> customerDetails = customer.getDetails();
@@ -69,7 +74,7 @@ public class CustomerScreen extends Application {
         // set the values that will be pulled from the Account objects
         accountNumber.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
         accountType.setCellValueFactory(new PropertyValueFactory<>("accountType"));
-        accountBalance.setCellValueFactory(new PropertyValueFactory<>("accountBalance"));
+        accountBalance.setCellValueFactory(new PropertyValueFactory<>("currentBalance"));
 
         // add the columns to the table
         accountsTable.getColumns().add(accountNumber);
@@ -88,12 +93,20 @@ public class CustomerScreen extends Application {
 
         // add to scene and add to stage
         Scene scene = new Scene(splitPane);
+        Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Customer Accounts");
         stage.show();
 
         // when row selected from accounts list launch AccountScreen (showing account details and transactions)
-        Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
-        new AccountView(selectedAccount,customer);
+        accountsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
+                new AccountView(selectedAccount,customer).displayView();
+                stage.close();
+            }
+        });
+
     }
 }
