@@ -33,8 +33,8 @@ public class Controller {
 
 
     // customer login, successful login returns Customer object (failed login returns null)
-    public DataObject loginAttempt (DataObject inputObject) {
-        LoginObject login = (LoginObject) inputObject;
+    public DataObject loginAttempt (LoginObject inputObject) {
+        LoginObject login = inputObject;
         List<DataObject> returnedData = dataHandlerCreator.createLoginDataHandler(login).getRecords();
         if (returnedData.isEmpty()) return null;
         else {
