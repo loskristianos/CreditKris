@@ -3,7 +3,6 @@ package account;
 import java.util.HashMap;
 
 public class SmallBusinessAccount extends Account {
-
     final String overdraftLimit = "1000";
     final String accountType = "Business";
 
@@ -18,5 +17,4 @@ public class SmallBusinessAccount extends Account {
         setOverdraftLimit(this.overdraftLimit);
         setAccountType(this.accountType);
     }
-
 }

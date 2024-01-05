@@ -27,4 +27,12 @@ public class Signatory implements DataObject {
     public String getObjectType() {
         return objectType;
     }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public String getCustomerID() {
+        return customerID;
+    }
 }
