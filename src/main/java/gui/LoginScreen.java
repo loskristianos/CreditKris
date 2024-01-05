@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.application.Application;
+import view.CreateCustomerView;
 import view.LoginView;
 
 public class LoginScreen extends Application {
@@ -66,6 +67,11 @@ public class LoginScreen extends Application {
                 String password = passwordInput.getText();
                 stage.close();
                 new LoginView().loginAttempt(username,password);
+        });
+        // new user action
+        newUserButton.setOnAction(action -> {
+            stage.close();
+            new CreateCustomerView().displayView();
         });
     }
 

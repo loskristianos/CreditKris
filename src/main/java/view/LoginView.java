@@ -15,7 +15,6 @@ public class LoginView extends View {
         new LoginScreen().displayScreen();
     }
 
-    // need some sort of method to listen for submit from LoginScreen? or button calls this method directly?
     public void loginAttempt(String username, String password){
         LoginObject loginObject = new DataObjectCreator().createLoginObject(username, password);
         DataObject returnedCustomer = controller.loginAttempt(loginObject);
