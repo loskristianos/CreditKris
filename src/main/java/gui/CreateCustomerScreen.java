@@ -8,6 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import view.CreateCustomerView;
 
 import java.util.HashMap;
 
@@ -69,7 +70,7 @@ public class CreateCustomerScreen {
         stage.setTitle("Create a new customer account");
         stage.show();
 
-        // add actions on button
+        // add actions on submit button
         submitButton.setOnAction(action -> {
             HashMap<String,String> login = new HashMap<>(){{
                 put("username",username.getText());put("password",password.getText());
@@ -79,6 +80,14 @@ public class CreateCustomerScreen {
                 put("address1",address1.getText());put("address2",address2.getText());put("addressTown",addressTown.getText());
                 put("addressPostcode",addressPostcode.getText());
             }};
+            new CreateCustomerView().createCustomer(login,customerDetails);
+            stage.close();
+        });
+
+        // add action on cancel button
+        cancelButton.setOnAction(actionEvent -> {
+            stage.close();
+            new LoginScreen().start(new Stage());
         });
 
     }
