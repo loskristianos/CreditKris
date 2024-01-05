@@ -25,7 +25,7 @@ public class DataObjectCreator {
         };
     }
 
-    public DataObject createNewCustomer(HashMap<String,String> inputMap) {
+    public Customer createNewCustomer(HashMap<String,String> inputMap) {
         return new Customer(inputMap);
     }
 }
