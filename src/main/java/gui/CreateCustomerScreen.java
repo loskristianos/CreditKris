@@ -55,7 +55,7 @@ public class CreateCustomerScreen {
         newCustomerPane.add(addressTown,1,5);
         newCustomerPane.add(new Label("Postcode:"),0,6);
         TextField addressPostcode = new TextField();
-        newCustomerPane.add(address1,1,6);
+        newCustomerPane.add(addressPostcode,1,6);
 
         // add buttons to submit or exit
         Button submitButton = new Button("Submit");
