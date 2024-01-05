@@ -5,7 +5,6 @@ import gui.LoginScreen;
 import interfaces.DataHandlerCreator;
 import interfaces.DataObject;
 import interfaces.DataObjectCreator;
-import javafx.application.Application;
 import login.LoginObject;
 
 public class LoginView extends View {

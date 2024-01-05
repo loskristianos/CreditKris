@@ -3,7 +3,6 @@ package gui;
 import account.Account;
 import customer.Customer;
 import interfaces.DataObject;
-import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
@@ -17,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import view.AccountView;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class CustomerScreen  {
@@ -98,13 +96,10 @@ public class CustomerScreen  {
         stage.show();
 
         // when row selected from accounts list launch AccountScreen (showing account details and transactions)
-        accountsTable.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
-                new AccountView(selectedAccount,customer).displayView();
-                stage.close();
-            }
+        accountsTable.setOnMouseClicked(mouseEvent -> {
+            Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
+            new AccountView(selectedAccount,customer).displayView();
+            stage.close();
         });
 
     }
