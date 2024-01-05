@@ -1,5 +1,7 @@
 package transaction;
 
+import account.Account;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 
@@ -7,6 +9,11 @@ public class TransferTransaction extends Transaction {
 
     public TransferTransaction(){
         super();
+        setTransactionType("Transfer");
+    }
+
+    public TransferTransaction(Account account, String transactionAmount){
+        super(account, transactionAmount);
         setTransactionType("Transfer");
     }
 

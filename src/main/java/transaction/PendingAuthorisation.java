@@ -1,11 +1,11 @@
 package transaction;
 
+import account.Account;
 import interfaces.DataObject;
 
 import java.util.HashMap;
 
-public class PendingAuthorisation implements DataObject {
-    private String objectType = "Transaction";
+public class PendingAuthorisation extends Transaction {
     private String transactionID;
     private String accountNumber;
     private String customerID;
@@ -13,6 +13,13 @@ public class PendingAuthorisation implements DataObject {
     private String transactionType;
 
     public PendingAuthorisation(){}
+
+    public PendingAuthorisation(Account account, Transaction transaction){
+        this.transactionAmount = transaction.getTransactionAmount();
+        this.transactionType = transaction.getTransactionType();
+        this.customerID = account.getCustomerID();
+        this.accountNumber = account.getAccountNumber();
+    }
 
     public PendingAuthorisation(HashMap<String,String> details){
         setDetails(details);
@@ -39,7 +46,16 @@ public class PendingAuthorisation implements DataObject {
     }
 
     @Override
-    public String getObjectType() {
-        return objectType;
+    public String calculateNewBalance() { return null;} // not required for pending transactions
+
+    @Override
+    public void writeData() {
+    /*
+        New PendingDAO(this).write()
+        or
+        New TransactionDAO(this).writePending()
+
+        also need a function for when this is the last pending transaction
+    */
     }
 }
