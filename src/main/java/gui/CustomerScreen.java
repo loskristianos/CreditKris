@@ -96,7 +96,7 @@ public class CustomerScreen  {
         // when row selected from accounts list launch AccountScreen (showing account details and transactions)
         accountsTable.setOnMouseClicked(mouseEvent -> {
             Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
-            new AccountView(selectedAccount,customer).displayView();
+            new AccountView(selectedAccount,customer,accountList).displayView();
             stage.close();
         });
 
