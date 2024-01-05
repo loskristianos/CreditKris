@@ -1,7 +1,6 @@
 package gui;
 
 import customer.Customer;
-import javafx.scene.layout.GridPane;
 
 public class CreateNewAccountScreen {
     Customer customer;
