@@ -66,6 +66,12 @@ public class Customer implements DataObject {
     public String getFullName(){
         return firstName + " " + lastName;
     }
-
+    public String getDob(){return dob;}
+    public String getFullAddress(){
+        String fullAddress = address1 +"\n";
+        if (address2 != null) fullAddress = fullAddress+address2+"\n";
+        fullAddress = fullAddress + addressTown +"\n"+addressPostcode;
+        return fullAddress;
+    }
 
 }

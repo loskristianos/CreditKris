@@ -61,4 +61,13 @@ class CustomerTest {
         Customer customer = new Customer(testData);
         assertEquals("Customer",customer.getObjectType());
     }
+
+    @Test
+    void getFullAddress() {
+        Customer customer = new Customer(testData);
+        assertEquals("1 The Street\nAmble\nMORPETH\nNE65 1BK",customer.getFullAddress());
+        testData.remove("address2");
+        Customer customer2 = new Customer(testData);
+        assertEquals("1 The Street\nMORPETH\nNE65 1BK",customer2.getFullAddress());
+    }
 }
