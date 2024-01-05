@@ -1,7 +1,6 @@
 package transaction;
 
 import account.Account;
-import interfaces.DataObject;
 
 import java.util.HashMap;
 
