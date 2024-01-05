@@ -16,7 +16,7 @@ public class DataObjectCreator {
         return new PendingAuthorisation(inputMap);
     }
 
-    public DataObject createNewTransaction(HashMap<String, String> inputMap) {
+    public Transaction createNewTransaction(HashMap<String, String> inputMap) {
         return switch (inputMap.get("transactionType")) {
             case "Deposit": yield new DepositTransaction(inputMap);
             case "Withdrawal": yield new WithdrawalTransaction(inputMap);
