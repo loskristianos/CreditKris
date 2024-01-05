@@ -54,15 +54,12 @@ public class Customer implements DataObject {
     public String getObjectType(){
         return this.objectType;
     }
-
     public String getFirstName(){
         return firstName;
     }
-
     public String getLastName(){
         return lastName;
     }
-
     public String getFullName(){
         return firstName + " " + lastName;
     }
@@ -73,5 +70,4 @@ public class Customer implements DataObject {
         fullAddress = fullAddress + addressTown +"\n"+addressPostcode;
         return fullAddress;
     }
-
 }
