@@ -19,6 +19,7 @@ public class CreateCustomerView extends View{
     public void createCustomer(HashMap<String,String> loginDetails,HashMap<String,String> customerDetails){
         LoginObject loginObject = new DataObjectCreator().createLoginObject(loginDetails.get("username"), loginDetails.get("password"));
         Customer customer = new DataObjectCreator().createNewCustomer(customerDetails);
-        new CreateNewAccountView(customer).displayView();
+        Customer customerWithID = controller.createNewCustomer(loginObject,customer);
+        new CreateNewAccountView(customerWithID).displayView();
     }
 }
