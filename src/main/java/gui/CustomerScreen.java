@@ -41,10 +41,9 @@ public class CustomerScreen  {
     public void start() {
         // get some String details out of the Customer object
         String customerID = customer.getCustomerID();
-        HashMap<String,String> customerDetails = customer.getDetails();
-        String customerName = customerDetails.get("firstName") + " " + customerDetails.get("lastName");
-        String dob = customerDetails.get("dob");
-        String customerAddress = customerDetails.get("address1") +"/n" + customerDetails.get("address2")+"/n" + customerDetails.get("addressTown") + "/n" + customerDetails.get("addressPostcode");
+        String customerName = customer.getFullName();
+        String dob = customer.getDob();
+        String customerAddress = customer.getFullAddress();
 
         // initialise a GridPane for the top half of the screen
         GridPane customerPane = new GridPane();
@@ -95,7 +94,7 @@ public class CustomerScreen  {
         Scene scene = new Scene(splitPane);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Customer Accounts");
+        stage.setTitle("Customer Accounts for" );
         stage.show();
 
         // when row selected from accounts list launch AccountScreen (showing account details and transactions)
