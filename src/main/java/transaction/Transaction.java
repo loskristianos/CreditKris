@@ -1,6 +1,8 @@
 package transaction;
 
 import account.Account;
+import dao.AccountDAO;
+import dao.TransactionDAO;
 import interfaces.DataObject;
 import java.util.HashMap;
 
@@ -86,8 +88,7 @@ public abstract class Transaction implements DataObject {
     }
     public abstract String calculateNewBalance();
     public void writeData(){
-        // call DAO
-        // new TransactionDAO(this).write();
-        // new AccountDAO(account).update();
+        new TransactionDAO(this).write();
+        new AccountDAO(account).update();
     }
 }
