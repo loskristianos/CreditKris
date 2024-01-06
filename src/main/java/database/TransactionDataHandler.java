@@ -23,8 +23,4 @@ public class TransactionDataHandler extends DataHandler {
         this.readQuery = "SELECT * FROM transactions WHERE " + column + " =  " + value;
         return super.getRecords();
     }
-
-//    public void update(){} // not implemented for transactions
-
-//    public void delete() {} // not implemented for transactions
 }
