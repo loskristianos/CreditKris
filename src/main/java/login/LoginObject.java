@@ -1,5 +1,6 @@
 package login;
 
+import customer.Customer;
 import interfaces.DataObject;
 
 import java.util.HashMap;
@@ -56,5 +57,18 @@ public class LoginObject implements DataObject {
 
     public String getObjectType(){
         return this.objectType;
+    }
+
+    public Customer loginAttempt(){
+        // replaces Controller.loginAttempt
+        // LoginObject returnedObject = new LoginDAO(this).getLogin
+        // customerID = returnedObject.getCustomerID
+        // Customer customer = new CustomerDAO(this).getRecords
+        // return customer
+        return null;
+    }
+    public void write(){
+        // replaces Controller method
+        // new LoginDAO(this).write()
     }
 }

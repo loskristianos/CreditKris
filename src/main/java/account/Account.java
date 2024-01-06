@@ -1,8 +1,11 @@
 package account;
 
+import dao.AccountDAO;
 import interfaces.DataObject;
+import transaction.Transaction;
 
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Account implements DataObject {
     private String objectType = "Account";
@@ -56,4 +59,21 @@ public abstract class Account implements DataObject {
     public String getSignatories() {return signatories;}
     public String getCustomerID() {return customerID;}
     public String getObjectType(){ return this.objectType; }
+
+    public void writeData(){
+        new AccountDAO(this).write();
+        // if (signatories != "1") - get account number of written record, write signatories
+        // (look at method in Controller, there might be some way to make it better)
+    }
+    public List<Transaction> getTransactions(){
+        // replaces method in Controller
+        // new TransactionDAO(this).getRecords();
+        return null;
+    }
+
+    public List<Transaction> getPendingTransactions(){
+        // replaces method in Controller
+        // new PendingTransactionDAO(this).getRecords();
+        return null;
+    }
 }

@@ -35,7 +35,7 @@ public abstract class DAO {
         }
     }
 
-    public DataObject read(){
+    public DataObject getRecords(){
         return null;
     }
 
