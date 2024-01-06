@@ -7,14 +7,10 @@ import java.util.HashMap;
 
 public class DepositTransaction extends Transaction {
 
-    public DepositTransaction(){
-        super();
-        setTransactionType("Deposit");
-    }
-
     public DepositTransaction(Account account, String transactionAmount){
         super(account, transactionAmount);
         setTransactionType("Deposit");
+        super.writeData();
     }
 
     public DepositTransaction(HashMap<String, String> transactionDetails) {
@@ -30,5 +26,4 @@ public class DepositTransaction extends Transaction {
         BigDecimal newBalance = previousBalance.add(transactionAmount);
         return newBalance.toString();
     }
-
 }
