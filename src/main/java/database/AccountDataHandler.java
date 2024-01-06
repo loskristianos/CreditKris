@@ -1,7 +1,6 @@
 package database;
 
 
-import interfaces.DataHandling;
 import interfaces.DataObject;
 
 import java.sql.Connection;
