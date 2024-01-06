@@ -3,6 +3,7 @@ package customer;
 import interfaces.DataObject;
 
 import java.util.HashMap;
+import java.util.StringJoiner;
 
 public class Customer implements DataObject {
     private String objectType = "Customer";
@@ -65,9 +66,24 @@ public class Customer implements DataObject {
     }
     public String getDob(){return dob;}
     public String getFullAddress(){
-        String fullAddress = address1 +"\n";
-        if (address2 != null) fullAddress = fullAddress+address2+"\n";
-        fullAddress = fullAddress + addressTown +"\n"+addressPostcode;
-        return fullAddress;
+        StringJoiner fullAddress = new StringJoiner("\n");
+        fullAddress.add(address1);
+        if(address2 != null) fullAddress.add(address2);
+        fullAddress.add(addressTown);
+        fullAddress.add(addressPostcode);
+        return fullAddress.toString();
+    }
+
+    public void write(){
+        // new CustomerDAO.write(LoginObject, this)
+    }
+
+    public void getAccounts(){
+        // new AccountsDAO(this).getRecords
+    }
+
+    public void getPendingTransactions(){
+        // new PendingTransactionDAO(this).getRecords
+        // return List<Transaction>
     }
 }
