@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.*;
 
-public class AccountDataHandler extends DataHandler implements DataHandling {
+public class AccountDataHandler extends DataHandler {
 
     public AccountDataHandler(DataObject inputObject) {
         super(inputObject);
