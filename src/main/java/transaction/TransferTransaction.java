@@ -7,15 +7,15 @@ import java.util.HashMap;
 
 public class TransferTransaction extends Transaction {
 
-    public TransferTransaction(){
-        super();
-        setTransactionType("Transfer");
-    }
+    // constructor for new transactions from account screen
+    public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
+        new TransferOut(account, transactionAmount);
+        new TransferIn(targetAccount,transactionAmount);
+        }
 
-    public TransferTransaction(Account account, String transactionAmount){
-        super(account, transactionAmount);
-        setTransactionType("Transfer");
-    }
+    /*  constructor for creating objects from details returned from database queries
+    *   (might not need this depending on the DAO re-writes
+    */
 
     public TransferTransaction(HashMap<String, String> transactionDetails) {
         super(transactionDetails);
@@ -26,13 +26,6 @@ public class TransferTransaction extends Transaction {
 
     @Override
     public String calculateNewBalance() {
-        BigDecimal previousBalance = new BigDecimal(getPreviousBalance());
-        BigDecimal transactionAmount = new BigDecimal(getTransactionAmount());
-        return switch (getTransactionType()) {
-            case "TransferIn": yield previousBalance.add(transactionAmount).toString();
-            case "TransferOut": yield previousBalance.subtract(transactionAmount).toString();
-            default: yield null;
-        };
-
+        return null;
     }
 }
