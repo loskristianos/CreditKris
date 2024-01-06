@@ -1,11 +1,10 @@
 package database;
 
-import interfaces.DataHandling;
 import interfaces.DataObject;
 
 import java.util.*;
 
-public class TransactionDataHandler extends DataHandler implements DataHandling {
+public class TransactionDataHandler extends DataHandler {
 
     public TransactionDataHandler(DataObject inputObject) {
         super(inputObject);
@@ -25,7 +24,7 @@ public class TransactionDataHandler extends DataHandler implements DataHandling 
         return super.getRecords();
     }
 
-    public void update(){} // not implemented for transactions
+//    public void update(){} // not implemented for transactions
 
-    public void delete() {} // not implemented for transactions
+//    public void delete() {} // not implemented for transactions
 }

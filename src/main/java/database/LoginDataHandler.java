@@ -27,7 +27,4 @@ public class LoginDataHandler extends DataHandler {
         return super.getRecords();
     }
 
-    public void update() {
-        // not required yet, maybe for change password functionality later on
-    }
 }

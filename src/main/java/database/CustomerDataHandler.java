@@ -6,7 +6,7 @@ import login.LoginObject;
 
 import java.util.*;
 
-public class CustomerDataHandler extends DataHandler implements DataHandling {
+public class CustomerDataHandler extends DataHandler {
 
     public CustomerDataHandler(DataObject inputObject){
         super(inputObject);
@@ -35,6 +35,4 @@ public class CustomerDataHandler extends DataHandler implements DataHandling {
         this.outputType = "Customer";
         return super.getRecords();
     }
-
-    public void update(){} // not implemented to start with - might extend to allow changing customer details
 }

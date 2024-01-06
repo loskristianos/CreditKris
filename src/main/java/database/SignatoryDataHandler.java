@@ -39,8 +39,4 @@ public class SignatoryDataHandler extends DataHandler {
         this.outputType = "Signatory";
         return super.getRecords();
     }
-    @Override
-    public void update() {
-        // not required for this object
-    }
 }

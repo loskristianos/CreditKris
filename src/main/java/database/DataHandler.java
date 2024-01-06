@@ -116,5 +116,6 @@ public abstract class DataHandler implements DataHandling {
         };
     }
 
+    public void update(){}
     public void delete(){}
     }

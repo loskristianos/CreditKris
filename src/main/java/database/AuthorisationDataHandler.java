@@ -48,9 +48,7 @@ public class AuthorisationDataHandler extends DataHandler {
         return super.getRecords();
     }
 
-    public void update(){} // not required for pending authorisations
-
-    public void delete() {
+     public void delete() {
         HashMap<String,String> rowDetails = inputObject.getDetails();
         String accountNumber = rowDetails.get("accountNumber");
         String customerID = rowDetails.get("customerID");
