@@ -10,7 +10,6 @@ public class WithdrawalTransaction extends Transaction {
     public WithdrawalTransaction(Account account, String transactionAmount){
         super(account, transactionAmount);
         setTransactionType("Withdrawal");
-        writeData();
     }
 
     public WithdrawalTransaction(HashMap<String,String> transactionDetails) {
