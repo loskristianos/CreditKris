@@ -12,13 +12,12 @@ import java.util.List;
 
 
 public class AccountDAO extends DAO{
-    String accountNumber;
-    String balance;
+    Account account;
     Customer customer;
+
     public AccountDAO(Account inputAccount) {
         super(inputAccount);
-        accountNumber = inputAccount.getAccountNumber();
-        balance = inputAccount.getCurrentBalance();
+        account = inputAccount;
     }
 
     public AccountDAO(Customer customer) {
@@ -34,6 +33,8 @@ public class AccountDAO extends DAO{
     }
 
     public void update() {
+        String balance = account.getCurrentBalance();
+        String accountNumber = account.getAccountNumber();
         sqlStatement = "UPDATE accounts SET current_balance = '" + balance + "' WHERE account_number = '" + accountNumber + "'";
         super.update();
     }
@@ -57,5 +58,18 @@ public class AccountDAO extends DAO{
             accountList.add(resultAccount);
         }
         return accountList;
+    }
+
+    public Account getThisAccount(){
+        String customerID = account.getCustomerID();
+        String accountType = account.getAccountType();
+        sqlStatement ="SELECT * FROM accounts WHERE customer_id = '" + customerID + "' AND account_type = '" + accountType + "'";
+        HashMap<String,String> returnMap = super.databaseLookup().getFirst();
+        return switch (accountType){
+            case "Client": yield new ClientAccount(returnMap);
+            case "Community": yield new CommunityAccount(returnMap);
+            case "Business": yield new SmallBusinessAccount(returnMap);
+            default: yield null;
+        };
     }
 }
