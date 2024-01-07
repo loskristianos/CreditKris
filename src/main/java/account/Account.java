@@ -1,7 +1,10 @@
 package account;
 
 import dao.AccountDAO;
+import dao.PendingTransactionDAO;
+import dao.TransactionDAO;
 import interfaces.DataObject;
+import transaction.PendingTransaction;
 import transaction.Transaction;
 
 import java.util.HashMap;
@@ -67,13 +70,11 @@ public abstract class Account implements DataObject {
     }
     public List<Transaction> getTransactions(){
         // replaces method in Controller
-        // new TransactionDAO(this).getRecords();
-        return null;
+        return new TransactionDAO(this).getTransactions();
     }
 
-    public List<Transaction> getPendingTransactions(){
+    public List<PendingTransaction> getPendingTransactions(){
         // replaces method in Controller
-        // new PendingTransactionDAO(this).getRecords();
-        return null;
+        return new PendingTransactionDAO(this).getAccountPendingTransactions();
     }
 }
