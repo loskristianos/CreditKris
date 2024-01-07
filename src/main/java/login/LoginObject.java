@@ -56,14 +56,12 @@ public class LoginObject implements DataObject {
     }
 
     public Customer loginAttempt(){
-        // replaces Controller.loginAttempt
         LoginObject confirmedLogin = new LoginDAO(this).getLogin();
         return new CustomerDAO(confirmedLogin).getRecord();
-
     }
 
-    public void write(){
-        // replaces Controller method
+    public LoginObject write(){
         new LoginDAO(this).write();
+        return new LoginDAO(this).getLogin();
     }
 }
