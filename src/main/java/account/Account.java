@@ -1,5 +1,6 @@
 package account;
 
+import customer.Customer;
 import dao.AccountDAO;
 import dao.PendingTransactionDAO;
 import dao.SignatoryDAO;
@@ -19,6 +20,9 @@ public abstract class Account implements DataObject {
     private String overdraftLimit;
     private String signatories;
 
+    public Account(Customer customer){
+        this.customerID = customer.getCustomerID();
+    }
     public Account(HashMap<String,String> accountDetails) {
         setDetails(accountDetails);
     }
@@ -70,7 +74,9 @@ public abstract class Account implements DataObject {
     public List<PendingTransaction> getPendingTransactions(){
         return new PendingTransactionDAO(this).getAccountPendingTransactions();
     }
-
+    public Account getThisAccount(){
+        return new AccountDAO(this).getThisAccount();
+    }
     public List<Signatory> getSignatoryList(){
         return new SignatoryDAO(this).getSignatories();
     }
