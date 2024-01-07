@@ -4,7 +4,7 @@ import customer.Customer;
 import login.LoginObject;
 import org.junit.jupiter.api.Test;
 import transaction.DepositTransaction;
-import transaction.PendingAuthorisation;
+import transaction.PendingTransaction;
 import transaction.TransferTransaction;
 import transaction.WithdrawalTransaction;
 
@@ -36,7 +36,7 @@ class DataObjectCreatorTest {
         }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createPendingAuthorisation(inputMap);
-        PendingAuthorisation expectedObject = new PendingAuthorisation();
+        PendingTransaction expectedObject = new PendingTransaction();
         expectedObject.setDetails(inputMap);
         assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());

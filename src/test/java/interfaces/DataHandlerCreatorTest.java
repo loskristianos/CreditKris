@@ -7,7 +7,7 @@ import database.*;
 import login.LoginObject;
 import org.junit.jupiter.api.Test;
 import transaction.DepositTransaction;
-import transaction.PendingAuthorisation;
+import transaction.PendingTransaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +56,7 @@ class DataHandlerCreatorTest {
     @Test
     void createAuthorisationDataHandler() {
         DataHandlerCreator dataHandlerCreator = new DataHandlerCreator();
-        PendingAuthorisation transaction = new PendingAuthorisation();
+        PendingTransaction transaction = new PendingTransaction();
         DataHandler returnedObject = dataHandlerCreator.createAuthorisationDataHandler(transaction);
         AuthorisationDataHandler expectedObject = new AuthorisationDataHandler(transaction);
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
@@ -65,9 +65,9 @@ class DataHandlerCreatorTest {
     @Test
     void createAuthorisationDataHandlerFromList() {
         DataHandlerCreator dataHandlerCreator = new DataHandlerCreator();
-        PendingAuthorisation transaction1 = new PendingAuthorisation();
-        PendingAuthorisation transaction2 = new PendingAuthorisation();
-        PendingAuthorisation transaction3 = new PendingAuthorisation();
+        PendingTransaction transaction1 = new PendingTransaction();
+        PendingTransaction transaction2 = new PendingTransaction();
+        PendingTransaction transaction3 = new PendingTransaction();
         List<DataObject> transactionList = new ArrayList<>(){{
             add(transaction1); add(transaction2);add(transaction3);
         }};

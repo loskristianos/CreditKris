@@ -103,8 +103,8 @@ class ControllerTest {
     @Test
     void getPendingTransactionsForAccount() {
         Account account = new ClientAccount();
-        PendingAuthorisation pending1 = new PendingAuthorisation();
-        PendingAuthorisation pending2 = new PendingAuthorisation();
+        PendingTransaction pending1 = new PendingTransaction();
+        PendingTransaction pending2 = new PendingTransaction();
         List<DataObject> pendingList = new ArrayList<>(){{
             add(pending1); add(pending2);
         }};
@@ -116,8 +116,8 @@ class ControllerTest {
     @Test
     void getPendingTransactionsForCustomer() {
         Customer customer = new Customer();
-        PendingAuthorisation pending1 = new PendingAuthorisation();
-        PendingAuthorisation pending2 = new PendingAuthorisation();
+        PendingTransaction pending1 = new PendingTransaction();
+        PendingTransaction pending2 = new PendingTransaction();
         List<DataObject> pendingList = new ArrayList<>(){{
             add(pending1); add(pending2);
         }};

@@ -44,7 +44,7 @@ public class AuthorisationDataHandler extends DataHandler {
             case "Transaction": column = "transaction_id"; value = inputObject.getDetails().get("transactionID");break;
         }
         this.readQuery = "SELECT * FROM pending_authorisation WHERE "+column+" = "+value;
-        this.outputType = "PendingAuthorisation";
+        this.outputType = "PendingTransaction";
         return super.getRecords();
     }
 

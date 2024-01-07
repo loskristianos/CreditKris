@@ -6,7 +6,7 @@ import customer.Customer;
 import interfaces.DataObject;
 import org.junit.jupiter.api.Test;
 import transaction.DepositTransaction;
-import transaction.PendingAuthorisation;
+import transaction.PendingTransaction;
 import transaction.Transaction;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ class AuthorisationDataHandlerIntegrationTest {
     }};
     @Test
     void writeOneRow() {
-        var z = new PendingAuthorisation(testData);
+        var z = new PendingTransaction(testData);
         DataHandler x = new AuthorisationDataHandler(z);
         x.writeNewRecord();
     }
@@ -40,10 +40,10 @@ class AuthorisationDataHandlerIntegrationTest {
     @Test
     void writeMultipleRows() {
         ArrayList<DataObject> testList = new ArrayList<>() {{
-            add(new PendingAuthorisation(testData));
-            add(new PendingAuthorisation(testData1));
-            add(new PendingAuthorisation(testData2));
-            add(new PendingAuthorisation(testData3));
+            add(new PendingTransaction(testData));
+            add(new PendingTransaction(testData1));
+            add(new PendingTransaction(testData2));
+            add(new PendingTransaction(testData3));
         }};
         AuthorisationDataHandler x = new AuthorisationDataHandler(testList);
         x.writeAllRecords();
