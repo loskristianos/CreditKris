@@ -7,7 +7,6 @@ import java.util.HashMap;
 public class Signatory implements DataObject {
 
     public Signatory(HashMap<String, String> inputDetails){setDetails(inputDetails);}
-    private String objectType = "Signatory";
     private String accountNumber;
     private String customerID;
 
@@ -22,10 +21,6 @@ public class Signatory implements DataObject {
     public void setDetails(HashMap<String, String> details) {
             accountNumber = details.get("accountNumber");
             customerID = details.get("customerID");
-    }
-
-    public String getObjectType() {
-        return objectType;
     }
 
     public String getAccountNumber() {

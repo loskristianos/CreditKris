@@ -9,8 +9,6 @@ import java.util.HashMap;
 
 public class LoginObject implements DataObject {
 
-    private String objectType = "Login";
-
     private String username;
 
     private String password;
@@ -55,10 +53,6 @@ public class LoginObject implements DataObject {
 
     public String getCustomerID() {
         return customerID;
-    }
-
-    public String getObjectType(){
-        return this.objectType;
     }
 
     public Customer loginAttempt(){

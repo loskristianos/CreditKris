@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public abstract class Account implements DataObject {
-    private String objectType = "Account";
     private String customerID;
     private String accountNumber;
     private String accountType;
@@ -61,7 +60,6 @@ public abstract class Account implements DataObject {
     public String getOverdraftLimit(){ return overdraftLimit; }
     public String getSignatories() {return signatories;}
     public String getCustomerID() {return customerID;}
-    public String getObjectType(){ return this.objectType; }
 
     public void writeData(){
         new AccountDAO(this).write();

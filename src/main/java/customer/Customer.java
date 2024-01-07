@@ -14,7 +14,6 @@ import java.util.StringJoiner;
 
 public class Customer implements DataObject {
     LoginObject login;
-    private String objectType = "Customer";
     private String customerID;
     private String firstName;
     private String lastName;
@@ -64,9 +63,6 @@ public class Customer implements DataObject {
         addressPostcode = details.get("addressPostcode");
     }
 
-    public String getObjectType(){
-        return this.objectType;
-    }
     public String getFirstName(){
         return firstName;
     }
