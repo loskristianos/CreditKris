@@ -1,5 +1,6 @@
 package account;
 
+import dao.SignatoryDAO;
 import interfaces.DataObject;
 
 import java.util.HashMap;
@@ -29,5 +30,9 @@ public class Signatory implements DataObject {
 
     public String getCustomerID() {
         return customerID;
+    }
+
+    public void writeData(){
+        new SignatoryDAO(this).write();
     }
 }
