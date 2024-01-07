@@ -41,7 +41,7 @@ public class AccountDAO extends DAO{
     public List<Account> getAccounts() {
         List<Account> accountList = new ArrayList<>();
         String customerID = customer.getCustomerID();
-        sqlStatement = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " + customerID + ")";
+        sqlStatement = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = '" + customerID + "' UNION SELECT account_number FROM signatories WHERE customer_id = '" + customerID + "')";
         List<HashMap<String,String>> resultList = super.databaseLookup();
         for (HashMap<String,String> map : resultList) {
             Account resultAccount = switch (map.get("accountType")) {
