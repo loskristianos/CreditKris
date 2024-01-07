@@ -58,7 +58,6 @@ class TransferTransactionTest {
         assertEquals("testType",transaction.getTransactionType());
         transaction.setPreviousBalance("11.23");
         assertEquals("11.23",transaction.getPreviousBalance());
-        assertEquals("Transaction",transaction.getObjectType());
     }
 
     @Test

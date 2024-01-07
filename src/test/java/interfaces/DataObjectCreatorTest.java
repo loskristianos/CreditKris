@@ -20,7 +20,6 @@ class DataObjectCreatorTest {
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createLoginObject(userTest,passTest);
         LoginObject expectedObject = new LoginObject("username1","password1");
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(),returnedObject.getDetails());
     }
@@ -38,7 +37,6 @@ class DataObjectCreatorTest {
         DataObject returnedObject = objectCreator.createPendingAuthorisation(inputMap);
         PendingTransaction expectedObject = new PendingTransaction();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -57,7 +55,6 @@ class DataObjectCreatorTest {
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
         DepositTransaction expectedObject = new DepositTransaction();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
 
@@ -75,7 +72,6 @@ class DataObjectCreatorTest {
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
         WithdrawalTransaction expectedObject = new WithdrawalTransaction();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -95,7 +91,6 @@ class DataObjectCreatorTest {
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
         TransferTransaction expectedObject = new TransferTransaction();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -116,7 +111,6 @@ class DataObjectCreatorTest {
         DataObject returnedObject = objectCreator.createNewCustomer(inputMap);
         Customer expectedObject = new Customer();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }

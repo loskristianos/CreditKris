@@ -26,10 +26,4 @@ class PendingTransactionTest {
         transaction.setDetails(amendedData);
         assertEquals(amendedData,transaction.getDetails());
     }
-
-    @Test
-    void getObjectType() {
-        PendingTransaction transaction = new PendingTransaction(testData);
-        assertEquals("Transaction",transaction.getObjectType());
-    }
 }

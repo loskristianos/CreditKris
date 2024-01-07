@@ -56,11 +56,6 @@ class CustomerTest {
         assertEquals("9999",customer.getCustomerID());
     }
 
-    @Test
-    void getObjectType() {
-        Customer customer = new Customer(testData);
-        assertEquals("Customer",customer.getObjectType());
-    }
 
     @Test
     void getFullAddress() {
