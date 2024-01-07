@@ -4,7 +4,7 @@ import customer.Customer;
 import login.LoginObject;
 import org.junit.jupiter.api.Test;
 import transaction.DepositTransaction;
-import transaction.PendingAuthorisation;
+import transaction.PendingTransaction;
 import transaction.TransferTransaction;
 import transaction.WithdrawalTransaction;
 
@@ -20,7 +20,6 @@ class DataObjectCreatorTest {
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createLoginObject(userTest,passTest);
         LoginObject expectedObject = new LoginObject("username1","password1");
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(),returnedObject.getDetails());
     }
@@ -36,9 +35,8 @@ class DataObjectCreatorTest {
         }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createPendingAuthorisation(inputMap);
-        PendingAuthorisation expectedObject = new PendingAuthorisation();
+        PendingTransaction expectedObject = new PendingTransaction();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -55,9 +53,7 @@ class DataObjectCreatorTest {
             }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
-        DepositTransaction expectedObject = new DepositTransaction();
-        expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
+        DepositTransaction expectedObject = new DepositTransaction(inputMap);
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
 
@@ -73,9 +69,7 @@ class DataObjectCreatorTest {
         }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
-        WithdrawalTransaction expectedObject = new WithdrawalTransaction();
-        expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
+        WithdrawalTransaction expectedObject = new WithdrawalTransaction(inputMap);
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -93,9 +87,7 @@ class DataObjectCreatorTest {
         }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
-        TransferTransaction expectedObject = new TransferTransaction();
-        expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
+        TransferTransaction expectedObject = new TransferTransaction(inputMap);
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -116,7 +108,6 @@ class DataObjectCreatorTest {
         DataObject returnedObject = objectCreator.createNewCustomer(inputMap);
         Customer expectedObject = new Customer();
         expectedObject.setDetails(inputMap);
-        assertEquals(expectedObject.getObjectType(),returnedObject.getObjectType());
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }

@@ -10,13 +10,12 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import view.CreateNewTransactionView;
 
-import java.util.HashMap;
 
 public class CreateNewTransactionScreen {
     Account account;
     Customer customer;
     String transactionType;
-    String additionalInfo;
+    Account targetAccount;
 
     public CreateNewTransactionScreen(Account account, Customer customer, String transactionType){
         this.account = account;
@@ -24,11 +23,11 @@ public class CreateNewTransactionScreen {
         this.transactionType = transactionType;
     }
 
-    public CreateNewTransactionScreen(Account account, Customer customer, String transactionType,String additionalInfo){
+    public CreateNewTransactionScreen(Account account, Customer customer, String transactionType,Account targetAccount){
         this.account = account;
         this.customer = customer;
         this.transactionType = transactionType;
-        this.additionalInfo = additionalInfo;
+        this.targetAccount = targetAccount;
 
     }
 
@@ -63,16 +62,14 @@ public class CreateNewTransactionScreen {
         stage.show();
 
         transactionButton.setOnAction(actionEvent -> {
-            HashMap<String,String> transactionDetails = new HashMap<>(){{
-                put("accountNumber",accountNumber);put("transactionType",transactionType);put("transactionAmount",transactionAmount.getText());
-                put("previousBalance",currentBalance);put("additionalInfo",additionalInfo);
-            }};
-            new CreateNewTransactionView().createTransaction(transactionDetails);
-            stage.close();
-        });
-
-
-        //
-
+                    String amount = transactionAmount.getText();
+                    switch (transactionType) {
+                        case "Deposit", "Withdrawal":
+                            new CreateNewTransactionView(account, customer, transactionType).createTransaction(amount);
+                        case "Transfer":
+                            new CreateNewTransactionView(account, customer, transactionType, targetAccount).createTransaction(amount);
+                    }
+                    stage.close();
+                });
     }
 }

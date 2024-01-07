@@ -1,21 +1,18 @@
 package view;
 
 import account.Account;
-import controller.Controller;
 import customer.Customer;
 import gui.CreateNewTransactionScreen;
-import interfaces.DataHandlerCreator;
-import interfaces.DataObjectCreator;
+import transaction.DepositTransaction;
 import transaction.Transaction;
-
-import java.util.HashMap;
+import transaction.TransferTransaction;
+import transaction.WithdrawalTransaction;
 
 public class CreateNewTransactionView extends View{
-    Controller controller = new Controller(new DataObjectCreator(),new DataHandlerCreator());
     Account account;
     Customer customer;
     String transactionType;
-    String additionalInfo;
+    Account targetAccount;
 
     public CreateNewTransactionView(){}
 
@@ -25,22 +22,30 @@ public class CreateNewTransactionView extends View{
         this.transactionType = transactionType;
     }
 
-    public CreateNewTransactionView(Account account, Customer customer, String transactionType, String additionalInfo){
+    public CreateNewTransactionView(Account account, Customer customer, String transactionType, Account targetAccount){
         this.account = account;
         this.customer = customer;
         this.transactionType = transactionType;
-        this.additionalInfo = additionalInfo;
+        this.targetAccount = targetAccount;
     }
     @Override
     public void displayView() {
-        if (additionalInfo==null)
-        new CreateNewTransactionScreen(account, customer, transactionType).displayScreen();
+        if (transactionType.equals("Transfer"))
+            new CreateNewTransactionScreen(account, customer, transactionType, targetAccount).displayScreen();
         else
-            new CreateNewTransactionScreen(account,customer,transactionType,additionalInfo).displayScreen();
+            new CreateNewTransactionScreen(account, customer, transactionType).displayScreen();
+
+
     }
 
-    public void createTransaction(HashMap<String,String> transactionDetails){
-        Transaction newTransaction = new DataObjectCreator().createNewTransaction(transactionDetails);
-        controller.newTransaction(newTransaction);
+    public void createTransaction(String transactionAmount){
+        Transaction newTransaction = switch (transactionType) {
+            case "Deposit": yield new DepositTransaction(account,transactionAmount);
+            case "Withdrawal": yield new WithdrawalTransaction(account,transactionAmount);
+            case "Transfer": yield new TransferTransaction(account, targetAccount, transactionAmount);
+            default: yield null;
+        };
+        assert newTransaction != null;
+        newTransaction.writeData();
     }
 }

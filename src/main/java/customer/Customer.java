@@ -1,11 +1,19 @@
 package customer;
 
+import account.Account;
+import dao.AccountDAO;
+import dao.PendingTransactionDAO;
 import interfaces.DataObject;
+import login.LoginObject;
+import dao.CustomerDAO;
+import transaction.PendingTransaction;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class Customer implements DataObject {
-    private String objectType = "Customer";
+    LoginObject login;
     private String customerID;
     private String firstName;
     private String lastName;
@@ -16,6 +24,10 @@ public class Customer implements DataObject {
     private String addressPostcode;
 
     public Customer(){}
+
+    public Customer(LoginObject login){
+        this.login = login;
+    }
 
     public Customer(HashMap<String, String> customerDetails) {
         setDetails(customerDetails);
@@ -51,27 +63,34 @@ public class Customer implements DataObject {
         addressPostcode = details.get("addressPostcode");
     }
 
-    public String getObjectType(){
-        return this.objectType;
-    }
-
     public String getFirstName(){
         return firstName;
     }
-
     public String getLastName(){
         return lastName;
     }
-
     public String getFullName(){
         return firstName + " " + lastName;
     }
     public String getDob(){return dob;}
     public String getFullAddress(){
-        String fullAddress = address1 +"\n";
-        if (address2 != null) fullAddress = fullAddress+address2+"\n";
-        fullAddress = fullAddress + addressTown +"\n"+addressPostcode;
-        return fullAddress;
+        StringJoiner fullAddress = new StringJoiner("\n");
+        fullAddress.add(address1);
+        if(address2 != null) fullAddress.add(address2);
+        fullAddress.add(addressTown);
+        fullAddress.add(addressPostcode);
+        return fullAddress.toString();
     }
 
+    public void write(){
+        new CustomerDAO(this).write();
+    }
+
+    public List<Account> getAccounts(){
+        return new AccountDAO(this).getAccounts();
+    }
+
+    public List<PendingTransaction> getPendingTransactions(){
+        return new PendingTransactionDAO(this).getCustomerPendingTransactions();
+    }
 }

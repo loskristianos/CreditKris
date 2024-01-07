@@ -1,13 +1,16 @@
 package transaction;
 
+import account.Account;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class DepositTransaction extends Transaction {
 
-    public DepositTransaction(){
-        super();
+    public DepositTransaction(Account account, String transactionAmount){
+        super(account, transactionAmount);
         setTransactionType("Deposit");
+        writeData();
     }
 
     public DepositTransaction(HashMap<String, String> transactionDetails) {
@@ -23,5 +26,4 @@ public class DepositTransaction extends Transaction {
         BigDecimal newBalance = previousBalance.add(transactionAmount);
         return newBalance.toString();
     }
-
 }

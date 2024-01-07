@@ -1,10 +1,13 @@
 package transaction;
 
+import account.Account;
+import dao.AccountDAO;
+import dao.TransactionDAO;
 import interfaces.DataObject;
 import java.util.HashMap;
 
 public abstract class Transaction implements DataObject {
-    private String objectType = "Transaction";
+    Account account;
     private String transactionID;
     private String accountNumber;
     private String transactionAmount;
@@ -15,6 +18,15 @@ public abstract class Transaction implements DataObject {
     private String additionalInfo;
 
     public Transaction(){}
+
+    public Transaction(Account account, String transactionAmount) {
+        this.account = account;
+        this.accountNumber = account.getAccountNumber();
+        this.previousBalance = account.getCurrentBalance();
+        this.transactionAmount = transactionAmount;
+        this.newBalance = calculateNewBalance();
+        this.account.setCurrentBalance(newBalance);
+    }
 
     public Transaction(HashMap<String, String> transactionDetails) {
         setDetails(transactionDetails);
@@ -37,7 +49,6 @@ public abstract class Transaction implements DataObject {
         transactionID = details.get("transactionID");
         accountNumber = details.get("accountNumber");
         transactionAmount = details.get("transactionAmount");
-       // transactionType = details.get("transactionType");
         previousBalance = details.get("previousBalance");
         newBalance = details.get("newBalance");
         transactionTime = details.get("transactionTime");
@@ -71,8 +82,9 @@ public abstract class Transaction implements DataObject {
     public void setNewBalance(String newBalance) {
         this.newBalance = newBalance;
     }
-    public String getObjectType(){
-        return this.objectType;
-    }
     public abstract String calculateNewBalance();
+    public void writeData(){
+        new TransactionDAO(this).write();
+        new AccountDAO(account).update();
+    }
 }

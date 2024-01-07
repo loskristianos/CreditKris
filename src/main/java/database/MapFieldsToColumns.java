@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class MapFieldsToColumns {
 
-    static HashMap<String,String> mappingsToDB = new HashMap<>() {{
+    public static HashMap<String,String> mappingsToDB = new HashMap<>() {{
         put("customerID", "customer_id");
         put("username", "username");
         put("password","password");
@@ -34,7 +34,7 @@ public class MapFieldsToColumns {
         put("currentBalance", "current_balance");
     }};
 
-    static HashMap<String,String> mappingsFromDB = new HashMap<>() {{
+    public static HashMap<String,String> mappingsFromDB = new HashMap<>() {{
         put("customer_id","customerID");
         put("username", "username");
         put("password","password");

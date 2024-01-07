@@ -1,29 +1,24 @@
 package view;
 
 import account.Account;
-import controller.Controller;
 import customer.Customer;
 import gui.AccountScreen;
-import interfaces.DataHandlerCreator;
-import interfaces.DataObject;
-import interfaces.DataObjectCreator;
-
+import transaction.Transaction;
 
 import java.util.List;
 
 public class AccountView extends View{
 
-    Controller controller = new Controller(new DataObjectCreator(),new DataHandlerCreator());
     Account account;
     Customer customer;
-    List<DataObject> accountList;
-    List<DataObject> transactionList;
+    List<Account> accountList;
+    List<Transaction> transactionList;
 
-    public AccountView(Account inputAccount, Customer inputCustomer, List<DataObject> accountList){
-        this.account = inputAccount;
-        this.customer = inputCustomer;
-        this.accountList = accountList;
-        this.transactionList = controller.getAccountTransactions(account);
+    public AccountView(Account inputAccount, Customer inputCustomer, List<Account> inputAccountList){
+        account = inputAccount;
+        customer = inputCustomer;
+        accountList = inputAccountList;
+        transactionList = account.getTransactions();
     }
     @Override
     public void displayView() {

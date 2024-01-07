@@ -8,27 +8,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransferTransactionTest {
 
-    HashMap<String, String> nullData = new HashMap<>() {{
-        put("transactionID",null); put("accountNumber",null); put("transactionAmount", null); put("transactionType","Transfer"); put("previousBalance",null); put("newBalance",null); put("transactionTime",null); put("additionalInfo",null);
-    }};
+
     HashMap<String, String> testDataNullType = new HashMap<>(){{put("transactionID","123"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType",null); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo","98765432");}};
     HashMap<String, String> testDataWithType = new HashMap<>(){{put("transactionID","123"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Transfer"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo","98765432");}};
 
-    @Test
-    void noArgsConstructor() {
-        Transaction transaction = new TransferTransaction();
-        HashMap<String, String> returnedDetails = transaction.getDetails();
-        assertEquals(nullData, returnedDetails);
-    }
 
-    @Test
-    void noArgsConstructorSetData() {
-        Transaction transaction = new TransferTransaction();
-        transaction.setDetails(testDataNullType);
-        HashMap<String, String> returnedDetails = transaction.getDetails();
-        testDataNullType.put("transactionType","Transfer");
-        assertEquals(testDataNullType, returnedDetails);
-    }
 
     @Test
     void withArgsConstructorNoType() {
@@ -58,7 +42,6 @@ class TransferTransactionTest {
         assertEquals("testType",transaction.getTransactionType());
         transaction.setPreviousBalance("11.23");
         assertEquals("11.23",transaction.getPreviousBalance());
-        assertEquals("Transaction",transaction.getObjectType());
     }
 
     @Test

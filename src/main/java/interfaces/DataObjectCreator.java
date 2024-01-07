@@ -13,7 +13,7 @@ public class DataObjectCreator {
     }
 
     public DataObject createPendingAuthorisation(HashMap<String,String> inputMap){
-        return new PendingAuthorisation(inputMap);
+        return new PendingTransaction(inputMap);
     }
 
     public Transaction createNewTransaction(HashMap<String, String> inputMap) {
