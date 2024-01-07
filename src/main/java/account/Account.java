@@ -2,6 +2,7 @@ package account;
 
 import dao.AccountDAO;
 import dao.PendingTransactionDAO;
+import dao.SignatoryDAO;
 import dao.TransactionDAO;
 import interfaces.DataObject;
 import transaction.PendingTransaction;
@@ -67,12 +68,14 @@ public abstract class Account implements DataObject {
         // (look at method in Controller, there might be some way to make it better)
     }
     public List<Transaction> getTransactions(){
-        // replaces method in Controller
         return new TransactionDAO(this).getTransactions();
     }
 
     public List<PendingTransaction> getPendingTransactions(){
-        // replaces method in Controller
         return new PendingTransactionDAO(this).getAccountPendingTransactions();
+    }
+
+    public List<Signatory> getSignatoryList(){
+        return new SignatoryDAO(this).getSignatories();
     }
 }
