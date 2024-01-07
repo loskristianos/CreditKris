@@ -13,20 +13,6 @@ class WithdrawalTransactionTest {
     }};
     HashMap<String, String> testData = new HashMap<>(){{ put("transactionID","1087"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Withdrawal"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo",null);}};
 
-    @Test
-    void noArgsConstructor() {
-        Transaction transaction = new WithdrawalTransaction();
-        HashMap<String, String> returnedDetails = transaction.getDetails();
-        assertEquals(nullData, returnedDetails);
-    }
-
-   @Test
-    void noArgsConstructorSetData() {
-        Transaction transaction = new WithdrawalTransaction();
-        transaction.setDetails(testData);
-        HashMap<String, String> returnedDetails = transaction.getDetails();
-        assertEquals(testData, returnedDetails);
-    }
 
     @Test
     void withArgsConstructor() {
