@@ -24,7 +24,10 @@ public class LoginDAO extends DAO{
         String password = login.getPassword();
         sqlStatement = "SELECT * FROM login WHERE username = '" + username + "' AND password = '" + password +"'";
         List<HashMap<String,String>> resultList = super.databaseLookup();
-        login.setCustomerID(resultList.getFirst().get("customerID"));
-        return login;
+        if (resultList.isEmpty()) return null;
+        else {
+            login.setCustomerID(resultList.getFirst().get("customerID"));
+            return login;
+        }
     }
 }
