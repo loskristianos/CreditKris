@@ -27,7 +27,7 @@ public class TransactionDAO extends DAO{
     public List<Transaction> getTransactions() {
         List<Transaction> transactionList = new ArrayList<>();
         String accountNumber = account.getAccountNumber();
-        sqlStatement = "SELECT * FROM transactions WHERE account_number =  " + accountNumber;
+        sqlStatement = "SELECT * FROM transactions WHERE account_number =  '" + accountNumber + "'";
         List<HashMap<String,String>> resultList = super.databaseLookup();
         for (HashMap<String,String> map : resultList) {
             Transaction returnedTransaction = switch (map.get("transactionType")){
