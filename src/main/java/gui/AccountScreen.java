@@ -67,10 +67,10 @@ public class AccountScreen {
         }
         // initialise ComboBox listing customer's other accounts, but don't add it yet
         // (will be added when transfer button is clicked, in EventHandler further below)
-        ComboBox<String> transferAccounts = new ComboBox<>();
+        ComboBox<Account> transferAccounts = new ComboBox<>();
         for (Account account : accountList) {
             if (account.getAccountNumber() != accountNumber)
-                transferAccounts.getItems().add(account.getAccountNumber());
+                transferAccounts.getItems().add(account);
         }
 
 
@@ -129,7 +129,7 @@ public class AccountScreen {
             accountDetailsPane.add(new Label("Select an account to transfer to"),3,3,1,1);
             accountDetailsPane.add(transferAccounts, 4, 3, 1, 1);
             transferAccounts.setOnAction((actionEvent1 -> {
-                String selectedAccount = transferAccounts.getSelectionModel().getSelectedItem();
+                Account selectedAccount = transferAccounts.getSelectionModel().getSelectedItem();
                 new CreateNewTransactionView(account, customer, "Transfer", selectedAccount).displayView();
             }));
         });
