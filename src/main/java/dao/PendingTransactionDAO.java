@@ -2,11 +2,8 @@ package dao;
 
 import account.Account;
 import customer.Customer;
-import database.MapFieldsToColumns;
 import transaction.PendingTransaction;
 
-import javax.sql.rowset.CachedRowSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,57 +39,31 @@ public class PendingTransactionDAO extends DAO{
         String signatoryID = customer.getCustomerID();
         List<PendingTransaction> pendingTransactionList = new ArrayList<>();
         sqlStatement = "SELECT * FROM pending_transactions WHERE signatory_id = '" + signatoryID + "'";
-        try (CachedRowSet resultSet = super.databaseLookup()) {
-            HashMap<String, String> outputMap = new HashMap<>();
-            while (resultSet.next()) {
-                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                    String key = resultSet.getMetaData().getColumnName(i);
-                    String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
-                    String value = resultSet.getString(i);
-                    outputMap.put(mappedKey, value);
-                }
-                PendingTransaction resultTransaction = new PendingTransaction(outputMap);
-                pendingTransactionList.add(resultTransaction);
-            }
-            return pendingTransactionList;
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return null;
+        List<HashMap<String,String>> resultList = super.databaseLookup();
+        for (HashMap<String,String> map : resultList) {
+            PendingTransaction resultTransaction = new PendingTransaction(map);
+            pendingTransactionList.add(resultTransaction);
         }
+        return pendingTransactionList;
     }
 
     public List<PendingTransaction> getAccountPendingTransactions(){
         String accountNumber = account.getAccountNumber();
         List<PendingTransaction> pendingTransactionList = new ArrayList<>();
         sqlStatement = "SELECT * FROM pending_transactions WHERE account_number = '" + accountNumber + "'";
-        try (CachedRowSet resultSet = super.databaseLookup()) {
-            HashMap<String, String> outputMap = new HashMap<>();
-            while (resultSet.next()) {
-                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                    String key = resultSet.getMetaData().getColumnName(i);
-                    String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
-                    String value = resultSet.getString(i);
-                    outputMap.put(mappedKey, value);
-                }
-                PendingTransaction resultTransaction = new PendingTransaction(outputMap);
-                pendingTransactionList.add(resultTransaction);
-            }
-            return pendingTransactionList;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
+        List<HashMap<String,String>> resultList = super.databaseLookup();
+        for (HashMap<String,String> map : resultList) {
+            PendingTransaction resultTransaction = new PendingTransaction(map);
+            pendingTransactionList.add(resultTransaction);
         }
+        return pendingTransactionList;
     }
 
     public Integer getRemainingTransactions(){
         String transactionID = transaction.getTransactionID();
         sqlStatement = "SELECT + FROM pending_transactions WHERE transaction_id = '" + transactionID + "'";
-        try (CachedRowSet resultSet = super.databaseLookup()) {
-            return resultSet.size();
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
+        List<HashMap<String,String>> resultList = super.databaseLookup();
+        return resultList.size();
     }
 
     public void deletePendingTransaction(){

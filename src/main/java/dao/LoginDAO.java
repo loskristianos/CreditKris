@@ -2,8 +2,8 @@ package dao;
 
 import login.LoginObject;
 
-import javax.sql.rowset.CachedRowSet;
-import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 
 public class LoginDAO extends DAO{
     LoginObject login;
@@ -23,15 +23,8 @@ public class LoginDAO extends DAO{
         String username = login.getUsername();
         String password = login.getPassword();
         sqlStatement = "SELECT * FROM login WHERE username = '" + username + "' AND password = '" + password +"'";
-        try (CachedRowSet resultSet = super.databaseLookup()) {
-            if (resultSet.size() == 1) {
-                login.setCustomerID(resultSet.getString("customer_id"));
-                return login;
-            }
-            else return null;
-        }catch (SQLException e){
-            System.out.println(e.getMessage());
-            return null;
-        }
+        List<HashMap<String,String>> resultList = super.databaseLookup();
+        login.setCustomerID(resultList.getFirst().get("customerID"));
+        return login;
     }
 }

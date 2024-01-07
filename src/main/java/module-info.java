@@ -3,7 +3,6 @@ module CreditKris {
     requires javafx.fxml;
     requires javafx.controls;
     requires java.sql;
-    requires java.sql.rowset;
 
     exports gui;
     exports interfaces;

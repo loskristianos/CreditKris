@@ -3,8 +3,6 @@ package dao;
 import database.MapFieldsToColumns;
 import interfaces.DataObject;
 
-import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetProvider;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -37,14 +35,22 @@ public abstract class DAO {
         }
     }
 
-    CachedRowSet databaseLookup(){
+    List<HashMap<String,String>> databaseLookup(){
         try (Connection dbConnection = DriverManager.getConnection(url);
-             Statement statement = dbConnection.createStatement();
-             CachedRowSet resultRowSet = RowSetProvider.newFactory().createCachedRowSet()) {
+             Statement statement = dbConnection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(sqlStatement);
-            resultRowSet.populate(resultSet);
-            return resultRowSet;
+            List<HashMap<String,String>> resultList = new ArrayList<>();
+            HashMap<String, String> outputMap = new HashMap<>();
+            while (resultSet.next()) {
+                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                    String key = resultSet.getMetaData().getColumnName(i);
+                    String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
+                    String value = resultSet.getString(i);
+                    outputMap.put(mappedKey, value);
+                }
+                resultList.add(outputMap);
+            } return resultList;
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
@@ -60,7 +66,6 @@ public abstract class DAO {
         catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     public String prepareInsertStatement(){

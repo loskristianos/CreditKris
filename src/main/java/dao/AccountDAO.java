@@ -5,13 +5,11 @@ import account.ClientAccount;
 import account.CommunityAccount;
 import account.SmallBusinessAccount;
 import customer.Customer;
-import database.MapFieldsToColumns;
 
-import javax.sql.rowset.CachedRowSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class AccountDAO extends DAO{
     String accountNumber;
@@ -41,34 +39,23 @@ public class AccountDAO extends DAO{
     }
 
     public List<Account> getAccounts() {
-        List<Account> resultList = new ArrayList<>();
+        List<Account> accountList = new ArrayList<>();
         String customerID = customer.getCustomerID();
         sqlStatement = "SELECT * FROM accounts WHERE account_number IN (SELECT account_number FROM accounts WHERE customer_id = " + customerID + " UNION SELECT account_number FROM signatories WHERE customer_id = " + customerID + ")";
-        try (CachedRowSet resultSet = super.databaseLookup()) {
-            HashMap<String, String> outputMap = new HashMap<>();
-            while (resultSet.next()) {
-                for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                    String key = resultSet.getMetaData().getColumnName(i);
-                    String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
-                    String value = resultSet.getString(i);
-                    outputMap.put(mappedKey, value);
-                }
-                Account resultAccount = switch (outputMap.get("accountType")) {
-                    case "Client":
-                        yield new ClientAccount(outputMap);
-                    case "Business":
-                        yield new SmallBusinessAccount(outputMap);
-                    case "Community":
-                        yield new CommunityAccount(outputMap);
-                    default:
-                        yield null;
-                };
-                resultList.add(resultAccount);
-            }
-            return resultList;
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
+        List<HashMap<String,String>> resultList = super.databaseLookup();
+        for (HashMap<String,String> map : resultList) {
+            Account resultAccount = switch (map.get("accountType")) {
+                case "Client":
+                    yield new ClientAccount(map);
+                case "Business":
+                    yield new SmallBusinessAccount(map);
+                case "Community":
+                    yield new CommunityAccount(map);
+                default:
+                    yield null;
+            };
+            accountList.add(resultAccount);
         }
+        return accountList;
     }
 }

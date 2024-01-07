@@ -1,12 +1,10 @@
 package dao;
 
 import customer.Customer;
-import database.MapFieldsToColumns;
 import login.LoginObject;
 
-import javax.sql.rowset.CachedRowSet;
-import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class CustomerDAO extends DAO{
@@ -30,19 +28,7 @@ public class CustomerDAO extends DAO{
     public Customer getRecord(){
         String customerID = login.getCustomerID();
         sqlStatement = "SELECT * FROM customers WHERE customer_id = " + customerID;
-        try (CachedRowSet resultSet = super.databaseLookup()) {
-            HashMap<String, String> outputMap = new HashMap<>();
-            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
-                String key = resultSet.getMetaData().getColumnName(i);
-                String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
-                String value = resultSet.getString(i);
-                outputMap.put(mappedKey, value);
-            }
-            return new Customer(outputMap);
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        List<HashMap<String,String>> resultList = super.databaseLookup();
+        return new Customer(resultList.getFirst());
     }
 }
