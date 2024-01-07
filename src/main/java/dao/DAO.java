@@ -36,13 +36,15 @@ public abstract class DAO {
     }
 
     List<HashMap<String,String>> databaseLookup(){
+        List<HashMap<String,String>> resultList = new ArrayList<>();
+
         try (Connection dbConnection = DriverManager.getConnection(url);
              Statement statement = dbConnection.createStatement()) {
 
             ResultSet resultSet = statement.executeQuery(sqlStatement);
-            List<HashMap<String,String>> resultList = new ArrayList<>();
-            HashMap<String, String> outputMap = new HashMap<>();
+
             while (resultSet.next()) {
+                HashMap<String, String> outputMap = new HashMap<>();
                 for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
                     String key = resultSet.getMetaData().getColumnName(i);
                     String mappedKey = MapFieldsToColumns.mappingsFromDB.get(key);
@@ -50,7 +52,8 @@ public abstract class DAO {
                     outputMap.put(mappedKey, value);
                 }
                 resultList.add(outputMap);
-            } return resultList;
+            }
+            return resultList;
         }
         catch (SQLException e){
             System.out.println(e.getMessage());
