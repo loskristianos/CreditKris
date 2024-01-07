@@ -53,8 +53,7 @@ class DataObjectCreatorTest {
             }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
-        DepositTransaction expectedObject = new DepositTransaction();
-        expectedObject.setDetails(inputMap);
+        DepositTransaction expectedObject = new DepositTransaction(inputMap);
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
 
@@ -70,8 +69,7 @@ class DataObjectCreatorTest {
         }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
-        WithdrawalTransaction expectedObject = new WithdrawalTransaction();
-        expectedObject.setDetails(inputMap);
+        WithdrawalTransaction expectedObject = new WithdrawalTransaction(inputMap);
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
@@ -89,8 +87,7 @@ class DataObjectCreatorTest {
         }};
         DataObjectCreator objectCreator = new DataObjectCreator();
         DataObject returnedObject = objectCreator.createNewTransaction(inputMap);
-        TransferTransaction expectedObject = new TransferTransaction();
-        expectedObject.setDetails(inputMap);
+        TransferTransaction expectedObject = new TransferTransaction(inputMap);
         assertEquals(expectedObject.getClass(),returnedObject.getClass());
         assertEquals(expectedObject.getDetails(), returnedObject.getDetails());
     }
