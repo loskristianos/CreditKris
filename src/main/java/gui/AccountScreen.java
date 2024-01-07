@@ -2,7 +2,6 @@ package gui;
 
 import account.Account;
 import customer.Customer;
-import interfaces.DataObject;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -17,13 +16,13 @@ import java.util.List;
 public class AccountScreen {
     Account account;
     Customer customer;
-    List<DataObject> transactionList;
-    List<DataObject> accountList;
+    List<Transaction> transactionList;
+    List<Account> accountList;
 
-    public AccountScreen(Account inputAccount, Customer inputCustomer, List<DataObject> inputTransactionList,List<DataObject> accountList){
-        this.account = inputAccount;
-        this.customer = inputCustomer;
-        this.transactionList = inputTransactionList;
+    public AccountScreen(Account inputAccount, Customer inputCustomer, List<Transaction> inputTransactionList,List<Account> accountList){
+        account = inputAccount;
+        customer = inputCustomer;
+        transactionList = inputTransactionList;
         this.accountList = accountList;
     }
 
@@ -61,16 +60,17 @@ public class AccountScreen {
         accountDetailsPane.add(newDeposit,0,3,1,1);
         Button newWithdrawal = new Button("Withdrawal");
         accountDetailsPane.add(newWithdrawal,1,3,1,1);
-        ComboBox<String> transferAccounts = new ComboBox<>();
-        for (DataObject object : accountList) {
-            Account x = (Account) object;
-            if (x.getAccountNumber() != accountNumber)
-                transferAccounts.getItems().add(x.getAccountNumber());
-        }
         Button newTransfer = new Button("Transfer");
+        // only show the Transfer button if the customer has another account to transfer to
         if (accountList.size()>1){
             accountDetailsPane.add(newTransfer,2,3,1,1);
-         //   accountDetailsPane.add(transferAccounts,3,3,1,1);
+        }
+        // initialise ComboBox listing customer's other accounts, but don't add it yet
+        // (will be added when transfer button is clicked, in EventHandler further below)
+        ComboBox<String> transferAccounts = new ComboBox<>();
+        for (Account account : accountList) {
+            if (account.getAccountNumber() != accountNumber)
+                transferAccounts.getItems().add(account.getAccountNumber());
         }
 
 
@@ -102,8 +102,7 @@ public class AccountScreen {
         transactionTableView.getColumns().add(transactionID);
 
         // set the cell values for each transaction in the list
-        for (DataObject object : transactionList) {
-            Transaction transaction = (Transaction) object;
+        for (Transaction transaction : transactionList) {
             transactionTableView.getItems().add(transaction);
         }
 
