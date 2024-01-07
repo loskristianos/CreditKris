@@ -28,7 +28,6 @@ public class CreateNewTransactionScreen {
         this.customer = customer;
         this.transactionType = transactionType;
         this.targetAccount = targetAccount;
-
     }
 
     public void displayScreen(){
@@ -65,9 +64,9 @@ public class CreateNewTransactionScreen {
                     String amount = transactionAmount.getText();
                     switch (transactionType) {
                         case "Deposit", "Withdrawal":
-                            new CreateNewTransactionView(account, customer, transactionType).createTransaction(amount);
+                            new CreateNewTransactionView(account, customer, transactionType).createTransaction(amount);break;
                         case "Transfer":
-                            new CreateNewTransactionView(account, customer, transactionType, targetAccount).createTransaction(amount);
+                            new CreateNewTransactionView(account, customer, transactionType, targetAccount).createTransaction(amount);break;
                     }
                     stage.close();
                 });
