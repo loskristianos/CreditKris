@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import view.CreateNewTransactionView;
 
-import java.util.HashMap;
 
 public class CreateNewTransactionScreen {
     Account account;

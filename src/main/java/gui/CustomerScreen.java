@@ -2,7 +2,6 @@ package gui;
 
 import account.Account;
 import customer.Customer;
-import interfaces.DataObject;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;

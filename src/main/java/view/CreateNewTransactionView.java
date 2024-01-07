@@ -3,14 +3,10 @@ package view;
 import account.Account;
 import customer.Customer;
 import gui.CreateNewTransactionScreen;
-
-import interfaces.DataObjectCreator;
 import transaction.DepositTransaction;
 import transaction.Transaction;
 import transaction.TransferTransaction;
 import transaction.WithdrawalTransaction;
-
-import java.util.HashMap;
 
 public class CreateNewTransactionView extends View{
     Account account;
