@@ -9,8 +9,7 @@ public class TransferIn extends Transaction{
     public TransferIn(Account account, String transactionAmount){
         super(account, transactionAmount);
         setTransactionType("Transfer In");
-        super.writeData();
-    }
+     }
     @Override
     public String calculateNewBalance() {
         BigDecimal previousBalance = new BigDecimal(getPreviousBalance());

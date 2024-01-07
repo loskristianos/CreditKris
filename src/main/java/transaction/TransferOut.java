@@ -9,7 +9,6 @@ public class TransferOut extends Transaction{
     public TransferOut(Account account, String transactionAmount){
         super(account,transactionAmount);
         setTransactionType("Transfer Out");
-        super.writeData();
     }
     @Override
     public String calculateNewBalance() {
