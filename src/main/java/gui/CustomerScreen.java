@@ -17,11 +17,11 @@ import view.AccountView;
 import java.util.List;
 
 public class CustomerScreen  {
-    List<DataObject> accountList;
+    List<Account> accountList;
     Customer customer;
-    public CustomerScreen(List<DataObject> inputAccounts, DataObject inputCustomer){
-        this.accountList = inputAccounts;
-        this.customer = (Customer) inputCustomer;
+    public CustomerScreen(List<Account> inputAccounts, Customer inputCustomer){
+        accountList = inputAccounts;
+        customer = inputCustomer;
     }
 
     /*  Still to add:
@@ -77,8 +77,7 @@ public class CustomerScreen  {
         accountsTable.getColumns().add(accountBalance);
 
         // for each object in the list, get the relevant cell values we set above
-        for (DataObject object : accountList) {
-            Account account = (Account) object;     // cast DataObject to Account to use the account-specific getter methods
+        for (Account account : accountList) {
             accountsTable.getItems().add(account);
         }
 
