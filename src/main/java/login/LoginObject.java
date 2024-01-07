@@ -57,7 +57,11 @@ public class LoginObject implements DataObject {
 
     public Customer loginAttempt(){
         LoginObject confirmedLogin = new LoginDAO(this).getLogin();
-        return new CustomerDAO(confirmedLogin).getRecord();
+        if (confirmedLogin != null) {
+            return new CustomerDAO(confirmedLogin).getRecord();
+        } else {
+            return null;
+        }
     }
 
     public LoginObject write(){
