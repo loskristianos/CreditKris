@@ -1,10 +1,10 @@
 package main;
 
-import view.LoginView;
+import gui.SplashScreen;
 
 public class Main {
 
     public static void main(String[] args){
-        new LoginView().displayView();
+        new SplashScreen().displayScreen();
     }
 }

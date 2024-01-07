@@ -7,6 +7,7 @@ import login.LoginObject;
 
 public class LoginView extends View {
 
+
     @Override
     public void displayView() {
         new LoginScreen().displayScreen();
@@ -18,8 +19,7 @@ public class LoginView extends View {
         if (returnedCustomer != null ){
             new CustomerView(returnedCustomer).displayView();
         } else {
-            System.out.println("failed");
-            // display error/ launch new customer Screen (to do)
+            new LoginScreen().failedLogin();
         }
     }
 }

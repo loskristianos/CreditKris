@@ -86,7 +86,7 @@ public class CreateCustomerScreen {
         // add action on cancel button
         cancelButton.setOnAction(actionEvent -> {
             stage.close();
-            new LoginScreen().start(new Stage());
+            new LoginScreen().start();
         });
 
     }

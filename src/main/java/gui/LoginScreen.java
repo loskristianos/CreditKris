@@ -6,18 +6,23 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.application.Application;
+import javafx.scene.control.Alert.*;
 import view.CreateCustomerView;
 import view.LoginView;
 
-public class LoginScreen extends Application {
+public class LoginScreen {
+    Boolean failedLogin = false;
 
     public void displayScreen(){
-        launch();
+        start();
     }
 
-    @Override
-    public void start(Stage stage)  {
+    public void failedLogin(){
+        failedLogin = true;
+        start();
+    }
+
+    public void start()  {
 
         // text field username
         TextField usernameInput = new TextField();
@@ -57,6 +62,7 @@ public class LoginScreen extends Application {
         Scene scene = new Scene(layoutBox,800,300);
 
         // add scene to Stage
+        Stage stage = new Stage();
         stage.setScene(scene);
         stage.setTitle("Login Screen");
         stage.show();
@@ -73,6 +79,9 @@ public class LoginScreen extends Application {
             stage.close();
             new CreateCustomerView().displayView();
         });
-    }
 
+        // create an alert if failedLogin = true
+        Alert loginFailed = new Alert(AlertType.ERROR, "Login details not found. Please try again, or create a new user account.");
+        if (failedLogin) loginFailed.show();
+    }
 }
