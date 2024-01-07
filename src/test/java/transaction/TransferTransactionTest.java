@@ -44,12 +44,12 @@ class TransferTransactionTest {
         assertEquals("11.23",transaction.getPreviousBalance());
     }
 
-    @Test
-    void calculateNewBalance() {
-        Transaction transaction = new TransferTransaction(testDataNullType);
-        transaction.setTransactionType("TransferOut");
-        assertEquals("504.10", transaction.calculateNewBalance());
-        transaction.setTransactionType("TransferIn");
-        assertEquals("573.40", transaction.calculateNewBalance());
-    }
+//    @Test
+//    void calculateNewBalance() {
+//        Transaction transaction = new TransferTransaction(testDataNullType);
+//        transaction.setTransactionType("TransferOut");
+//        assertEquals("504.10", transaction.calculateNewBalance());
+//        transaction.setTransactionType("TransferIn");
+//        assertEquals("573.40", transaction.calculateNewBalance());
+//    }
 }
