@@ -7,10 +7,15 @@ import java.util.HashMap;
 
 public class TransferTransaction extends Transaction {
 
+    Account account;
+    Account targetAccount;
+    String transactionAmount;
+
     // constructor for new transactions from account screen
     public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
-        new TransferOut(account, transactionAmount);
-        new TransferIn(targetAccount,transactionAmount);
+        this.account = account;
+        this.targetAccount = targetAccount;
+        this.transactionAmount = transactionAmount;
         }
 
     /*  constructor for creating objects from details returned from database queries
@@ -27,5 +32,10 @@ public class TransferTransaction extends Transaction {
     @Override
     public String calculateNewBalance() {
         return null;
+    }
+
+    public void writeData(){
+        new TransferOut(account, transactionAmount).writeData();
+        new TransferIn(targetAccount,transactionAmount).writeData();
     }
 }
