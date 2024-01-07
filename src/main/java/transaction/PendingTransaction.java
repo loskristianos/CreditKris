@@ -4,7 +4,6 @@ import account.Account;
 import dao.PendingTransactionDAO;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class PendingTransaction extends Transaction {
     private String transactionID;

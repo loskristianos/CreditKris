@@ -2,7 +2,6 @@ package customer;
 
 import account.Account;
 import dao.AccountDAO;
-import dao.LoginDAO;
 import dao.PendingTransactionDAO;
 import interfaces.DataObject;
 import login.LoginObject;

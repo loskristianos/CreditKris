@@ -2,7 +2,6 @@ package dao;
 
 import customer.Customer;
 import database.MapFieldsToColumns;
-import interfaces.DataObject;
 import login.LoginObject;
 
 import javax.sql.rowset.CachedRowSet;
