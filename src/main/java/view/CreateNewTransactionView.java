@@ -14,9 +14,7 @@ public class CreateNewTransactionView extends View{
     String transactionType;
     Account targetAccount;
 
-    public CreateNewTransactionView(){}
-
-    public CreateNewTransactionView(Account account, Customer customer, String transactionType){
+   public CreateNewTransactionView(Account account, Customer customer, String transactionType){
         this.account = account;
         this.customer = customer;
         this.transactionType = transactionType;
