@@ -3,19 +3,21 @@ package dao;
 import database.MapFieldsToColumns;
 import interfaces.DataObject;
 
+import javax.sql.rowset.CachedRowSet;
+import javax.sql.rowset.RowSetProvider;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.*;
 
 public abstract class DAO {
+
     Properties properties = new Properties();
     String url;
     DataObject inputObject;
     String tableName;
     String sqlStatement;
+
+
     public DAO(DataObject inputObject){
         this.inputObject = inputObject;
         try {  properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"));
@@ -35,8 +37,19 @@ public abstract class DAO {
         }
     }
 
-    public DataObject getRecords(){
-        return null;
+    CachedRowSet databaseLookup(){
+        try (Connection dbConnection = DriverManager.getConnection(url);
+             Statement statement = dbConnection.createStatement();
+             CachedRowSet resultRowSet = RowSetProvider.newFactory().createCachedRowSet()) {
+
+            ResultSet resultSet = statement.executeQuery(sqlStatement);
+            resultRowSet.populate(resultSet);
+            return resultRowSet;
+        }
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
     public void update(){
@@ -50,7 +63,7 @@ public abstract class DAO {
 
     }
 
-    public String prepareInputStatement(){
+    public String prepareInsertStatement(){
         HashMap<String, String> objectDetails = inputObject.getDetails();
         TreeMap<String,String> sortedDetails = new TreeMap<>(){{putAll(objectDetails);}};
         StringJoiner columns = new StringJoiner("','","('","')");
