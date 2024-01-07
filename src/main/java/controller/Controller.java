@@ -59,9 +59,9 @@ public class Controller {
 
     // get all pending transactions for an account
     // method added to Account (no body)
-    public List<DataObject> getPendingTransactionsForAccount(Account inputAccount) {
-        return dataHandlerCreator.createAuthorisationDataHandler(inputAccount).getRecords();
-    }
+//    public List<DataObject> getPendingTransactionsForAccount(Account inputAccount) {
+//        return dataHandlerCreator.createAuthorisationDataHandler(inputAccount).getRecords();
+//    }
 
     // get all transactions awaiting authorisation for a customer
 //    public List<DataObject> getPendingTransactionsForCustomer(Customer inputCustomer) {
@@ -124,31 +124,31 @@ public class Controller {
 
         //  authorise a pending transaction (includes procedure when authorisation being confirmed
         //  is the last pending authorisation for that transaction)
-        public void confirmPendingAuthorisation(PendingTransaction inputObject) {
-            dataHandlerCreator.createAuthorisationDataHandler(inputObject).delete();
-            List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
-            if (remainingPending.isEmpty()) {
-                HashMap<String, String> transactionDetails = inputObject.getDetails();
-                transactionDetails.remove("transactionID");     // remove the generated pendingAuthorisation transactionID from HashMap
-                Transaction completeTransaction = (Transaction) objectCreator.createNewTransaction(transactionDetails);
-                Account account = (Account) dataHandlerCreator.createAccountDataHandler(inputObject).getRecords().getFirst();
-                String currentBalance = account.getCurrentBalance();
-                completeTransaction.setPreviousBalance(currentBalance);
-                completeTransaction.setNewBalance(completeTransaction.calculateNewBalance());
-                newTransaction(completeTransaction);
-                }
-        }
-
-        // create new customer record (including login details)
+//        public void confirmPendingAuthorisation(PendingTransaction inputObject) {
+//            dataHandlerCreator.createAuthorisationDataHandler(inputObject).delete();
+//            List<DataObject> remainingPending = dataHandlerCreator.createAuthorisationDataHandler(inputObject).getRecords();
+//            if (remainingPending.isEmpty()) {
+//                HashMap<String, String> transactionDetails = inputObject.getDetails();
+//                transactionDetails.remove("transactionID");     // remove the generated pendingAuthorisation transactionID from HashMap
+//                Transaction completeTransaction = (Transaction) objectCreator.createNewTransaction(transactionDetails);
+//                Account account = (Account) dataHandlerCreator.createAccountDataHandler(inputObject).getRecords().getFirst();
+//                String currentBalance = account.getCurrentBalance();
+//                completeTransaction.setPreviousBalance(currentBalance);
+//                completeTransaction.setNewBalance(completeTransaction.calculateNewBalance());
+//                newTransaction(completeTransaction);
+//                }
+//        }
+//
+//        // create new customer record (including login details)
         // method added to Customer (no body yet)
-        public Customer createNewCustomer(LoginObject inputLogin, Customer inputObject) {
-           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputLogin);
-           newLogin.writeNewRecord();
-           String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
-           inputObject.setCustomerID(customerID);
-           DataHandler newCustomer = dataHandlerCreator.createCustomerDataHandler(inputObject);
-           newCustomer.writeNewRecord(); return inputObject;
-        }
+//        public Customer createNewCustomer(LoginObject inputLogin, Customer inputObject) {
+//           DataHandler newLogin = dataHandlerCreator.createLoginDataHandler(inputLogin);
+//           newLogin.writeNewRecord();
+//           String customerID = newLogin.getRecords().getFirst().getDetails().get("customerID");
+//           inputObject.setCustomerID(customerID);
+//           DataHandler newCustomer = dataHandlerCreator.createCustomerDataHandler(inputObject);
+//           newCustomer.writeNewRecord(); return inputObject;
+//        }
 
         //  create new account for a customer with no additional signatories
         // method added to Account (complete)
