@@ -23,8 +23,6 @@ public class Customer implements DataObject {
     private String addressTown;
     private String addressPostcode;
 
-    public Customer(){}
-
     public Customer(LoginObject login){
         this.login = login;
     }

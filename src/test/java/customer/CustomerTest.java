@@ -9,26 +9,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
 
-        HashMap<String,String> nullData = new HashMap<>() {{
-            put("customerID",null); put("firstName",null); put("lastName",null); put("dob",null); put("address1",null); put("address2",null); put("addressTown",null); put("addressPostcode",null);
-        }};
         HashMap<String,String> testData = new HashMap<>(Map.of("customerID","123", "firstName","Rodney", "lastName","Price", "dob","12/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
         HashMap<String,String> testData2 = new HashMap<>(Map.of("customerID","456", "firstName","Mark", "lastName","Myrie", "dob","17/07/1973", "address1","10 The Close", "address2","Southwark", "addressTown","LONDON", "addressPostcode","SE1 1BB"));
 
-    @Test
-    void noArgsConstructor() {
-        var customer = new Customer();
-        HashMap<String, String> returnedDetails = customer.getDetails();
-        assertEquals(nullData, returnedDetails);
-    }
-
-    @Test
-    void noArgsConstructorSetData() {
-        var customer = new Customer();
-        customer.setDetails(testData);
-        HashMap<String, String> returnedDetails = customer.getDetails();
-        assertEquals(testData, returnedDetails);
-    }
     @Test
     void withArgsConstructor()  {
         var customer = new Customer(testData);
