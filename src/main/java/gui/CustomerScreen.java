@@ -1,15 +1,17 @@
 package gui;
 
 import account.Account;
+import account.ClientAccount;
+import account.CommunityAccount;
+import account.SmallBusinessAccount;
 import customer.Customer;
 import javafx.geometry.Orientation;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import view.AccountView;
 
@@ -40,7 +42,10 @@ public class CustomerScreen  {
         String dob = customer.getDob();
         String customerAddress = customer.getFullAddress();
 
-        // initialise a GridPane for the top half of the screen
+        //initialise a BorderPane to hold the elements in the top half
+        BorderPane borderPane = new BorderPane();
+
+        // initialise a GridPane for the customer details
         GridPane customerPane = new GridPane();
 
         // set some padding around the elements
@@ -56,6 +61,16 @@ public class CustomerScreen  {
         customerPane.add(new Label(customerID),3,0,1,1);
         customerPane.add(new Label("Customer Address"),2,1,1,1);
         customerPane.add(new Label(customerAddress),3,1,1,1);
+
+
+        // add some buttons to an HBox - individual for now, we'll make them conditional later on
+        Button newClientAccount = new Button("New Client Account");
+        Button newBusinessAccount = new Button("New Business Account");
+        Button newCommunityAccount = new Button("New Community Account");
+        HBox customerButtons = new HBox(newClientAccount, newBusinessAccount, newCommunityAccount);
+
+        borderPane.setTop(customerPane);
+        borderPane.setBottom(customerButtons);
 
         // initialise a TableView for the bottom half (list of accounts)
         TableView<Account> accountsTable = new TableView<>();
@@ -81,14 +96,14 @@ public class CustomerScreen  {
         }
 
         // initialise SplitPane and set orientation to vertical (split with one above the other)
-        SplitPane splitPane = new SplitPane(customerPane, accountsTable);
+        SplitPane splitPane = new SplitPane(borderPane, accountsTable);
         splitPane.setOrientation(Orientation.VERTICAL);
 
         // add to scene and add to stage
         Scene scene = new Scene(splitPane);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Customer Accounts for" );
+        stage.setTitle("Customer Accounts for " + customerName );
         stage.show();
 
         // when row selected from accounts list launch AccountScreen (showing account details and transactions)
@@ -96,6 +111,34 @@ public class CustomerScreen  {
             Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
             new AccountView(selectedAccount,customer,accountList).displayView();
             stage.close();
+        });
+
+        // create new Accounts from buttons
+        newClientAccount.setOnAction(actionEvent -> {
+            Account x = new ClientAccount(customer);
+            x.writeData();
+            Account y = x.getThisAccount();
+            accountList.add(y);
+            accountsTable.getItems().add(y);
+            accountsTable.refresh();
+        });
+
+        newBusinessAccount.setOnAction(actionEvent -> {
+            Account x = new SmallBusinessAccount(customer);
+            x.writeData();
+            Account y = x.getThisAccount();
+            accountList.add(y);
+            accountsTable.getItems().add(y);
+            accountsTable.refresh();
+        });
+
+        newCommunityAccount.setOnAction(actionEvent -> {
+            Account x = new CommunityAccount(customer);
+            x.writeData();
+            Account y = x.getThisAccount();
+            accountList.add(y);
+            accountsTable.getItems().add(y);
+            accountsTable.refresh();
         });
 
     }
