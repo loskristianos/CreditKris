@@ -1,14 +1,11 @@
 package view;
 
-import controller.Controller;
+
+import customer.Customer;
 import gui.LoginScreen;
-import interfaces.DataHandlerCreator;
-import interfaces.DataObject;
-import interfaces.DataObjectCreator;
 import login.LoginObject;
 
 public class LoginView extends View {
-    Controller controller = new Controller(new DataObjectCreator(), new DataHandlerCreator());
 
     @Override
     public void displayView() {
@@ -16,8 +13,8 @@ public class LoginView extends View {
     }
 
     public void loginAttempt(String username, String password){
-        LoginObject loginObject = new DataObjectCreator().createLoginObject(username, password);
-        DataObject returnedCustomer = controller.loginAttempt(loginObject);
+        LoginObject loginObject = new LoginObject(username, password);
+        Customer returnedCustomer = loginObject.loginAttempt();
         if (returnedCustomer != null ){
             new CustomerView(returnedCustomer).displayView();
         } else {
