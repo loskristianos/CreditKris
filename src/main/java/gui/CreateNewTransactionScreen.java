@@ -68,7 +68,7 @@ public class CreateNewTransactionScreen {
                             new CreateNewTransactionView(account, customer, transactionType).createTransaction(amount);
                         case "Transfer":
                             new CreateNewTransactionView(account, customer, transactionType, targetAccount).createTransaction(amount);
-                    };
+                    }
                     stage.close();
                 });
     }
