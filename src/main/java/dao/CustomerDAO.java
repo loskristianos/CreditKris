@@ -21,7 +21,7 @@ public class CustomerDAO extends DAO{
 
     public void write(){
         this.tableName = "customers";
-        super.prepareInsertStatement();
+        sqlStatement = super.prepareInsertStatement();
         super.write();
     }
 
