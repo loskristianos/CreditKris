@@ -19,6 +19,6 @@ public class CreateCustomerView extends View{
         Customer customer = new Customer(customerDetails);
         customer.setCustomerID(newLogin.getCustomerID());
         customer.write();
-        new CreateNewAccountView(customer).displayView();
+        new CustomerView(customer).displayView();
     }
 }
