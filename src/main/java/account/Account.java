@@ -19,8 +19,6 @@ public abstract class Account implements DataObject {
     private String overdraftLimit;
     private String signatories;
 
-    public Account() {}
-
     public Account(HashMap<String,String> accountDetails) {
         setDetails(accountDetails);
     }
