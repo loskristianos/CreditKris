@@ -1,11 +1,20 @@
 package customer;
 
+import account.Account;
+import dao.AccountDAO;
+import dao.LoginDAO;
+import dao.PendingTransactionDAO;
 import interfaces.DataObject;
+import login.LoginObject;
+import dao.CustomerDAO;
+import transaction.PendingTransaction;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.StringJoiner;
 
 public class Customer implements DataObject {
+    LoginObject login;
     private String objectType = "Customer";
     private String customerID;
     private String firstName;
@@ -17,6 +26,10 @@ public class Customer implements DataObject {
     private String addressPostcode;
 
     public Customer(){}
+
+    public Customer(LoginObject login){
+        this.login = login;
+    }
 
     public Customer(HashMap<String, String> customerDetails) {
         setDetails(customerDetails);
@@ -75,15 +88,14 @@ public class Customer implements DataObject {
     }
 
     public void write(){
-        // new CustomerDAO.write(LoginObject, this)
+        new CustomerDAO(this).write();
     }
 
-    public void getAccounts(){
-        // new AccountsDAO(this).getRecords
+    public List<Account> getAccounts(){
+        return new AccountDAO(this).getAccounts();
     }
 
-    public void getPendingTransactions(){
-        // new PendingTransactionDAO(this).getRecords
-        // return List<Transaction>
+    public List<PendingTransaction> getPendingTransactions(){
+        return new PendingTransactionDAO(this).getCustomerPendingTransactions();
     }
 }
