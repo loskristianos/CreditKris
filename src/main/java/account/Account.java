@@ -64,8 +64,6 @@ public abstract class Account implements DataObject {
 
     public void writeData(){
         new AccountDAO(this).write();
-        // if (signatories != "1") - get account number of written record, write signatories
-        // (look at method in Controller, there might be some way to make it better)
     }
     public List<Transaction> getTransactions(){
         return new TransactionDAO(this).getTransactions();
