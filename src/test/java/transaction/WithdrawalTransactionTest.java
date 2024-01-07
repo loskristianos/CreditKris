@@ -8,9 +8,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WithdrawalTransactionTest {
 
-    HashMap<String, String> nullData = new HashMap<>() {{
-        put("transactionID",null); put("accountNumber",null); put("transactionAmount", null); put("transactionType","Withdrawal"); put("previousBalance",null); put("newBalance",null); put("transactionTime",null); put("additionalInfo",null);
-    }};
     HashMap<String, String> testData = new HashMap<>(){{ put("transactionID","1087"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Withdrawal"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo",null);}};
 
 
