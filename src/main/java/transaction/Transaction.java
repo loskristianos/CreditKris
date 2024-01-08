@@ -10,6 +10,7 @@ import java.util.List;
 
 public abstract class Transaction implements DataObject {
     Account account;
+    private String targetAccountNumber;
     private String transactionID;
     private String accountNumber;
     private String transactionAmount;
@@ -79,6 +80,9 @@ public abstract class Transaction implements DataObject {
         this.previousBalance = currentBalance;
     }
     public String getPreviousBalance(){ return this.previousBalance;}
+    public void setTargetAccountNumber(String targetAccountNumber){
+        this.targetAccountNumber = targetAccountNumber;
+    }
     public void setTransactionAmount(String transactionAmount){this.transactionAmount = transactionAmount;}
     public String getTransactionAmount(){return this.transactionAmount;}
     public void setNewBalance(String newBalance) {
@@ -102,9 +106,10 @@ public abstract class Transaction implements DataObject {
             *   Transactions needs a re-written constructor to take the customer creating the
             *   transaction as a parameter and a field to store their ID so that we can show who initiated
             *   the pending transaction (and the completed transaction in the accounts view) */
-            PendingTransaction x = new PendingTransaction(account,this);
-            x.setSignatoryID(signatory.getCustomerID());
-            x.writeData();
+            PendingTransaction pendingTransaction = new PendingTransaction(account,this);
+            pendingTransaction.setSignatoryID(signatory.getCustomerID());
+            if (targetAccountNumber != null) pendingTransaction.setTargetAccountNumber(targetAccountNumber);
+            pendingTransaction.writeData();
         }
 
     }

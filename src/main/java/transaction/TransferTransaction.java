@@ -14,6 +14,7 @@ public class TransferTransaction extends Transaction {
         this.account = account;
         this.targetAccount = targetAccount;
         this.transactionAmount = transactionAmount;
+        super.setTargetAccountNumber(targetAccount.getAccountNumber());
         setTransactionType("Transfer");
         }
 
