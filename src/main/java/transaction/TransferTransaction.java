@@ -2,7 +2,6 @@ package transaction;
 
 import account.Account;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class TransferTransaction extends Transaction {
