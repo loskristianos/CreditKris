@@ -5,6 +5,7 @@ import account.ClientAccount;
 import account.CommunityAccount;
 import account.SmallBusinessAccount;
 import customer.Customer;
+import transaction.PendingTransaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,10 @@ public class AccountDAO extends DAO{
     public AccountDAO(Customer customer) {
         super(customer);
         this.customer = customer;
+    }
+
+    public AccountDAO(PendingTransaction pendingTransaction){
+        super(pendingTransaction);
     }
 
     @Override
@@ -66,6 +71,17 @@ public class AccountDAO extends DAO{
         sqlStatement ="SELECT * FROM accounts WHERE customer_id = '" + customerID + "' AND account_type = '" + accountType + "'";
         HashMap<String,String> returnMap = super.databaseLookup().getFirst();
         return switch (accountType){
+            case "Client": yield new ClientAccount(returnMap);
+            case "Community": yield new CommunityAccount(returnMap);
+            case "Business": yield new SmallBusinessAccount(returnMap);
+            default: yield null;
+        };
+    }
+
+    public Account getAccountByAccountNumber(String accountNumber){
+        sqlStatement = "SELECT * FROM accounts WHERE account_number = '" + accountNumber + "'";
+        HashMap<String,String> returnMap = super.databaseLookup().getFirst();
+        return switch (returnMap.get("accountType")){
             case "Client": yield new ClientAccount(returnMap);
             case "Community": yield new CommunityAccount(returnMap);
             case "Business": yield new SmallBusinessAccount(returnMap);
