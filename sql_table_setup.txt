@@ -10,6 +10,6 @@ CREATE TABLE transactions (transaction_id INTEGER PRIMARY KEY,account_number TEX
 
 CREATE TABLE signatories (account_number INTEGER NOT NULL,customer_id INTEGER NOT NULL);
 
-CREATE TABLE pending_authorisation (transaction_id TEXT NOT NULL,account_number TEXT NOT NULL,customer_id TEXT NOT NULL,transaction_amount TEXT,transaction_type TEXT,additional_info TEXT);
+CREATE TABLE pending_transactions (transaction_id TEXT NOT NULL,account_number TEXT NOT NULL,customer_id TEXT NOT NULL,transaction_amount TEXT NOT NULL,transaction_type TEXT NOT NULL,additional_info TEXT,signatory_id TEXT NOT NULL,target_account TEXT);
 
 
