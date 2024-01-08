@@ -1,6 +1,7 @@
 package transaction;
 
 import account.Account;
+import dao.AccountDAO;
 import dao.PendingTransactionDAO;
 
 import java.util.HashMap;
@@ -82,6 +83,18 @@ public class PendingTransaction extends Transaction {
     public Integer getRemainingTransactions(){
         // check number of pending transactions remaining for this transactionID
         return new PendingTransactionDAO(this).getRemainingTransactions();
+    }
+
+    public void completeTransaction(){
+        Account account = new AccountDAO(this).getAccountByAccountNumber(accountNumber);
+        switch (transactionType) {
+            case "Deposit": new DepositTransaction(account, transactionAmount);
+            case "Withdrawal": new WithdrawalTransaction(account, transactionAmount);
+            case "Transfer": {
+                Account targetAccount = new AccountDAO(this).getAccountByAccountNumber(targetAccountNumber);
+                new TransferTransaction(account, targetAccount, transactionAmount);
+            }
+        }
     }
 
     public void delete(){
