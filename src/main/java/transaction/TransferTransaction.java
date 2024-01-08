@@ -9,7 +9,7 @@ public class TransferTransaction extends Transaction {
    Account targetAccount;
    String transactionAmount;
 
-    // constructor for new transactions from account screen
+    // constructor for new transactions from UI account screen
     public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
         this.account = account;
         this.targetAccount = targetAccount;
@@ -17,10 +17,7 @@ public class TransferTransaction extends Transaction {
         setTransactionType("Transfer");
         }
 
-    /*  constructor for creating objects from details returned from database queries
-    *   (might not need this depending on the DAO re-writes
-    */
-
+    // constructor for creating objects from details returned from database lookup
     public TransferTransaction(HashMap<String, String> transactionDetails) {
         super(transactionDetails);
         if(getTransactionType()==null) {
