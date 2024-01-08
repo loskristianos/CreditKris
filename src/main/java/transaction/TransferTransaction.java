@@ -7,15 +7,15 @@ import java.util.HashMap;
 
 public class TransferTransaction extends Transaction {
 
-    Account account;
-    Account targetAccount;
-    String transactionAmount;
+   Account targetAccount;
+   String transactionAmount;
 
     // constructor for new transactions from account screen
     public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
         this.account = account;
         this.targetAccount = targetAccount;
         this.transactionAmount = transactionAmount;
+        setTransactionType("Transfer");
         }
 
     /*  constructor for creating objects from details returned from database queries
@@ -35,7 +35,12 @@ public class TransferTransaction extends Transaction {
     }
 
     public void writeData(){
-        new TransferOut(account, transactionAmount).writeData();
-        new TransferIn(targetAccount,transactionAmount).writeData();
+        if (account.getSignatories().equals("1")) {
+            new TransferOut(account, transactionAmount).writeData();
+            new TransferIn(targetAccount, transactionAmount).writeData();
+        }
+        else {
+            createPendingTransactions();
+        }
     }
 }

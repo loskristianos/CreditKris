@@ -1,10 +1,12 @@
 package transaction;
 
 import account.Account;
+import account.Signatory;
 import dao.AccountDAO;
 import dao.TransactionDAO;
 import interfaces.DataObject;
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class Transaction implements DataObject {
     Account account;
@@ -84,7 +86,26 @@ public abstract class Transaction implements DataObject {
     }
     public abstract String calculateNewBalance();
     public void writeData(){
-        new TransactionDAO(this).write();
-        new AccountDAO(account).update();
+        if (account.getSignatories().equals("1")) {
+            new TransactionDAO(this).write();
+            new AccountDAO(account).update();
+        } else {
+            createPendingTransactions();
+        }
+
+    }
+
+    public void createPendingTransactions(){
+        List<Signatory> signatoryList = account.getSignatoryList();
+        for (Signatory signatory : signatoryList){
+            /*  Note: this creates a pending transaction for the person creating the account as well.
+            *   Transactions needs a re-written constructor to take the customer creating the
+            *   transaction as a parameter and a field to store their ID so that we can show who initiated
+            *   the pending transaction (and the completed transaction in the accounts view) */
+            PendingTransaction x = new PendingTransaction(account,this);
+            x.setSignatoryID(signatory.getCustomerID());
+            x.writeData();
+        }
+
     }
 }
