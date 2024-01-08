@@ -30,7 +30,6 @@ public class MapFieldsToColumns {
         put("newBalance", "new_balance");
         put("transactionTime", "transaction_time");
         put("authorised", "authorised");
-        put("additionalInfo", "additional_info");
         put("currentBalance", "current_balance");
     }};
 
@@ -56,7 +55,6 @@ public class MapFieldsToColumns {
         put("new_balance", "newBalance");
         put("transaction_time", "transactionTime");
         put("authorised", "authorised");
-        put("additional_info", "additionalInfo");
         put("current_balance", "currentBalance");
     }};
 }

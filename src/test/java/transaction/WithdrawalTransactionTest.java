@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class WithdrawalTransactionTest {
 
-    HashMap<String, String> testData = new HashMap<>(){{ put("transactionID","1087"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Withdrawal"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo",null);}};
+    HashMap<String, String> testData = new HashMap<>(){{ put("transactionID","1087"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Withdrawal"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00");}};
 
 
     @Test
@@ -25,8 +25,6 @@ class WithdrawalTransactionTest {
         assertEquals("900.76",transaction.getTransactionAmount());
         transaction.setNewBalance("3000.00");
         assertEquals("3000.00",transaction.getDetails().get("newBalance"));
-        transaction.setAdditionalInfo("test info");
-        assertEquals("test info",transaction.getAdditionalInfo());
         transaction.setTransactionType("testType");
         assertEquals("testType",transaction.getTransactionType());
         transaction.setPreviousBalance("11.23");

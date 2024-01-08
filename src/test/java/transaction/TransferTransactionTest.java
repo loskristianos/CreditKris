@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransferTransactionTest {
 
 
-    HashMap<String, String> testDataNullType = new HashMap<>(){{put("transactionID","123"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType",null); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo","98765432");}};
-    HashMap<String, String> testDataWithType = new HashMap<>(){{put("transactionID","123"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Transfer"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00"); put("additionalInfo","98765432");}};
+    HashMap<String, String> testDataNullType = new HashMap<>(){{put("transactionID","123"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType",null); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00");}};
+    HashMap<String, String> testDataWithType = new HashMap<>(){{put("transactionID","123"); put("accountNumber","12345678"); put("transactionAmount","34.65"); put("transactionType","Transfer"); put("previousBalance","538.75"); put("newBalance","504.10"); put("transactionTime","2023/12/19 14:30:00");}};
 
 
 
@@ -36,8 +36,6 @@ class TransferTransactionTest {
         assertEquals("900.76",transaction.getTransactionAmount());
         transaction.setNewBalance("3000.00");
         assertEquals("3000.00",transaction.getDetails().get("newBalance"));
-        transaction.setAdditionalInfo("test info");
-        assertEquals("test info",transaction.getAdditionalInfo());
         transaction.setTransactionType("testType");
         assertEquals("testType",transaction.getTransactionType());
         transaction.setPreviousBalance("11.23");
