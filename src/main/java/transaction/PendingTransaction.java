@@ -97,6 +97,11 @@ public class PendingTransaction extends Transaction {
         }
     }
 
+    public void authorise(){
+        delete();
+        if (getRemainingTransactions()==0) completeTransaction();
+
+    }
     public void delete(){
         new PendingTransactionDAO(this).deletePendingTransaction();
     }
