@@ -44,6 +44,7 @@ public class CreateNewTransactionView extends View{
             default: yield null;
         };
         assert newTransaction != null;
+        newTransaction.setCustomerID(customer.getCustomerID());
         newTransaction.writeData();
     }
 }
