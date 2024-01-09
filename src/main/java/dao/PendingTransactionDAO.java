@@ -32,6 +32,7 @@ public class PendingTransactionDAO extends DAO{
     @Override
     public void write() {
         tableName = "pending_transactions";
+        sqlStatement = super.prepareInsertStatement();
         super.write();
     }
 
