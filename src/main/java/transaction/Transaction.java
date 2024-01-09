@@ -44,6 +44,7 @@ public abstract class Transaction implements DataObject {
         details.put("previousBalance",previousBalance);
         details.put("newBalance",newBalance);
         details.put("transactionTime",transactionTime);
+        details.put("customerID",customerID);
         return details;
     }
 
@@ -54,6 +55,7 @@ public abstract class Transaction implements DataObject {
         previousBalance = details.get("previousBalance");
         newBalance = details.get("newBalance");
         transactionTime = details.get("transactionTime");
+        customerID = details.get("customerID");
     }
 
     public void setTransactionType(String transactionType) {
