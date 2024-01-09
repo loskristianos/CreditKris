@@ -31,6 +31,7 @@ public class MapFieldsToColumns {
         put("transactionTime", "transaction_time");
         put("authorised", "authorised");
         put("currentBalance", "current_balance");
+        put("signatoryID", "signatory_id");
     }};
 
     public static HashMap<String,String> mappingsFromDB = new HashMap<>() {{
@@ -56,5 +57,6 @@ public class MapFieldsToColumns {
         put("transaction_time", "transactionTime");
         put("authorised", "authorised");
         put("current_balance", "currentBalance");
+        put("signatory_id","signatoryID");
     }};
 }
