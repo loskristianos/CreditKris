@@ -10,4 +10,6 @@ module CreditKris {
     exports customer;
     exports login;
     exports transaction;
+
+    opens gui to javafx.fxml;
 }
