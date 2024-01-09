@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class PendingTransaction extends Transaction {
     private String transactionID;
+    private String customerID;
     private String accountNumber;
     private String transactionAmount;
     private String transactionType;
@@ -70,6 +71,14 @@ public class PendingTransaction extends Transaction {
     public void setSignatoryID(String signatory){
         signatoryID = signatory;
     }
+    public void setCustomerID(String customerID){
+        this.customerID = customerID;
+    }
+
+    public String getCustomerId(){
+        return customerID;
+    }
+
     @Override
     public String calculateNewBalance() {
         return null;
