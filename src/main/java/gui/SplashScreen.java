@@ -1,10 +1,10 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import view.LoginView;
+
 
 public class SplashScreen extends Application {
 
@@ -14,20 +14,11 @@ public class SplashScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // display image (to come)
-
-        // login button
-        Button button = new Button("Go!");
-
-
-        stage.setTitle("Welcome to Credit Kris!");
-        Scene scene = new Scene(button);
+        FXMLLoader fxmlloader =new FXMLLoader();
+        fxmlloader.setLocation(getClass().getResource("login-view.fxml"));
+        Scene scene = new Scene(fxmlloader.load());
+        stage.setTitle("Welcome to Credit Kris");
         stage.setScene(scene);
         stage.show();
-
-        button.setOnAction(actionEvent -> {
-            new LoginView().displayView();
-            stage.close();
-        });
     }
 }
