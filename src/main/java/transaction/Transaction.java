@@ -102,14 +102,13 @@ public abstract class Transaction implements DataObject {
     public void createPendingTransactions(){
         List<Signatory> signatoryList = account.getSignatoryList();
         for (Signatory signatory : signatoryList){
-            /*  Note: this creates a pending transaction for the person creating the account as well.
-            *   Transactions needs a re-written constructor to take the customer creating the
-            *   transaction as a parameter and a field to store their ID so that we can show who initiated
-            *   the pending transaction (and the completed transaction in the accounts view) */
-            PendingTransaction pendingTransaction = new PendingTransaction(account,this);
-            pendingTransaction.setSignatoryID(signatory.getCustomerID());
-            if (targetAccountNumber != null) pendingTransaction.setTargetAccountNumber(targetAccountNumber);
-            pendingTransaction.writeData();
+
+            if (!customerID.equals(signatory.getCustomerID())) {    // prevents creation of pending transaction for customer initiating this transaction
+                PendingTransaction pendingTransaction = new PendingTransaction(account, this);
+                pendingTransaction.setSignatoryID(signatory.getCustomerID());
+                if (targetAccountNumber != null) pendingTransaction.setTargetAccountNumber(targetAccountNumber);
+                pendingTransaction.writeData();
+            }
         }
 
     }
