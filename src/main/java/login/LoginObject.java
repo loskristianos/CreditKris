@@ -1,12 +1,13 @@
 package login;
 
+import customer.Customer;
+import dao.CustomerDAO;
+import dao.LoginDAO;
 import interfaces.DataObject;
 
 import java.util.HashMap;
 
 public class LoginObject implements DataObject {
-
-    private String objectType = "Login";
 
     private String username;
 
@@ -54,7 +55,17 @@ public class LoginObject implements DataObject {
         return customerID;
     }
 
-    public String getObjectType(){
-        return this.objectType;
+    public Customer loginAttempt(){
+        LoginObject confirmedLogin = new LoginDAO(this).getLogin();
+        if (confirmedLogin != null) {
+            return new CustomerDAO(confirmedLogin).getRecord();
+        } else {
+            return null;
+        }
+    }
+
+    public LoginObject write(){
+        new LoginDAO(this).write();
+        return new LoginDAO(this).getLogin();
     }
 }

@@ -9,27 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SmallBusinessAccountTest {
 
-    Map<String,String> nullDataHM = new HashMap<>() {{
-        put("customerID",null); put("accountType", "Business"); put("accountNumber",null); put("currentBalance",null); put("overdraftLimit","1000"); put("signatories",null);
-    }};
-    HashMap<String,String> testDataHM = new HashMap<>(Map.of("customerID","123", "accountType", "Business", "accountNumber","12345678", "currentBalance","308.50", "overdraftLimit","500", "signatories","1"));
+   HashMap<String,String> testDataHM = new HashMap<>(Map.of("customerID","123", "accountType", "Business", "accountNumber","12345678", "currentBalance","308.50", "overdraftLimit","500", "signatories","1"));
     HashMap<String,String> expectedDataHM = new HashMap<>(Map.of("customerID","123", "accountType", "Business", "accountNumber","12345678", "currentBalance","308.50", "overdraftLimit","1000", "signatories","1"));
 
 
-    @Test
-    void noArgsConstructorHM() {
-        Account account = new SmallBusinessAccount();
-        HashMap<String,String> returnedDetails = account.getDetails();
-        assertEquals(nullDataHM, returnedDetails);
-    }
-
-    @Test
-    void noArgsConstructorSetDetailsHM() {
-        Account account = new SmallBusinessAccount();
-        account.setDetails(testDataHM);
-        HashMap<String, String> returnedData = account.getDetails();
-        assertEquals(expectedDataHM, returnedData);
-    }
     @Test
     void withArgsConstructorHM() {
         Account account = new SmallBusinessAccount(testDataHM);
@@ -45,5 +28,4 @@ class SmallBusinessAccountTest {
         HashMap<String,String> returnedDetails = account.getDetails();
         assertEquals(expectedDataHM, returnedDetails);
     }
-
 }

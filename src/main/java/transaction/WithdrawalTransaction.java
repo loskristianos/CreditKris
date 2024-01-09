@@ -1,12 +1,14 @@
 package transaction;
 
+import account.Account;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class WithdrawalTransaction extends Transaction {
 
-    public WithdrawalTransaction(){
-        super();
+    public WithdrawalTransaction(Account account, String transactionAmount){
+        super(account, transactionAmount);
         setTransactionType("Withdrawal");
     }
 
@@ -21,5 +23,4 @@ public class WithdrawalTransaction extends Transaction {
         BigDecimal newBalance = previousBalance.subtract(transactionAmount);
         return newBalance.toString();
     }
-
 }

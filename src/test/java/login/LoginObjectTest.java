@@ -35,6 +35,5 @@ class LoginObjectTest {
         assertEquals(testName, login.getUsername());
         assertEquals(testPassword, login.getPassword());
         assertEquals("123", login.getCustomerID());
-        assertEquals("Login",login.getObjectType());
     }
 }
