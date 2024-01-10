@@ -12,4 +12,6 @@ module CreditKris {
     exports transaction;
 
     opens gui to javafx.fxml;
+    exports oldgui;
+    opens oldgui to javafx.fxml;
 }
