@@ -71,7 +71,7 @@ public class NewCustomerController {
         alert.setTitle("Field "+field+" is blank");
         alert.setHeaderText("Required field "+field+" cannot be blank.");
         alert.setContentText("Please complete all the required fields to submit your request.");
-        alert.show();
+        alert.showAndWait();
     }
 
     void verifyInput(HashMap<String,String> login, HashMap<String,String> customerDetails){
@@ -86,6 +86,8 @@ public class NewCustomerController {
             }
         }
         // check none of the customer detail fields are blank (except for address2 which is allowed to be blank)
+        // needs redoing for multiple blank fields, it currently fires an alert for each one at the same time
+        // (and then tries to write the object with the blank fields to the database anyway
         for (Entry<String,String> entry : customerDetails.entrySet()){
             if(entry.getValue()==null || entry.getValue().isBlank()){
                 if (!entry.getKey().equals("address2"))
