@@ -6,6 +6,7 @@ import account.CommunityAccount;
 import account.SmallBusinessAccount;
 import customer.Customer;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -21,6 +22,7 @@ public class CustomerController {
     Customer customer;
     List<Account> accountList;
     Stage currentStage;
+    Scene previousScene;
 
     @FXML private TextField customerNameDisplay;
     @FXML private TextField dobDisplay;
@@ -40,6 +42,9 @@ public class CustomerController {
     }
     public void setCurrentStage(Stage stage){
         currentStage = stage;
+    }
+    public void setPreviousScene(Scene scene){
+        previousScene = scene;
     }
     @FXML private void initialize(){
         customerNameDisplay.setText(customer.getFullName());

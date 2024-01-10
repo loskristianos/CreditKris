@@ -3,6 +3,7 @@ package gui;
 import account.Account;
 import customer.Customer;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -12,6 +13,7 @@ import java.util.List;
 
 public class AccountController {
     Stage currentStage;
+    Scene previousScene;
     Account account;
     Customer customer;
     List<Transaction> transactionList;
@@ -59,6 +61,9 @@ public class AccountController {
 
     public void setCurrentStage(Stage stage){
         currentStage = stage;
+    }
+    public void setPreviousScene(Scene scene) {
+        previousScene = scene;
     }
     public void setAccount(Account account){
         this.account = account;

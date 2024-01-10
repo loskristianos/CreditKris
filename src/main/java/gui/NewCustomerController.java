@@ -2,6 +2,7 @@ package gui;
 
 import customer.Customer;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
@@ -17,6 +18,7 @@ import java.util.Map.*;
 public class NewCustomerController {
 
     Stage currentStage;
+    Scene previousScene;
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -34,6 +36,9 @@ public class NewCustomerController {
 
     public void setCurrentStage(Stage stage){
         currentStage = stage;
+    }
+    public void setPreviousScene(Scene scene) {
+        previousScene = scene;
     }
 
     @FXML void submitButtonAction() throws Exception {
