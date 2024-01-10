@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<SplitPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            orientation="VERTICAL"
+            prefHeight="400.0" prefWidth="600.0">
+    <BorderPane>
+        <top>
+            <GridPane vgap="10" hgap="10">
+                <Label text="Account Number" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="accountNumberDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <Label text="Account Type" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <TextField fx:id="accountTypeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+                <Label text="Current Balance" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="currentBalanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <Label text="Overdraft Limit" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <TextField fx:id="overdraftLimitDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+            </GridPane>
+        </top>
+        <bottom>
+            <HBox>
+                <Button text="Deposit" onAction="#depositButtonAction"/>
+                <Button text="Withdrawal" onAction="#withdrawalButtonAction"/>
+                <Button text="Transfer" onAction="#transferButtonAction"/>
+            </HBox>
+        </bottom>
+    </BorderPane>
+
+    <TableView fx:id="transactionTableView">
+        <columns>
+            <TableColumn text="Transaction Date" fx:id="transactionTime"/>
+            <TableColumn text="Transaction Type" fx:id="transactionType"/>
+            <TableColumn text="Transaction Amount" fx:id="transactionAmount"/>
+            <TableColumn text="Previous Balance" fx:id="previousBalance"/>
+            <TableColumn text="New Balance" fx:id="newBalance"/>
+            <TableColumn text="Transaction Reference" fx:id="transactionID"/>
+        </columns>
+    </TableView>
+</SplitPane>
