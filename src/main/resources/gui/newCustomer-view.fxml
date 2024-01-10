@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.NewCustomerController"
+            prefHeight="400.0" prefWidth="600.0">
+    <GridPane vgap="10" hgap="10">
+        <Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Label text="Password" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <PasswordField fx:id="passwordField" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+        <Label text="Confirm Password" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <PasswordField fx:id="confirmPasswordField" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+        <Label text="First Name" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="firstNameField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+        <Label text="Last Name" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <TextField fx:id="lastNameField" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+        <Label text="Date of Birth" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="dobField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+        <Label text="Address Line 1" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+        <TextField fx:id="address1Field" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+
+        <Label text="Address Line 2" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
+        <TextField fx:id="address2Field" GridPane.columnIndex="3" GridPane.rowIndex="4"/>
+
+        <Label text="Town" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+        <TextField fx:id="addressTownField" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+        <Label text="Postcode" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+        <TextField fx:id="addressPostcodeField" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+        <Button text="Submit" onAction="#submitButtonAction" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+        <Button text="Cancel" onAction="#cancelButtonAction" GridPane.columnIndex="2" GridPane.rowIndex="7"/>
+    </GridPane>
+</AnchorPane>
