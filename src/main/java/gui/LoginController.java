@@ -13,7 +13,7 @@ import login.LoginObject;
 public class LoginController {
 
     Stage currentStage;
-    Scene scene;
+    Scene currentScene;
 
     @FXML private TextField userName;
     @FXML private PasswordField password;
@@ -29,8 +29,8 @@ public class LoginController {
     public void setCurrentStage(Stage stage){
         currentStage = stage;
     }
-    public void setScene(Scene scene) {
-        this.scene = scene;
+    public void setCurrentScene(Scene scene) {
+        currentScene = scene;
     }
     void loginAttempt(String username, String password) throws Exception {
         LoginObject loginObject = new LoginObject(username, password);
