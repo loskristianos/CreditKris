@@ -25,6 +25,7 @@ public class StartApplication extends Application {
         fxmlloader.setController(loginController);
         fxmlloader.setLocation(getClass().getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlloader.load());
+        loginController.setCurrentScene(scene);
         stage.setTitle("Welcome to Credit Kris");
         stage.setScene(scene);
         stage.show();
