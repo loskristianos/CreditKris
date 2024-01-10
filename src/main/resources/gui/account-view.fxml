@@ -28,9 +28,10 @@
         </top>
         <bottom>
             <HBox>
-                <Button text="Deposit" onAction="#depositButtonAction"/>
+                <Button text="Deposit" onAction="#depositButtonAction" />
                 <Button text="Withdrawal" onAction="#withdrawalButtonAction"/>
-                <Button text="Transfer" onAction="#transferButtonAction"/>
+                <Button text="Transfer" fx:id="transferButton" visible="false" onAction="#transferButtonAction"/>
+                <ComboBox fx:id="transferAccounts" visible="false" onAction="#transferAccountAction"/>
             </HBox>
         </bottom>
     </BorderPane>
