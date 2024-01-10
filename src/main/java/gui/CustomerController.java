@@ -22,7 +22,7 @@ public class CustomerController {
     Customer customer;
     List<Account> accountList;
     Stage currentStage;
-    Scene previousScene;
+    Scene currentScene;
 
     @FXML private TextField customerNameDisplay;
     @FXML private TextField dobDisplay;
@@ -43,8 +43,8 @@ public class CustomerController {
     public void setCurrentStage(Stage stage){
         currentStage = stage;
     }
-    public void setPreviousScene(Scene scene){
-        previousScene = scene;
+    public void setCurrentScene(Scene scene){
+        currentScene = scene;
     }
     @FXML private void initialize(){
         customerNameDisplay.setText(customer.getFullName());

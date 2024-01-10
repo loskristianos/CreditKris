@@ -23,7 +23,7 @@ public class CustomerApplication extends Application {
         fxmlloader.setController(customerController);
         fxmlloader.setLocation(getClass().getResource("customer-view.fxml"));
         Scene scene = new Scene(fxmlloader.load());
-        customerController.setPreviousScene(scene);
+        customerController.setCurrentScene(scene);
         stage.setTitle("Customer Details");
         stage.setScene(scene);
     }
