@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- Needs to be a SplitPane round the outside of everything -->
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="gui.CustomerController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <GridPane vgap="10" hgap="10">
+        <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="customerNameDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+
+        <Label text="Date of Birth" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="dobDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+
+        <Label text="Customer Reference" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <TextField fx:id="customerIdDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0" editable="false"/>
+
+        <Label text="Address" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <TextArea fx:id="customerAddressDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
+                  GridPane.rowSpan="2" editable="false" wrapText="true"/>
+    </GridPane>
+
+    <HBox>
+        <Button text="New Client Account" onAction="#newClientButtonAction"/>
+        <Button text="New Community Account" onAction="#newCommunityButtonAction"/>
+        <Button text="New Small Business Account" onAction="#newBusinessButtonAction"/>
+    </HBox>
+
+    <!-- split goes here -->
+
+    <TableView fx:id="accountsTable" >
+        <columns>
+            <TableColumn text="Account Number" fx:id="accountNumberColumn"/>
+            <TableColumn text="Account Type" fx:id="accountTypeColumn"/>
+            <TableColumn text="Current Balance" fx:id="currentBalanceColumn"/>
+            <TableColumn text="Overdraft Limit" fx:id="overdraftLimitColumn"/>
+        </columns>
+    </TableView>
+</AnchorPane>
+
+
