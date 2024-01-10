@@ -25,6 +25,7 @@ public class AccountApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
+        accountController.setCurrentStage(stage);
         accountController.setAccount(account);
         accountController.setCustomer(customer);
         accountController.setAccountList(accountList);
