@@ -6,21 +6,21 @@ import account.CommunityAccount;
 import account.SmallBusinessAccount;
 import customer.Customer;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
-import java.net.URL;
+
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class CustomerController {
 
     Customer customer;
     List<Account> accountList;
+    Stage currentStage;
 
     @FXML private TextField customerNameDisplay;
     @FXML private TextField dobDisplay;
@@ -32,16 +32,22 @@ public class CustomerController {
     @FXML private TableColumn<Account,String> currentBalanceColumn;
     @FXML private TableColumn<Account,String> overdraftLimitColumn;
 
-    public CustomerController(Customer customer){
+
+    public CustomerController(){
+    }
+    public void setCustomer(Customer customer){
         this.customer = customer;
+    }
+    public void setCurrentStage(Stage stage){
+        currentStage = stage;
+    }
+    @FXML private void initialize(){
         customerNameDisplay.setText(customer.getFullName());
         dobDisplay.setText(customer.getDob());
         customerIdDisplay.setText(customer.getCustomerID());
         customerAddressDisplay.setText(customer.getFullAddress());
-        this.accountList = customer.getAccounts();
-    }
+        accountList = customer.getAccounts();
 
-    @FXML private void initialize(){
         accountNumberColumn.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
         accountTypeColumn.setCellValueFactory(new PropertyValueFactory<>("accountType"));
         currentBalanceColumn.setCellValueFactory(new PropertyValueFactory<>("currentBalance"));

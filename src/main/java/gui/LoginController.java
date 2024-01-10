@@ -6,27 +6,32 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import login.LoginObject;
 
 public class LoginController {
 
+    Stage currentStage;
+
     @FXML private TextField userName;
     @FXML private PasswordField password;
-    @FXML protected void loginButtonAction(){
+    @FXML protected void loginButtonAction() throws Exception {
         String username = userName.getText();
         String password = this.password.getText();
         loginAttempt(username,password);
     }
 
-    @FXML protected void newUserButtonAction(){
-        new NewCustomerController();
+    @FXML protected void newUserButtonAction() throws Exception {
+        new NewCustomerApplication().start(currentStage);
     }
-
-    void loginAttempt(String username, String password){
+    public void setCurrentStage(Stage stage){
+        currentStage = stage;
+    }
+    void loginAttempt(String username, String password) throws Exception {
         LoginObject loginObject = new LoginObject(username, password);
         Customer returnedCustomer = loginObject.loginAttempt();
         if (returnedCustomer != null ){
-           new CustomerController(returnedCustomer);
+           new CustomerApplication(returnedCustomer).start(currentStage);
         }
         else {
             alert();

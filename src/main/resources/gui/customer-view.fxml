@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!-- Needs to be a SplitPane round the outside of everything -->
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.CustomerController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<SplitPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0">
+    <items>
+        <BorderPane>
+                <top>
     <GridPane vgap="10" hgap="10">
         <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <TextField fx:id="customerNameDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
@@ -27,14 +24,15 @@
         <TextArea fx:id="customerAddressDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
                   GridPane.rowSpan="2" editable="false" wrapText="true"/>
     </GridPane>
-
+                </top>
+            <bottom>
     <HBox>
         <Button text="New Client Account" onAction="#newClientButtonAction"/>
         <Button text="New Community Account" onAction="#newCommunityButtonAction"/>
         <Button text="New Small Business Account" onAction="#newBusinessButtonAction"/>
     </HBox>
-
-    <!-- split goes here -->
+            </bottom>
+        </BorderPane>
 
     <TableView fx:id="accountsTable" >
         <columns>
@@ -44,6 +42,7 @@
             <TableColumn text="Overdraft Limit" fx:id="overdraftLimitColumn"/>
         </columns>
     </TableView>
-</AnchorPane>
+    </items>
+</SplitPane>
 
 

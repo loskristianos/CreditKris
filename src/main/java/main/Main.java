@@ -1,10 +1,10 @@
 package main;
 
-import gui.SplashScreen;
+import gui.StartApplication;
 
 public class Main {
 
     public static void main(String[] args){
-        new SplashScreen().displayScreen();
+        new StartApplication().displayScreen();
     }
 }

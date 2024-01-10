@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import login.LoginObject;
 
 
@@ -14,6 +15,8 @@ import java.util.Map.*;
 
 
 public class NewCustomerController {
+
+    Stage currentStage;
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -26,7 +29,14 @@ public class NewCustomerController {
     @FXML private TextField addressTownField;
     @FXML private TextField addressPostcodeField;
 
-    @FXML void submitButtonAction(){
+    public NewCustomerController(){
+    }
+
+    public void setCurrentStage(Stage stage){
+        currentStage = stage;
+    }
+
+    @FXML void submitButtonAction() throws Exception {
         HashMap<String,String> login = new HashMap<>() {{
             put("username",usernameField.getText()); put("password",passwordField.getText());
         }};
@@ -39,8 +49,8 @@ public class NewCustomerController {
         createCustomer(login, customerDetails);
     }
 
-    @FXML void cancelButtonAction(){
-        // close scene and go back to login
+    @FXML void cancelButtonAction() throws Exception {
+        new StartApplication().start(currentStage);
     }
 
     void passwordAlert(){
@@ -80,13 +90,14 @@ public class NewCustomerController {
 
     }
 
-    void createCustomer(HashMap<String,String> loginDetails, HashMap<String,String> customerDetails){
+    void createCustomer(HashMap<String,String> loginDetails, HashMap<String,String> customerDetails) throws Exception {
         LoginObject loginObject = new LoginObject(loginDetails.get("username"), loginDetails.get("password"));
         LoginObject newLogin = loginObject.write();
         Customer customer = new Customer(customerDetails);
         customer.setCustomerID(newLogin.getCustomerID());
         customer.write();
-        new CustomerController(customer);
+        new CustomerApplication(customer).start(currentStage);
+
     }
 
 }

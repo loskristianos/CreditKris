@@ -6,7 +6,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class SplashScreen extends Application {
+public class StartApplication extends Application {
+
+    LoginController loginController;
+
+    public StartApplication(){
+        loginController = new LoginController();
+    }
 
     public void displayScreen(){
         launch();
@@ -14,7 +20,9 @@ public class SplashScreen extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        loginController.setCurrentStage(stage);
         FXMLLoader fxmlloader =new FXMLLoader();
+        fxmlloader.setController(loginController);
         fxmlloader.setLocation(getClass().getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlloader.load());
         stage.setTitle("Welcome to Credit Kris");
