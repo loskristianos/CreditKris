@@ -19,14 +19,14 @@ public class LoginController {
     }
 
     @FXML protected void newUserButtonAction(){
-        // launch NewNewCustomerController;
+        new NewCustomerController();
     }
 
     void loginAttempt(String username, String password){
         LoginObject loginObject = new LoginObject(username, password);
         Customer returnedCustomer = loginObject.loginAttempt();
         if (returnedCustomer != null ){
-           // new CustomerController(returnedCustomer);
+           new CustomerController(returnedCustomer);
         }
         else {
             alert();
