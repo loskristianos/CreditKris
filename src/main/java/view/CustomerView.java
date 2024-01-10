@@ -2,7 +2,7 @@ package view;
 
 import account.Account;
 import customer.Customer;
-import gui.CustomerScreen;
+import oldgui.CustomerScreen;
 
 import java.util.List;
 
