@@ -2,6 +2,7 @@ package gui;
 
 import customer.Customer;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
@@ -12,6 +13,7 @@ import login.LoginObject;
 public class LoginController {
 
     Stage currentStage;
+    Scene scene;
 
     @FXML private TextField userName;
     @FXML private PasswordField password;
@@ -26,6 +28,9 @@ public class LoginController {
     }
     public void setCurrentStage(Stage stage){
         currentStage = stage;
+    }
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
     void loginAttempt(String username, String password) throws Exception {
         LoginObject loginObject = new LoginObject(username, password);
