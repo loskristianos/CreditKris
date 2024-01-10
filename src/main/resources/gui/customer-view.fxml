@@ -7,9 +7,11 @@
 <SplitPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             orientation="VERTICAL" prefHeight="600.0" prefWidth="800.0">
-    <items>
+
         <BorderPane>
                 <top>
+                    <VBox>
+                        <Button text="Log Out" onAction="#logOutButtonAction" alignment="CENTER_LEFT"/>
     <GridPane vgap="10" hgap="10">
         <Label text="Name" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
         <TextField fx:id="customerNameDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
@@ -22,8 +24,9 @@
 
         <Label text="Address" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
         <TextArea fx:id="customerAddressDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.columnSpan="1"
-                  GridPane.rowSpan="2" editable="false" wrapText="true"/>
+                GridPane.rowSpan="1" editable="false" wrapText="true"/>
     </GridPane>
+                    </VBox>
                 </top>
             <bottom>
     <HBox>
@@ -42,7 +45,7 @@
             <TableColumn text="Overdraft Limit" fx:id="overdraftLimitColumn"/>
         </columns>
     </TableView>
-    </items>
+
 </SplitPane>
 
 

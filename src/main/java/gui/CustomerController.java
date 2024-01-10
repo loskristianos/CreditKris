@@ -75,6 +75,9 @@ public class CustomerController {
         createNewAccount("Business");
     }
 
+    @FXML void logOutButtonAction() throws Exception{
+        new StartApplication().start(currentStage);
+    }
     void createNewAccount(String accountType){
         Account newAccount = switch (accountType) {
             case "Client": yield new ClientAccount(customer);
