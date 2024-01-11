@@ -10,7 +10,10 @@ public class NewCustomerApplication extends Application {
     NewCustomerController newCustomerController;
 
     public NewCustomerApplication(){
-        this.newCustomerController = new NewCustomerController();
+        newCustomerController = createNewCustomerController();
+    }
+    private NewCustomerController createNewCustomerController(){
+        return new NewCustomerController();
     }
     @Override
     public void start(Stage stage) throws Exception {
