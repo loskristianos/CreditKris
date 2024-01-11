@@ -20,7 +20,8 @@ public class LoginController {
     @FXML protected void loginButtonAction() throws Exception {
         String username = userName.getText();
         String password = this.password.getText();
-        loginAttempt(username,password);
+        int returnValue = loginApplication.loginAttempt(username,password);
+        if (returnValue == -1) alert();
     }
 
     @FXML protected void newUserButtonAction() throws Exception {
@@ -32,16 +33,6 @@ public class LoginController {
 
     public void setLoginApplication(LoginApplication loginApplication) {
         this.loginApplication = loginApplication;
-    }
-    void loginAttempt(String username, String password) throws Exception {
-        LoginObject loginObject = new LoginObject(username, password);
-        Customer returnedCustomer = loginObject.loginAttempt();
-        if (returnedCustomer != null ){
-           new CustomerApplication(returnedCustomer).start(currentStage);
-        }
-        else {
-            alert();
-        }
     }
 
     void alert(){
