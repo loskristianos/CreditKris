@@ -9,8 +9,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import transaction.PendingTransaction;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class CustomerApplication extends Application {
     Customer customer;
@@ -18,6 +20,7 @@ public class CustomerApplication extends Application {
     Stage currentStage;
     Scene currentScene;
     List<Account> accountList;
+    List<PendingTransaction> pendingTransactionList;
 
     public CustomerApplication(Customer customer){
         this.customer = customer;
@@ -62,5 +65,16 @@ public class CustomerApplication extends Application {
         accountApplication.setAccountList(accountList);
         accountApplication.setPreviousScene(currentScene);
         accountApplication.start(currentStage);
+    }
+
+    void checkPendingTransactions(){
+            pendingTransactionList = customer.getPendingTransactions();
+            StringJoiner accountsWithPendingTransactions=new StringJoiner("\n");
+            for (PendingTransaction transaction : pendingTransactionList){
+                accountsWithPendingTransactions.add(transaction.getAccountNumber());
+            }
+            if (!pendingTransactionList.isEmpty()){
+                customerController.pendingTransactionAlert(accountsWithPendingTransactions.toString());
+            }
     }
 }
