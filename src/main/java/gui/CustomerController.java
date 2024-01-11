@@ -7,10 +7,7 @@ import account.SmallBusinessAccount;
 import customer.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -28,6 +25,9 @@ public class CustomerController {
     @FXML private TextField dobDisplay;
     @FXML private TextField customerIdDisplay;
     @FXML private TextArea customerAddressDisplay;
+    @FXML private Button clientButton;
+    @FXML private Button businessButton;
+    @FXML private Button communityButton;
     @FXML private TableView<Account> accountsTable;
     @FXML private TableColumn<Account,String> accountNumberColumn;
     @FXML private TableColumn<Account,String> accountTypeColumn;
@@ -60,9 +60,15 @@ public class CustomerController {
 
         for (Account account : accountList){
             accountsTable.getItems().add(account);
+            switch (account.getAccountType()){
+                case "Client": clientButton.setVisible(false); break;
+                case "Community": communityButton.setVisible(false); break;
+                case "Business": businessButton.setVisible(false); break;
+            }
         }
 
     }
+
     @FXML void newClientButtonAction(){
         createNewAccount("Client");
     }
@@ -91,6 +97,13 @@ public class CustomerController {
         accountList.add(completedAccount);
         accountsTable.getItems().add(completedAccount);
         accountsTable.refresh();
+    }
+
+    @FXML private void accountsTableSelection() throws Exception{
+        Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
+        AccountApplication accountApplication = new AccountApplication(selectedAccount,customer,accountList);
+        accountApplication.setPreviousScene(currentScene);
+        accountApplication.start(currentStage);
     }
 
 }
