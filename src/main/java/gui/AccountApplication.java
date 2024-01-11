@@ -61,17 +61,23 @@ public class AccountApplication extends Application {
     }
 
     int createTransaction(String transactionAmount, String transactionType){
-     Transaction newTransaction = switch (transactionType) {
-         case "Deposit": yield new DepositTransaction(account,transactionAmount);
-         case "Withdrawal": yield new WithdrawalTransaction(account,transactionAmount);
-         case "Transfer": yield new TransferTransaction(account, targetAccount, transactionAmount);
-         default: yield null;
-     };
-     if (newTransaction == null) {return -1;}
-     newTransaction.setCustomerID(customer.getCustomerID());
-     newTransaction.writeData();
-     Transaction completedTransaction = newTransaction.getThisTransaction();
-     accountController.addTransactionToTable(completedTransaction);
-     return 0;
+         Transaction newTransaction = switch (transactionType) {
+             case "Deposit": yield new DepositTransaction(account,transactionAmount);
+             case "Withdrawal": yield new WithdrawalTransaction(account,transactionAmount);
+             case "Transfer": yield new TransferTransaction(account, targetAccount, transactionAmount);
+             default: yield null;
+         };
+         if (newTransaction == null) {return -1;}
+         newTransaction.setCustomerID(customer.getCustomerID());
+         switch(newTransaction.writeData()) {
+             case 0: {
+                 Transaction completedTransaction = newTransaction.getThisTransaction();
+                 accountController.addTransactionToTable(completedTransaction);
+                 return 0;
+             }
+             case -2: return -2;
+             case -3: return -3;
+             default: return -1;
+         }
     }
 }
