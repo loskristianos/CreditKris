@@ -1,9 +1,13 @@
 package gui;
 
+import customer.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import login.LoginObject;
+
+import java.util.HashMap;
 
 public class NewCustomerApplication extends Application {
 
@@ -27,5 +31,15 @@ public class NewCustomerApplication extends Application {
         Scene scene = new Scene(fxmlloader.load());
         stage.setTitle("Enter Customer Details");
         stage.setScene(scene);
+    }
+
+    int createCustomer(HashMap<String,String> loginDetails, HashMap<String,String> customerDetails) throws Exception {
+        LoginObject loginObject = new LoginObject(loginDetails.get("username"), loginDetails.get("password"));
+        LoginObject newLogin = loginObject.write();
+        Customer customer = new Customer(customerDetails);
+        customer.setCustomerID(newLogin.getCustomerID());
+        customer.write();
+        new CustomerApplication(customer).start(currentStage);
+        return 0;
     }
 }

@@ -1,6 +1,5 @@
 package gui;
 
-import customer.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -8,7 +7,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import login.LoginObject;
+
 
 
 import java.util.HashMap;
@@ -55,7 +54,7 @@ public class NewCustomerController {
             put("addressPostcode", addressPostcodeField.getText());
         }};
         verifyInput(login,customerDetails);
-        createCustomer(login, customerDetails);
+        int returnValue = newCustomerApplication.createCustomer(login, customerDetails);
     }
 
     @FXML void cancelButtonAction() throws Exception {
@@ -98,16 +97,6 @@ public class NewCustomerController {
                     blankFieldAlert(entry.getKey());
             }
         }
-
-    }
-
-    void createCustomer(HashMap<String,String> loginDetails, HashMap<String,String> customerDetails) throws Exception {
-        LoginObject loginObject = new LoginObject(loginDetails.get("username"), loginDetails.get("password"));
-        LoginObject newLogin = loginObject.write();
-        Customer customer = new Customer(customerDetails);
-        customer.setCustomerID(newLogin.getCustomerID());
-        customer.write();
-        new CustomerApplication(customer).start(currentStage);
 
     }
 
