@@ -17,16 +17,19 @@ public class AccountApplication extends Application {
     List<Account> accountList;
     AccountController accountController;
     Scene previousScene;
-    public AccountApplication(Account inputAccount, Customer inputCustomer, List<Account> inputAccountList){
+    public AccountApplication(Account inputAccount, Customer inputCustomer){
         account = inputAccount;
         customer = inputCustomer;
         transactionList = account.getTransactions();
-        accountList = inputAccountList;
         accountController = createAccountController();
+        accountController.setTransactionList(transactionList);
     }
 
     public AccountController createAccountController(){
         return new AccountController();
+    }
+    public void setAccountList(List<Account> accountList){
+        this.accountList = accountList;
     }
 
     public void setPreviousScene(Scene scene) {
