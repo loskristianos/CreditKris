@@ -10,14 +10,22 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 public class CustomerApplication extends Application {
     Customer customer;
     CustomerController customerController;
+    Stage currentStage;
+    Scene currentScene;
+    List<Account> accountList;
 
     public CustomerApplication(Customer customer){
         this.customer = customer;
+        accountList = customer.getAccounts();
         customerController = createCustomerController();
         customerController.setCustomer(customer);
+        customerController.setAccountList(accountList);
+        customerController.setCustomerApplication(this);
     }
     public CustomerController createCustomerController(){
         return new CustomerController();
@@ -26,11 +34,13 @@ public class CustomerApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         customerController.setCurrentStage(stage);
+        currentStage = stage;
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(customerController);
         fxmlloader.setLocation(getClass().getResource("customer-view.fxml"));
         Scene scene = new Scene(fxmlloader.load());
         customerController.setCurrentScene(scene);
+        currentScene = scene;
         stage.setTitle("Customer Details");
         stage.setScene(scene);
     }
@@ -45,5 +55,12 @@ public class CustomerApplication extends Application {
         assert newAccount != null;
         newAccount.writeData();
         return newAccount.getThisAccount();
+    }
+
+    void selectAccount(Account selectedAccount) throws Exception{
+        AccountApplication accountApplication = new AccountApplication(selectedAccount,customer);
+        accountApplication.setAccountList(accountList);
+        accountApplication.setPreviousScene(currentScene);
+        accountApplication.start(currentStage);
     }
 }

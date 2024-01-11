@@ -50,12 +50,15 @@ public class CustomerController {
     public void setCustomerApplication(CustomerApplication customerApplication) {
         this.customerApplication = customerApplication;
     }
+    public void setAccountList(List<Account> accountList){
+        this.accountList = accountList;
+    }
     @FXML private void initialize(){
         customerNameDisplay.setText(customer.getFullName());
         dobDisplay.setText(customer.getDob());
         customerIdDisplay.setText(customer.getCustomerID());
         customerAddressDisplay.setText(customer.getFullAddress());
-        accountList = customer.getAccounts();
+
 
         accountNumberColumn.setCellValueFactory(new PropertyValueFactory<>("accountNumber"));
         accountTypeColumn.setCellValueFactory(new PropertyValueFactory<>("accountType"));
@@ -75,7 +78,6 @@ public class CustomerController {
 
     @FXML void newClientButtonAction(){
         addAccountToTable(customerApplication.createNewAccount("Client"));
-
     }
 
     @FXML void newCommunityButtonAction(){
@@ -97,9 +99,7 @@ public class CustomerController {
 
     @FXML private void accountsTableSelection() throws Exception{
         Account selectedAccount = accountsTable.getSelectionModel().getSelectedItem();
-        AccountApplication accountApplication = new AccountApplication(selectedAccount,customer,accountList);
-        accountApplication.setPreviousScene(currentScene);
-        accountApplication.start(currentStage);
+        if (selectedAccount != null) customerApplication.selectAccount(selectedAccount);
     }
 
 }
