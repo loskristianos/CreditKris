@@ -61,6 +61,9 @@ public class PendingTransaction extends Transaction {
     public String getSignatoryID(){
         return signatoryID;
     }
+    public String getAccountNumber(){
+        return accountNumber;
+    }
     public String getTargetAccountNumber(){
         return targetAccountNumber;
     }
