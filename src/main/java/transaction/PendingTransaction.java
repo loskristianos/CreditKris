@@ -22,6 +22,7 @@ public class PendingTransaction extends Transaction {
         transactionType = transaction.getTransactionType();
         accountNumber = account.getAccountNumber();
         transactionID = transaction.getTransactionID();
+        customerID = transaction.getCustomerID();
     }
 
     //  constructor for PendingTransaction objects created from database returns (existing transactions)
@@ -39,6 +40,7 @@ public class PendingTransaction extends Transaction {
             put("transactionType", transactionType);
             put("signatoryID",signatoryID);
             put("targetAccountNumber",targetAccountNumber);
+            put("customerID",customerID);
         }};
     }
 
@@ -50,6 +52,7 @@ public class PendingTransaction extends Transaction {
         transactionType = details.get("transactionType");
         signatoryID = details.get("signatoryID");
         targetAccountNumber = details.get("targetAccountNumber");
+        customerID = details.get("customerID");
     }
 
     public String getTransactionID(){
@@ -65,9 +68,6 @@ public class PendingTransaction extends Transaction {
         targetAccountNumber = targetAccount;
     }
 
-    public void setTransactionID(String transactionID){
-        this.transactionID = transactionID;
-    }
     public void setSignatoryID(String signatory){
         signatoryID = signatory;
     }
