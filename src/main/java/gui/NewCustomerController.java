@@ -55,7 +55,7 @@ public class NewCustomerController {
     }
 
     @FXML void cancelButtonAction() throws Exception {
-        new StartApplication().start(currentStage);
+        new LoginApplication().start(currentStage);
     }
 
     void passwordAlert(){

@@ -1,10 +1,10 @@
 package main;
 
-import gui.StartApplication;
+import gui.LoginApplication;
 
 public class Main {
 
     public static void main(String[] args){
-        new StartApplication().displayScreen();
+        new LoginApplication().displayScreen();
     }
 }

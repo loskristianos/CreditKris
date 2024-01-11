@@ -6,11 +6,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class StartApplication extends Application {
+public class LoginApplication extends Application {
 
     LoginController loginController;
 
-    public StartApplication(){
+    public LoginApplication(){
         loginController = new LoginController();
     }
 

@@ -82,7 +82,7 @@ public class CustomerController {
     }
 
     @FXML void logOutButtonAction() throws Exception{
-        new StartApplication().start(currentStage);
+        new LoginApplication().start(currentStage);
     }
     void createNewAccount(String accountType){
         Account newAccount = switch (accountType) {
