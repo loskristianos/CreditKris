@@ -14,6 +14,7 @@ public class LoginController {
 
     Stage currentStage;
     Scene currentScene;
+    LoginApplication loginApplication;
 
     @FXML private TextField userName;
     @FXML private PasswordField password;
@@ -31,6 +32,9 @@ public class LoginController {
     }
     public void setCurrentScene(Scene scene) {
         currentScene = scene;
+    }
+    public void setLoginApplication(LoginApplication loginApplication) {
+        this.loginApplication = loginApplication;
     }
     void loginAttempt(String username, String password) throws Exception {
         LoginObject loginObject = new LoginObject(username, password);

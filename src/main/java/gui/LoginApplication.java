@@ -11,13 +11,17 @@ public class LoginApplication extends Application {
     LoginController loginController;
 
     public LoginApplication(){
-        loginController = new LoginController();
+        loginController = createLoginController();
+        loginController.setLoginApplication(this);
     }
 
     public void displayScreen(){
         launch();
     }
 
+    private LoginController createLoginController(){
+        return new LoginController();
+    }
     @Override
     public void start(Stage stage) throws Exception {
         loginController.setCurrentStage(stage);
