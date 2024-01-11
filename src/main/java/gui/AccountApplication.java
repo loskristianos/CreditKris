@@ -22,7 +22,11 @@ public class AccountApplication extends Application {
         customer = inputCustomer;
         transactionList = account.getTransactions();
         accountList = inputAccountList;
-        accountController = new AccountController();
+        accountController = createAccountController();
+    }
+
+    public AccountController createAccountController(){
+        return new AccountController();
     }
 
     public void setPreviousScene(Scene scene) {
