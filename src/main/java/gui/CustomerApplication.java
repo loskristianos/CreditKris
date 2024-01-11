@@ -44,7 +44,7 @@ public class CustomerApplication extends Application {
         Scene scene = new Scene(fxmlloader.load());
         customerController.setCurrentScene(scene);
         currentScene = scene;
-        stage.setTitle("Customer Details");
+        stage.setTitle("Customer Accounts");
         stage.setScene(scene);
     }
 
