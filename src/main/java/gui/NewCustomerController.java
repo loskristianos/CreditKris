@@ -19,6 +19,7 @@ public class NewCustomerController {
 
     Stage currentStage;
     Scene previousScene;
+    NewCustomerApplication newCustomerApplication;
 
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
@@ -36,6 +37,9 @@ public class NewCustomerController {
 
     public void setCurrentStage(Stage stage){
         currentStage = stage;
+    }
+    public void setNewCustomerApplication(NewCustomerApplication newCustomerApplication){
+        this.newCustomerApplication = newCustomerApplication;
     }
     public void setPreviousScene(Scene scene) {
         previousScene = scene;
