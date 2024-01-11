@@ -30,14 +30,14 @@
                 </top>
             <bottom>
     <HBox>
-        <Button text="New Client Account" onAction="#newClientButtonAction"/>
-        <Button text="New Community Account" onAction="#newCommunityButtonAction"/>
-        <Button text="New Small Business Account" onAction="#newBusinessButtonAction"/>
+        <Button text="New Client Account" onAction="#newClientButtonAction" fx:id="clientButton"/>
+        <Button text="New Community Account" onAction="#newCommunityButtonAction" fx:id="communityButton"/>
+        <Button text="New Small Business Account" onAction="#newBusinessButtonAction" fx:id="businessButton"/>
     </HBox>
             </bottom>
         </BorderPane>
 
-    <TableView fx:id="accountsTable" >
+    <TableView fx:id="accountsTable" onMouseClicked="#accountsTableSelection" >
         <columns>
             <TableColumn text="Account Number" fx:id="accountNumberColumn"/>
             <TableColumn text="Account Type" fx:id="accountTypeColumn"/>
