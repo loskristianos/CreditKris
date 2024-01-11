@@ -89,11 +89,13 @@ public class AccountController {
     @FXML private void depositButtonAction(){
         String depositAmount = confirmTransactionAmount();
         int x = accountApplication.createTransaction(depositAmount, "Deposit");
+        if (x==0) successDialog("Deposit");
     }
 
     @FXML private void withdrawalButtonAction(){
         String withdrawalAmount = confirmTransactionAmount();
         int x = accountApplication.createTransaction(withdrawalAmount, "Withdrawal");
+        if (x==0) successDialog("Withdrawal");
     }
 
     @FXML private void transferButtonAction(){
@@ -105,6 +107,7 @@ public class AccountController {
         Account selectedTransferAccount = transferAccounts.getSelectionModel().getSelectedItem();
         accountApplication.setTargetAccount(selectedTransferAccount);
         int x = accountApplication.createTransaction(transferAmount, "Transfer");
+        if (x==0) successDialog("Transfer");
     }
 
     String confirmTransactionAmount(){
@@ -113,5 +116,17 @@ public class AccountController {
         return transactionDialog.getEditor().getText();
     }
 
+    void successDialog(String transactionType){
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setContentText(transactionType + " completed successfully.");
+        successAlert.setHeaderText("Transaction Complete");
+        successAlert.showAndWait();
+    }
+
+    void addTransactionToTable(Transaction completedTransaction){
+        transactionList.add(completedTransaction);
+        transactionTableView.getItems().add(completedTransaction);
+        transactionTableView.refresh();
+    }
 }
 
