@@ -70,6 +70,8 @@ public class AccountApplication extends Application {
      if (newTransaction == null) return -1;
      newTransaction.setCustomerID(customer.getCustomerID());
      newTransaction.writeData();
+     Transaction completedTransaction = newTransaction.getThisTransaction();
+     accountController.addTransactionToTable(completedTransaction);
      return 0;
     }
 }
