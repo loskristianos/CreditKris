@@ -28,13 +28,13 @@ public class LoginApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         loginController.setCurrentStage(stage);
+        currentStage = stage;
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(loginController);
         fxmlloader.setLocation(getClass().getResource("login-view.fxml"));
         Scene scene = new Scene(fxmlloader.load());
         stage.setTitle("Welcome to Credit Kris");
         stage.setScene(scene);
-        currentStage = stage;
         stage.show();
     }
 
