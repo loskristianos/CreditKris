@@ -16,12 +16,17 @@ public class AccountApplication extends Application {
     List<Transaction> transactionList;
     List<Account> accountList;
     AccountController accountController;
+    Scene previousScene;
     public AccountApplication(Account inputAccount, Customer inputCustomer, List<Account> inputAccountList){
         account = inputAccount;
         customer = inputCustomer;
         transactionList = account.getTransactions();
         accountList = inputAccountList;
         accountController = new AccountController();
+    }
+
+    public void setPreviousScene(Scene scene) {
+        previousScene = scene;
     }
     @Override
     public void start(Stage stage) throws Exception {
@@ -30,6 +35,7 @@ public class AccountApplication extends Application {
         accountController.setCustomer(customer);
         accountController.setAccountList(accountList);
         accountController.setTransactionList(transactionList);
+        accountController.setPreviousScene(previousScene);
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(accountController);
         fxmlloader.setLocation(getClass().getResource("account-view.fxml"));
