@@ -68,13 +68,15 @@ public class CustomerApplication extends Application {
     }
 
     void checkPendingTransactions(){
-            pendingTransactionList = customer.getPendingTransactions();
-            StringJoiner accountsWithPendingTransactions=new StringJoiner("\n");
-            for (PendingTransaction transaction : pendingTransactionList){
+        pendingTransactionList = customer.getPendingTransactions();
+        if (pendingTransactionList != null) {
+            StringJoiner accountsWithPendingTransactions = new StringJoiner("\n", "\n", "\n\n");
+            for (PendingTransaction transaction : pendingTransactionList) {
                 accountsWithPendingTransactions.add(transaction.getAccountNumber());
             }
-            if (!pendingTransactionList.isEmpty()){
+            if (!accountsWithPendingTransactions.toString().isBlank()) {
                 customerController.pendingTransactionAlert(accountsWithPendingTransactions.toString());
             }
+        }
     }
 }
