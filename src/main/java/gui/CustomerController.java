@@ -74,30 +74,22 @@ public class CustomerController {
     }
 
     @FXML void newClientButtonAction(){
-        createNewAccount("Client");
+        addAccountToTable(customerApplication.createNewAccount("Client"));
+
     }
 
     @FXML void newCommunityButtonAction(){
-        createNewAccount("Community");
+        addAccountToTable(customerApplication.createNewAccount("Community"));
     }
 
     @FXML void newBusinessButtonAction(){
-        createNewAccount("Business");
+        addAccountToTable(customerApplication.createNewAccount("Business"));
     }
 
     @FXML void logOutButtonAction() throws Exception{
         new LoginApplication().start(currentStage);
     }
-    void createNewAccount(String accountType){
-        Account newAccount = switch (accountType) {
-            case "Client": yield new ClientAccount(customer);
-            case "Community": yield new CommunityAccount(customer);
-            case "Business": yield new SmallBusinessAccount(customer);
-            default: yield null;
-        };
-        assert newAccount != null;
-        newAccount.writeData();
-        Account completedAccount = newAccount.getThisAccount();
+    void addAccountToTable(Account completedAccount){
         accountList.add(completedAccount);
         accountsTable.getItems().add(completedAccount);
         accountsTable.refresh();

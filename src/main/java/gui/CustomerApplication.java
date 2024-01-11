@@ -1,5 +1,9 @@
 package gui;
 
+import account.Account;
+import account.ClientAccount;
+import account.CommunityAccount;
+import account.SmallBusinessAccount;
 import customer.Customer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -29,5 +33,17 @@ public class CustomerApplication extends Application {
         customerController.setCurrentScene(scene);
         stage.setTitle("Customer Details");
         stage.setScene(scene);
+    }
+
+    Account createNewAccount(String accountType){
+        Account newAccount = switch (accountType) {
+            case "Client": yield new ClientAccount(customer);
+            case "Community": yield new CommunityAccount(customer);
+            case "Business": yield new SmallBusinessAccount(customer);
+            default: yield null;
+        };
+        assert newAccount != null;
+        newAccount.writeData();
+        return newAccount.getThisAccount();
     }
 }
