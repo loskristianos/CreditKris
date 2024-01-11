@@ -82,11 +82,11 @@ public class AccountController {
     }
 
     @FXML private void depositButtonAction(){
-        // launch newTransaction Dialogue
+        String depositAmount = confirmTransactionAmount();
     }
 
     @FXML private void withdrawalButtonAction(){
-        // launch newTransactionDialogue
+        String withdrawalAmount = confirmTransactionAmount();
     }
 
     @FXML private void transferButtonAction(){
@@ -94,7 +94,13 @@ public class AccountController {
     }
 
     @FXML private void transferAccountAction(){
-        // launch newTransactionDialogue
+        String transferAmount = confirmTransactionAmount();
+    }
+
+    String confirmTransactionAmount(){
+        TextInputDialog transactionDialog = new TextInputDialog();
+        transactionDialog.showAndWait();
+        return transactionDialog.getEditor().getText();
     }
 
 }
