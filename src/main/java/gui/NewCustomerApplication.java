@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 public class NewCustomerApplication extends Application {
 
     NewCustomerController newCustomerController;
+    Stage currentStage;
 
     public NewCustomerApplication(){
         newCustomerController = createNewCustomerController();
@@ -19,6 +20,7 @@ public class NewCustomerApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         newCustomerController.setCurrentStage(stage);
+        currentStage = stage;
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(newCustomerController);
         fxmlloader.setLocation(getClass().getResource("newCustomer-view.fxml"));
