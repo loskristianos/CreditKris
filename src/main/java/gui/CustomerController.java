@@ -102,7 +102,7 @@ public class CustomerController {
         Alert pendingTransactionsAlert = new Alert(Alert.AlertType.INFORMATION);
         pendingTransactionsAlert.setContentText("You have new transactions awaiting authorisation for the following accounts:\n" + accountsWithPendingTransactions
                 + "Select an account from the main Customer Accounts screen to view and authorize transactions.");
-        pendingTransactionsAlert.showAndWait();
+        pendingTransactionsAlert.show();
     }
 
     @FXML private void accountsTableSelection() throws Exception{
