@@ -5,6 +5,8 @@ import account.Signatory;
 import dao.AccountDAO;
 import dao.TransactionDAO;
 import interfaces.DataObject;
+
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -93,13 +95,16 @@ public abstract class Transaction implements DataObject {
         this.newBalance = newBalance;
     }
     public abstract String calculateNewBalance();
-    public void writeData(){
+    public int writeData(){
+        if (overdraftCheck()<0) return -3;
         setTransactionID();
         if (account.getSignatories().equals("1") || transactionType.equals("Transfer In") || transactionType.equals("Deposit")) {
             new TransactionDAO(this).write();
             new AccountDAO(account).update();
+            return 0;
         } else {
             createPendingTransactions();
+            return -2;
         }
     }
 
@@ -118,6 +123,12 @@ public abstract class Transaction implements DataObject {
                 pendingTransaction.writeData();
             }
         }
+    }
 
+    int overdraftCheck(){
+        BigDecimal overdraft = new BigDecimal (account.getOverdraftLimit());
+        BigDecimal newBalance = new BigDecimal(getNewBalance());
+        if (newBalance.compareTo(overdraft) < 0 ) return -3;
+        else return 0;
     }
 }

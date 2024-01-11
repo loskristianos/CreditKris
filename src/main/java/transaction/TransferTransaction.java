@@ -31,13 +31,15 @@ public class TransferTransaction extends Transaction {
         return null;
     }
 
-    public void writeData(){
+    public int writeData(){
         if (account.getSignatories().equals("1")) {
             new TransferOut(account, transactionAmount).writeData();
             new TransferIn(targetAccount, transactionAmount).writeData();
+            return 0;
         }
         else {
             createPendingTransactions();
+            return -2;
         }
     }
 }

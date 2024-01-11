@@ -85,8 +85,9 @@ public class PendingTransaction extends Transaction {
     } // not required for pending transactions
 
     @Override
-    public void writeData() {
+    public int writeData() {
           new PendingTransactionDAO(this).write();
+          return 0;
     }
 
     public Integer getRemainingTransactions(){
