@@ -68,6 +68,10 @@ public abstract class Transaction implements DataObject {
         return accountNumber;
     }
     public String getTransactionID(){ return transactionID;}
+    public void setTransactionID(){
+        if (transactionID == null)
+        transactionID = accountNumber + System.currentTimeMillis();
+    }
     public String getNewBalance(){return newBalance;}
     public String getTransactionTime(){return transactionTime;}
     public void setPreviousBalance(String currentBalance) {
@@ -90,13 +94,17 @@ public abstract class Transaction implements DataObject {
     }
     public abstract String calculateNewBalance();
     public void writeData(){
-        if (account.getSignatories().equals("1")) {
+        setTransactionID();
+        if (account.getSignatories().equals("1") || transactionType.equals("Transfer In") || transactionType.equals("Deposit")) {
             new TransactionDAO(this).write();
             new AccountDAO(account).update();
         } else {
             createPendingTransactions();
         }
+    }
 
+    public Transaction getThisTransaction(){
+        return new TransactionDAO(this).getThisTransaction();
     }
 
     public void createPendingTransactions(){
@@ -106,7 +114,7 @@ public abstract class Transaction implements DataObject {
             if (!customerID.equals(signatory.getCustomerID())) {    // prevents creation of pending transaction for customer initiating this transaction
                 PendingTransaction pendingTransaction = new PendingTransaction(account, this);
                 pendingTransaction.setSignatoryID(signatory.getCustomerID());
-                if (targetAccountNumber != null) pendingTransaction.setTargetAccountNumber(targetAccountNumber);
+                if (targetAccountNumber != null) {pendingTransaction.setTargetAccountNumber(targetAccountNumber);}
                 pendingTransaction.writeData();
             }
         }
