@@ -20,6 +20,7 @@ public class CustomerController {
     List<Account> accountList;
     Stage currentStage;
     Scene currentScene;
+    CustomerApplication customerApplication;
 
     @FXML private TextField customerNameDisplay;
     @FXML private TextField dobDisplay;
@@ -45,6 +46,9 @@ public class CustomerController {
     }
     public void setCurrentScene(Scene scene){
         currentScene = scene;
+    }
+    public void setCustomerApplication(CustomerApplication customerApplication) {
+        this.customerApplication = customerApplication;
     }
     @FXML private void initialize(){
         customerNameDisplay.setText(customer.getFullName());
