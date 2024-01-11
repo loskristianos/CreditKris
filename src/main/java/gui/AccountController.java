@@ -18,6 +18,7 @@ public class AccountController {
     Customer customer;
     List<Transaction> transactionList;
     List<Account> accountList;
+    AccountApplication accountApplication;
 
     @FXML private TextField accountNumberDisplay;
     @FXML private TextField accountTypeDisplay;
@@ -77,16 +78,22 @@ public class AccountController {
         this.accountList = accountList;
     }
 
+    public void setAccountApplication(AccountApplication accountApplication){
+        this.accountApplication = accountApplication;
+    }
+
     @FXML private void backButtonAction(){
         currentStage.setScene(previousScene);
     }
 
     @FXML private void depositButtonAction(){
         String depositAmount = confirmTransactionAmount();
+        int x = accountApplication.createTransaction(depositAmount, "Deposit");
     }
 
     @FXML private void withdrawalButtonAction(){
         String withdrawalAmount = confirmTransactionAmount();
+        int x = accountApplication.createTransaction(withdrawalAmount, "Withdrawal");
     }
 
     @FXML private void transferButtonAction(){
@@ -95,6 +102,9 @@ public class AccountController {
 
     @FXML private void transferAccountAction(){
         String transferAmount = confirmTransactionAmount();
+        Account selectedTransferAccount = transferAccounts.getSelectionModel().getSelectedItem();
+        accountApplication.setTargetAccount(selectedTransferAccount);
+        int x = accountApplication.createTransaction(transferAmount, "Transfer");
     }
 
     String confirmTransactionAmount(){
