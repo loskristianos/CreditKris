@@ -13,16 +13,16 @@
                 <Button text="Back" alignment="CENTER_LEFT" onAction="#backButtonAction"/>
                 <GridPane vgap="10" hgap="10">
                     <Label text="Account Number" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="accountNumberDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                    <TextField fx:id="accountNumberDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
 
                     <Label text="Account Type" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                    <TextField fx:id="accountTypeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                    <TextField fx:id="accountTypeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0" editable="false"/>
 
                     <Label text="Current Balance" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="currentBalanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                    <TextField fx:id="currentBalanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
 
                     <Label text="Overdraft Limit" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                    <TextField fx:id="overdraftLimitDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                    <TextField fx:id="overdraftLimitDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" editable="false"/>
                 </GridPane>
             </VBox>
         </top>
