@@ -58,7 +58,6 @@ public class AccountController {
         }
     }
 
-
     public void setCurrentStage(Stage stage){
         currentStage = stage;
     }
@@ -76,6 +75,10 @@ public class AccountController {
     }
     public void setAccountList(List<Account> accountList){
         this.accountList = accountList;
+    }
+
+    @FXML private void backButtonAction(){
+        currentStage.setScene(previousScene);
     }
 
     @FXML private void depositButtonAction(){
