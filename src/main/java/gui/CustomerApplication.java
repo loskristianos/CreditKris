@@ -12,8 +12,11 @@ public class CustomerApplication extends Application {
 
     public CustomerApplication(Customer customer){
         this.customer = customer;
-        this.customerController = new CustomerController();
+        customerController = createCustomerController();
         customerController.setCustomer(customer);
+    }
+    public CustomerController createCustomerController(){
+        return new CustomerController();
     }
 
     @Override
