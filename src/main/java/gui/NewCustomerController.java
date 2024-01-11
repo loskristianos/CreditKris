@@ -8,11 +8,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
-
 import java.util.HashMap;
-import java.util.Map.*;
-
 
 public class NewCustomerController {
 
@@ -53,14 +49,21 @@ public class NewCustomerController {
             put("address1",address1Field.getText()); put("address2",address2Field.getText()); put("addressTown", addressTownField.getText());
             put("addressPostcode", addressPostcodeField.getText());
         }};
+        TextField[] inputFields = new TextField[]{usernameField,passwordField,confirmPasswordField,firstNameField,lastNameField,dobField,address1Field,address2Field,addressTownField,addressPostcodeField};
         int x = newCustomerApplication.verifyInputFields(login,customerDetails);
         if (x==-1) {
+            for (int i=0; i< inputFields.length; i++){
+                if (inputFields[i].getText().isBlank()){
+                    inputFields[i].setStyle("-fx-border-color: firebrick; -fx-background-color: tomato");
+                }
+            }
             blankFieldAlert();
         } // highlight all fields where getText().isEmpty() (except address2)
         int y = newCustomerApplication.verifyPasswordMatch(passwordField.getText(),confirmPasswordField.getText());
         if (y==-1) {
-            passwordAlert(); confirmPasswordField.setStyle("-fx-border-color: firebrick; -fx-background-color: tomato" );
-        } // highlight password fields here also maybe
+            confirmPasswordField.setStyle("-fx-border-color: firebrick; -fx-background-color: tomato" );
+            passwordAlert();
+        }
         if (x==0 && y==0) {
             int returnValue = newCustomerApplication.createCustomer(login, customerDetails);
         }
