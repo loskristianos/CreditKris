@@ -71,8 +71,7 @@ public abstract class Transaction implements DataObject {
     }
     public String getTransactionID(){ return transactionID;}
     public void setTransactionID(){
-        if (transactionID == null)
-        transactionID = accountNumber + System.currentTimeMillis();
+        if (transactionID == null) transactionID = accountNumber + System.currentTimeMillis();
     }
     public String getNewBalance(){return newBalance;}
     public String getTransactionTime(){return transactionTime;}
