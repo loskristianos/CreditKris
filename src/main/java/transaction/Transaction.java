@@ -125,7 +125,7 @@ public abstract class Transaction implements DataObject {
     }
 
     int overdraftCheck(){
-        BigDecimal overdraft = new BigDecimal (account.getOverdraftLimit());
+        BigDecimal overdraft = new BigDecimal(account.getOverdraftLimit()).negate();
         BigDecimal newBalance = new BigDecimal(getNewBalance());
         if (newBalance.compareTo(overdraft) < 0 ) return -3;
         else return 0;
