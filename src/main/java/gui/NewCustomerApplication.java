@@ -11,6 +11,7 @@ public class NewCustomerApplication extends Application {
 
     public NewCustomerApplication(){
         newCustomerController = createNewCustomerController();
+        newCustomerController.setNewCustomerApplication(this);
     }
     private NewCustomerController createNewCustomerController(){
         return new NewCustomerController();
