@@ -67,7 +67,7 @@ public class AccountApplication extends Application {
          case "Transfer": yield new TransferTransaction(account, targetAccount, transactionAmount);
          default: yield null;
      };
-     if (newTransaction == null) return -1;
+     if (newTransaction == null) {return -1;}
      newTransaction.setCustomerID(customer.getCustomerID());
      newTransaction.writeData();
      Transaction completedTransaction = newTransaction.getThisTransaction();
