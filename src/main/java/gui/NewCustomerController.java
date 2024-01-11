@@ -54,10 +54,16 @@ public class NewCustomerController {
             put("addressPostcode", addressPostcodeField.getText());
         }};
         int x = newCustomerApplication.verifyInputFields(login,customerDetails);
-        if (x==-1) {}; // highlight all fields where getText().isEmpty() (except address2)
+        if (x==-1) {
+            blankFieldAlert();
+        } // highlight all fields where getText().isEmpty() (except address2)
         int y = newCustomerApplication.verifyPasswordMatch(passwordField.getText(),confirmPasswordField.getText());
-        if (y==-1) {passwordAlert();}; // highlight password fields here also maybe
-        int returnValue = newCustomerApplication.createCustomer(login, customerDetails);
+        if (y==-1) {
+            passwordAlert(); confirmPasswordField.setStyle("-fx-border-color: firebrick; -fx-background-color: tomato" );
+        } // highlight password fields here also maybe
+        if (x==0 && y==0) {
+            int returnValue = newCustomerApplication.createCustomer(login, customerDetails);
+        }
     }
 
     @FXML void cancelButtonAction() throws Exception {
@@ -69,14 +75,13 @@ public class NewCustomerController {
         alert.setTitle("Passwords do not match");
         alert.setHeaderText("The passwords entered do not match.");
         alert.setContentText("Please check and re-enter your password.");
-        alert.show();
+        alert.showAndWait();
     }
 
-    void blankFieldAlert(String field){
+    void blankFieldAlert(){
         Alert alert = new Alert(Alert.AlertType.WARNING,null, ButtonType.OK);
-        alert.setTitle("Field "+field+" is blank");
-        alert.setHeaderText("Required field "+field+" cannot be blank.");
-        alert.setContentText("Please complete all the required fields to submit your request.");
+        alert.setTitle("Required field is blank");
+        alert.setHeaderText("Please complete all the required fields to submit your request.");
         alert.showAndWait();
     }
 }
