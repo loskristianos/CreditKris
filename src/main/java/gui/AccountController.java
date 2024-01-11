@@ -87,31 +87,36 @@ public class AccountController {
     }
 
     @FXML private void depositButtonAction(){
-        String depositAmount = confirmTransactionAmount();
-        int x = accountApplication.createTransaction(depositAmount, "Deposit");
-        if (x==0) successDialog("Deposit");
+        doTransaction("Deposit");
     }
 
     @FXML private void withdrawalButtonAction(){
-        String withdrawalAmount = confirmTransactionAmount();
-        int x = accountApplication.createTransaction(withdrawalAmount, "Withdrawal");
-        if (x==0) successDialog("Withdrawal");
+        doTransaction("Withdrawal");
     }
-
     @FXML private void transferButtonAction(){
         transferAccounts.setVisible(true);
     }
 
     @FXML private void transferAccountAction(){
-        String transferAmount = confirmTransactionAmount();
         Account selectedTransferAccount = transferAccounts.getSelectionModel().getSelectedItem();
         accountApplication.setTargetAccount(selectedTransferAccount);
-        int x = accountApplication.createTransaction(transferAmount, "Transfer");
-        if (x==0) successDialog("Transfer");
+        doTransaction("Transfer");
+    }
+    private void doTransaction(String transactionType){
+        String transactionAmount = confirmTransactionAmount(transactionType);
+        int x = accountApplication.createTransaction(transactionAmount, transactionType);
+        switch (x){
+            case 0: successDialog(transactionType); break;
+            case -1: unspecifiedFailureDialog(transactionType); break;
+            case -2: pendingTransactionsDialog(transactionType); break;
+            case -3: overdraftLimitDialog(transactionType); break;
+        }
     }
 
-    String confirmTransactionAmount(){
+    String confirmTransactionAmount(String transactionType){
         TextInputDialog transactionDialog = new TextInputDialog();
+        transactionDialog.setTitle("New " +transactionType);
+        transactionDialog.setHeaderText("Please enter the amount of your " +transactionType.toLowerCase()+".");
         transactionDialog.showAndWait();
         return transactionDialog.getEditor().getText();
     }
@@ -122,6 +127,28 @@ public class AccountController {
         successAlert.setHeaderText("Transaction Complete");
         successAlert.showAndWait();
     }
+
+    void unspecifiedFailureDialog(String transactionType){
+        Alert failureDialog = new Alert(Alert.AlertType.ERROR);
+        failureDialog.setHeaderText("There was a problem processing your " +transactionType.toLowerCase() + ".");
+        failureDialog.setContentText("We apologise for the inconvenience. Please contact our helpdesk for assistance.");
+        failureDialog.showAndWait();
+    }
+
+    void overdraftLimitDialog(String transactionType){
+        Alert overdraftAlert = new Alert(Alert.AlertType.WARNING);
+        overdraftAlert.setHeaderText("Unable to proceed with this " + transactionType.toLowerCase()+".");
+        overdraftAlert.setContentText("You do not have enough funds to complete this transaction.");
+        overdraftAlert.showAndWait();
+    }
+
+    void pendingTransactionsDialog(String transactionType){
+        Alert pendingAlert = new Alert(Alert.AlertType.INFORMATION);
+        pendingAlert.setHeaderText("This " + transactionType.toLowerCase() + " requires authorisation by the other signatories to this account.");
+        pendingAlert.setContentText("Once all signatories have authorised the transaction it will be promptly processed and your account balance updated accordingly.");
+        pendingAlert.showAndWait();
+    }
+
 
     void addTransactionToTable(Transaction completedTransaction){
         transactionList.add(completedTransaction);
