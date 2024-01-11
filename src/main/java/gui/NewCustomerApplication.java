@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import login.LoginObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class NewCustomerApplication extends Application {
 
@@ -41,5 +42,30 @@ public class NewCustomerApplication extends Application {
         customer.write();
         new CustomerApplication(customer).start(currentStage);
         return 0;
+    }
+
+    int verifyInputFields(HashMap<String,String> login, HashMap<String,String> customerDetails){
+        // check login and password aren't blank
+        for (Map.Entry<String,String> entry : login.entrySet()){
+            if(entry.getValue()==null || entry.getValue().isBlank()){
+                return -1;
+            }
+        }
+        // check none of the customer detail fields are blank (except for address2 which is allowed to be blank)
+        // needs redoing for multiple blank fields, it currently fires an alert for each one at the same time
+        // (and then tries to write the object with the blank fields to the database anyway
+        for (Map.Entry<String,String> entry : customerDetails.entrySet()){
+            if(entry.getValue()==null || entry.getValue().isBlank()){
+                if (!entry.getKey().equals("address2"))
+                    return -1; break;
+            }
+        } return 0;
+    }
+
+    int verifyPasswordMatch(String password, String confirmPassword){
+        if (!password.equals(confirmPassword))
+            return -1;
+        else
+            return 0;
     }
 }

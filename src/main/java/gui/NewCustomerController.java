@@ -53,7 +53,10 @@ public class NewCustomerController {
             put("address1",address1Field.getText()); put("address2",address2Field.getText()); put("addressTown", addressTownField.getText());
             put("addressPostcode", addressPostcodeField.getText());
         }};
-        verifyInput(login,customerDetails);
+        int x = newCustomerApplication.verifyInputFields(login,customerDetails);
+        if (x==-1) {}; // highlight all fields where getText().isEmpty() (except address2)
+        int y = newCustomerApplication.verifyPasswordMatch(passwordField.getText(),confirmPasswordField.getText());
+        if (y==-1) {passwordAlert();}; // highlight password fields here also maybe
         int returnValue = newCustomerApplication.createCustomer(login, customerDetails);
     }
 
@@ -76,28 +79,4 @@ public class NewCustomerController {
         alert.setContentText("Please complete all the required fields to submit your request.");
         alert.showAndWait();
     }
-
-    void verifyInput(HashMap<String,String> login, HashMap<String,String> customerDetails){
-        // check password matches confirmPassword
-        if (!passwordField.getText().equals(confirmPasswordField.getText())) {
-            passwordAlert();
-        }
-        // check login and password aren't blank
-        for (Entry<String,String> entry : login.entrySet()){
-            if(entry.getValue()==null || entry.getValue().isBlank()){
-                blankFieldAlert(entry.getKey());
-            }
-        }
-        // check none of the customer detail fields are blank (except for address2 which is allowed to be blank)
-        // needs redoing for multiple blank fields, it currently fires an alert for each one at the same time
-        // (and then tries to write the object with the blank fields to the database anyway
-        for (Entry<String,String> entry : customerDetails.entrySet()){
-            if(entry.getValue()==null || entry.getValue().isBlank()){
-                if (!entry.getKey().equals("address2"))
-                    blankFieldAlert(entry.getKey());
-            }
-        }
-
-    }
-
 }
