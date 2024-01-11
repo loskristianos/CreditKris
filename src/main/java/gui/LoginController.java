@@ -13,7 +13,6 @@ import login.LoginObject;
 public class LoginController {
 
     Stage currentStage;
-    Scene currentScene;
     LoginApplication loginApplication;
 
     @FXML private TextField userName;
@@ -30,9 +29,7 @@ public class LoginController {
     public void setCurrentStage(Stage stage){
         currentStage = stage;
     }
-    public void setCurrentScene(Scene scene) {
-        currentScene = scene;
-    }
+
     public void setLoginApplication(LoginApplication loginApplication) {
         this.loginApplication = loginApplication;
     }
