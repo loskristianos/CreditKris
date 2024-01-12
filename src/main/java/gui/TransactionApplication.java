@@ -27,6 +27,7 @@ public class TransactionApplication extends Application {
         transactionController.setTransactionApplication(this);
         transactionController.setTransaction(transaction);
         transactionController.setAccount(account);
+        transactionController.setCustomerName(customerNameLookup());
         transactionController.setCurrentStage(stage);
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(transactionController);
@@ -35,5 +36,9 @@ public class TransactionApplication extends Application {
         stage.setTitle("Transaction Details");
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    String customerNameLookup(){
+       return transaction.getInitiatingCustomer().getFullName();
     }
 }
