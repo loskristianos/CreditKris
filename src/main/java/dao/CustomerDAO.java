@@ -2,21 +2,28 @@ package dao;
 
 import customer.Customer;
 import login.LoginObject;
+import transaction.Transaction;
 
 import java.util.HashMap;
 import java.util.List;
 
 
 public class CustomerDAO extends DAO{
-    LoginObject login;
+
+    String customerID;
 
     public CustomerDAO(Customer customer) {
         super(customer);
     }
 
+    public CustomerDAO(Transaction transaction){
+        super(transaction);
+        this.customerID = transaction.getCustomerID();
+    }
+
     public CustomerDAO(LoginObject login) {
         super(login);
-        this.login = login;
+        this.customerID = login.getCustomerID();
     }
 
     public void write(){
@@ -26,7 +33,6 @@ public class CustomerDAO extends DAO{
     }
 
     public Customer getRecord(){
-        String customerID = login.getCustomerID();
         sqlStatement = "SELECT * FROM customers WHERE customer_id = " + customerID;
         List<HashMap<String,String>> resultList = super.databaseLookup();
         return new Customer(resultList.getFirst());
