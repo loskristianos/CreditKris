@@ -36,7 +36,7 @@
         </bottom>
     </BorderPane>
 
-    <TableView fx:id="transactionTableView" >
+    <TableView fx:id="transactionTableView" onMouseClicked="#transactionTableSelection">
         <columns>
             <TableColumn text="Transaction Date" fx:id="transactionTimeColumn"/>
             <TableColumn text="Transaction Type" fx:id="transactionTypeColumn"/>
