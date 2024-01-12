@@ -8,13 +8,16 @@ public class TransferTransaction extends Transaction {
 
    Account targetAccount;
    String transactionAmount;
+   String transactionID;
 
     // constructor for new transactions from UI account screen
     public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
+        super(account,transactionAmount);
         this.account = account;
         this.targetAccount = targetAccount;
         this.transactionAmount = transactionAmount;
-        super.setTargetAccountNumber(targetAccount.getAccountNumber());
+        setTargetAccountNumber(targetAccount.getAccountNumber());
+        setTransactionAmount(transactionAmount);
         setTransactionType("Transfer");
         }
 
@@ -25,16 +28,28 @@ public class TransferTransaction extends Transaction {
             setTransactionType("Transfer");
         }
     }
-
+    private void setThisTransactionID(String transferOutID){
+        this.transactionID=transferOutID;
+        super.setTransactionID(transferOutID);
+    }
     @Override
     public String calculateNewBalance() {
         return null;
     }
 
     public int writeData(){
+
         if (account.getSignatories().equals("1")) {
-            new TransferOut(account, transactionAmount).writeData();
-            new TransferIn(targetAccount, transactionAmount).writeData();
+            TransferOut transferOut = new TransferOut(account, transactionAmount);
+            transferOut.setTransactionID(transactionID);
+            transferOut.setTargetAccountNumber(targetAccount.getAccountNumber());
+            transferOut.setCustomerID(getCustomerID());
+            setThisTransactionID(transferOut.getTransactionID());
+            transferOut.writeData();
+            TransferIn transferIn = new TransferIn(targetAccount, transactionAmount);
+            transferIn.setTargetAccountNumber(account.getAccountNumber());
+            transferIn.setCustomerID(getCustomerID());
+            transferIn.writeData();
             return 0;
         }
         else {

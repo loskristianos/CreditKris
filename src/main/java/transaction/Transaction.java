@@ -29,8 +29,8 @@ public abstract class Transaction implements DataObject {
         this.accountNumber = account.getAccountNumber();
         this.previousBalance = account.getCurrentBalance();
         this.transactionAmount = transactionAmount;
-        this.newBalance = calculateNewBalance();
-        this.account.setCurrentBalance(newBalance);
+        if (calculateNewBalance() != null) {this.newBalance = calculateNewBalance();
+        this.account.setCurrentBalance(newBalance);}
     }
 
     public Transaction(HashMap<String, String> transactionDetails) {
@@ -47,6 +47,7 @@ public abstract class Transaction implements DataObject {
         details.put("newBalance",newBalance);
         details.put("transactionTime",transactionTime);
         details.put("customerID",customerID);
+        details.put("targetAccountNumber",targetAccountNumber);
         return details;
     }
 
@@ -70,8 +71,9 @@ public abstract class Transaction implements DataObject {
         return accountNumber;
     }
     public String getTransactionID(){ return transactionID;}
-    public void setTransactionID(){
-        if (transactionID == null) transactionID = accountNumber + System.currentTimeMillis();
+    public void setTransactionID(String transactionID){
+        if (transactionID == null) this.transactionID = accountNumber + System.currentTimeMillis();
+        else this.transactionID = transactionID;
     }
     public String getNewBalance(){return newBalance;}
     public String getTransactionTime(){return transactionTime;}
@@ -93,10 +95,13 @@ public abstract class Transaction implements DataObject {
     public void setNewBalance(String newBalance) {
         this.newBalance = newBalance;
     }
+    public String getTargetAccountNumber(){
+        return targetAccountNumber;
+    }
     public abstract String calculateNewBalance();
     public int writeData(){
         if (overdraftCheck()<0) return -3;
-        setTransactionID();
+        setTransactionID(transactionID);
         if (account.getSignatories().equals("1") || transactionType.equals("Transfer In") || transactionType.equals("Deposit")) {
             new TransactionDAO(this).write();
             new AccountDAO(account).update();
