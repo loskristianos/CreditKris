@@ -118,6 +118,17 @@ public class AccountController {
         }
     }
 
+    void addTransactionToTable(Transaction completedTransaction){
+        transactionList.add(completedTransaction);
+        transactionTableView.getItems().add(completedTransaction);
+        transactionTableView.refresh();
+    }
+
+    @FXML private void transactionTableSelection() throws Exception{
+        Transaction selectedTransaction = transactionTableView.getSelectionModel().getSelectedItem();
+        if (selectedTransaction != null) accountApplication.selectTransaction(selectedTransaction);
+    }
+
     String confirmTransactionAmount(String transactionType){
         TextInputDialog transactionDialog = new TextInputDialog();
         transactionDialog.setTitle("New " +transactionType);
@@ -152,13 +163,6 @@ public class AccountController {
         pendingAlert.setHeaderText("This " + transactionType.toLowerCase() + " requires authorisation by the other signatories to this account.");
         pendingAlert.setContentText("Once all signatories have authorised the transaction it will be promptly processed and your account balance updated accordingly.");
         pendingAlert.showAndWait();
-    }
-
-
-    void addTransactionToTable(Transaction completedTransaction){
-        transactionList.add(completedTransaction);
-        transactionTableView.getItems().add(completedTransaction);
-        transactionTableView.refresh();
     }
 }
 
