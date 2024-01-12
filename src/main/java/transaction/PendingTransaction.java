@@ -100,13 +100,18 @@ public class PendingTransaction extends Transaction {
 
     public void completeTransaction(){
         Account account = new AccountDAO(this).getAccountByAccountNumber(accountNumber);
-        switch (transactionType) {
-            case "Deposit": new DepositTransaction(account, transactionAmount);
-            case "Withdrawal": new WithdrawalTransaction(account, transactionAmount);
+        Transaction newTransaction = switch (transactionType) {
+            case "Deposit": yield new DepositTransaction(account, transactionAmount);
+            case "Withdrawal": yield new WithdrawalTransaction(account, transactionAmount);
             case "Transfer": {
                 Account targetAccount = new AccountDAO(this).getAccountByAccountNumber(targetAccountNumber);
-                new TransferTransaction(account, targetAccount, transactionAmount);
+                yield new TransferTransaction(account, targetAccount, transactionAmount);
             }
+            default: yield null;
+        };
+        if(newTransaction != null) {
+            newTransaction.setCustomerID(getCustomerID());
+            newTransaction.writeData();
         }
     }
 
