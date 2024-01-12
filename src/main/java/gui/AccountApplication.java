@@ -87,4 +87,9 @@ public class AccountApplication extends Application {
              default: return -1;
          }
     }
+
+    public void selectTransaction(Transaction selectedTransaction) throws Exception{
+        TransactionApplication transactionApplication = new TransactionApplication(selectedTransaction, account);
+        transactionApplication.start(new Stage());
+    }
 }
