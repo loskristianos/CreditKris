@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import transaction.PendingTransaction;
 import transaction.Transaction;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class AccountController {
     Account account;
     Customer customer;
     List<Transaction> transactionList;
+    List<PendingTransaction> pendingTransactionList;
     List<Account> accountList;
     AccountApplication accountApplication;
 
@@ -46,7 +48,7 @@ public class AccountController {
             if (!account.getAccountNumber().equals(this.account.getAccountNumber()))
                 transferAccounts.getItems().add(account);
         }
-
+        // set up transaction TableView
         transactionTimeColumn.setCellValueFactory(new PropertyValueFactory<>("transactionTime"));
         transactionTypeColumn.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
         transactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("transactionAmount"));
@@ -76,6 +78,9 @@ public class AccountController {
     }
     public void setAccountList(List<Account> accountList){
         this.accountList = accountList;
+    }
+    public void setPendingTransactionList(List<PendingTransaction> pendingTransactionList){
+        this.pendingTransactionList = pendingTransactionList;
     }
 
     public void setAccountApplication(AccountApplication accountApplication){
