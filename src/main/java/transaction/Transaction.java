@@ -2,7 +2,9 @@ package transaction;
 
 import account.Account;
 import account.Signatory;
+import customer.Customer;
 import dao.AccountDAO;
+import dao.CustomerDAO;
 import dao.TransactionDAO;
 import interfaces.DataObject;
 
@@ -114,6 +116,10 @@ public abstract class Transaction implements DataObject {
 
     public Transaction getThisTransaction(){
         return new TransactionDAO(this).getThisTransaction();
+    }
+
+    public Customer getInitiatingCustomer(){
+       return new CustomerDAO(this).getRecord();
     }
 
     public void createPendingTransactions(){
