@@ -6,10 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import transaction.DepositTransaction;
-import transaction.Transaction;
-import transaction.TransferTransaction;
-import transaction.WithdrawalTransaction;
+import transaction.*;
 
 import java.util.List;
 
@@ -51,6 +48,7 @@ public class AccountApplication extends Application {
         accountController.setCustomer(customer);
         accountController.setAccountList(accountList);
         accountController.setTransactionList(transactionList);
+        accountController.setPendingTransactionList(pendingTransactionsForCustomerAndAccount());
         accountController.setPreviousScene(previousScene);
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(accountController);
@@ -58,6 +56,15 @@ public class AccountApplication extends Application {
         Scene scene = new Scene(fxmlloader.load());
         stage.setTitle("Account Details");
         stage.setScene(scene);
+    }
+
+    List<PendingTransaction> pendingTransactionsForCustomerAndAccount(){
+        List<PendingTransaction> allPendingForCustomer = customer.getPendingTransactions();
+        for (PendingTransaction transaction : allPendingForCustomer){
+            if(!transaction.getAccountNumber().equals(account.getAccountNumber())){
+                allPendingForCustomer.remove(transaction);
+            }
+        } return allPendingForCustomer;
     }
 
     int createTransaction(String transactionAmount, String transactionType){
