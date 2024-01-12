@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+    <GridPane>
+        <Label text="Transaction reference" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <TextField fx:id="transactionIdDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+
+        <Label text="Transaction type" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <TextField fx:id="transactionTypeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0" editable="false"/>
+
+        <Label text="Transaction amount" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="transactionAmountDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+
+        <Label text="Transaction time" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <TextField fx:id="transactionTimeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" editable="false"/>
+
+        <Label text="Account balance before transaction" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="previousBalanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="false"/>
+
+        <Label text="Account balance after transaction" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <TextField fx:id="newBalanceDisplay" GridPane.columnIndex="3" GridPane.rowIndex="2" editable="false"/>
+
+        <Label text="Transaction initiated by" fx:id="transactionInitiatorLabel" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="transactionInitiatorDisplay" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false"/>
+
+        <Label fx:id="targetAccountLabel" wrapText="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
+        <TextField fx:id="targetAccountDisplay" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="3" editable="false"/>
+    </GridPane>
+    <Button text="Close" alignment="BASELINE_CENTER" onAction="#closeButtonAction"/>
+</VBox>
