@@ -78,7 +78,7 @@ public class PendingTransaction extends Transaction {
         this.customerID = customerID;
     }
 
-    public String getCustomerId(){
+    public String getCustomerID(){
         return customerID;
     }
 
