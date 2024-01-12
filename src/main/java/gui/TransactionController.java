@@ -11,6 +11,7 @@ public class TransactionController {
     Stage currentStage;
     Account account;
     Transaction transaction;
+    String customerName;
     TransactionApplication transactionApplication;
 
     @FXML private TextField transactionIdDisplay;
@@ -33,7 +34,7 @@ public class TransactionController {
         transactionTimeDisplay.setText(transaction.getTransactionTime());
         previousBalanceDisplay.setText(transaction.getPreviousBalance());
         newBalanceDisplay.setText(transaction.getNewBalance());
-        transactionInitiatorDisplay.setText(transaction.getCustomerID());
+        transactionInitiatorDisplay.setText(customerName);
         targetAccountDisplay.setText(transaction.getTargetAccountNumber());
 
         if(transaction.getTransactionType().equals("Transfer In")) {
@@ -61,7 +62,9 @@ public class TransactionController {
     public void setTransactionApplication(TransactionApplication transactionApplication) {
         this.transactionApplication = transactionApplication;
     }
-
+    public void setCustomerName(String name){
+        customerName = name;
+    }
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
     }
