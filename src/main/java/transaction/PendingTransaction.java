@@ -14,6 +14,7 @@ public class PendingTransaction extends Transaction {
     private String transactionType;
     private String signatoryID;
     private String targetAccountNumber;
+    private String customerName;
 
     // constructor for new pending transaction
     public PendingTransaction(Account account, Transaction transaction) {
@@ -41,6 +42,7 @@ public class PendingTransaction extends Transaction {
             put("signatoryID",signatoryID);
             put("targetAccountNumber",targetAccountNumber);
             put("customerID",customerID);
+            put("customerName",customerName);
         }};
     }
 
@@ -53,6 +55,7 @@ public class PendingTransaction extends Transaction {
         signatoryID = details.get("signatoryID");
         targetAccountNumber = details.get("targetAccountNumber");
         customerID = details.get("customerID");
+        customerName = details.get(customerName);
     }
 
     public String getTransactionID(){
@@ -76,6 +79,14 @@ public class PendingTransaction extends Transaction {
     }
     public void setCustomerID(String customerID){
         this.customerID = customerID;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerName(){
+        return customerName;
     }
 
     public String getCustomerID(){
