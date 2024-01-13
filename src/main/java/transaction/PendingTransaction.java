@@ -55,7 +55,7 @@ public class PendingTransaction extends Transaction {
         signatoryID = details.get("signatoryID");
         targetAccountNumber = details.get("targetAccountNumber");
         customerID = details.get("customerID");
-        customerName = details.get(customerName);
+        customerName = details.get("customerName");
     }
 
     public String getTransactionID(){
@@ -92,6 +92,13 @@ public class PendingTransaction extends Transaction {
     public String getCustomerID(){
         return customerID;
     }
+    public String getTransactionType(){
+        return transactionType;
+    }
+    public String getTransactionAmount(){
+        return transactionAmount;
+    }
+
 
     @Override
     public String calculateNewBalance() {
@@ -122,6 +129,7 @@ public class PendingTransaction extends Transaction {
         };
         if(newTransaction != null) {
             newTransaction.setCustomerID(getCustomerID());
+            newTransaction.setAuthorised(1);
             newTransaction.writeData();
         }
     }
