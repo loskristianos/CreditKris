@@ -1,49 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            orientation="VERTICAL"
-            prefHeight="600.0" prefWidth="800.0">
+<SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <BorderPane>
         <top>
             <VBox>
-                <Button text="Back" alignment="CENTER_LEFT" onAction="#backButtonAction"/>
-                <GridPane vgap="10" hgap="10">
-                    <Label text="Account Number" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                    <TextField fx:id="accountNumberDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+                <Button alignment="CENTER_LEFT" onAction="#backButtonAction" text="Back" />
+                <GridPane hgap="10" vgap="10">
+                    <Label text="Account Number" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <TextField fx:id="accountNumberDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                    <Label text="Account Type" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-                    <TextField fx:id="accountTypeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0" editable="false"/>
+                    <Label text="Account Type" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                    <TextField fx:id="accountTypeDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-                    <Label text="Current Balance" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-                    <TextField fx:id="currentBalanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+                    <Label text="Current Balance" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <TextField fx:id="currentBalanceDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-                    <Label text="Overdraft Limit" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-                    <TextField fx:id="overdraftLimitDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" editable="false"/>
+                    <Label text="Overdraft Limit" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                    <TextField fx:id="overdraftLimitDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+               <columnConstraints>
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
+            <padding>
+               <Insets left="10.0" top="10.0" />
+            </padding>
             </VBox>
         </top>
         <bottom>
-            <HBox>
-                <Button text="Deposit" onAction="#depositButtonAction" />
-                <Button text="Withdrawal" onAction="#withdrawalButtonAction"/>
-                <Button text="Transfer" fx:id="transferButton" visible="false" onAction="#transferButtonAction"/>
-                <ComboBox fx:id="transferAccounts" visible="false" onAction="#transferAccountAction"/>
+            <HBox alignment="CENTER" spacing="10.0">
+                <Button onAction="#depositButtonAction" text="Deposit" />
+                <Button onAction="#withdrawalButtonAction" text="Withdrawal" />
+                <Button fx:id="transferButton" onAction="#transferButtonAction" text="Transfer" visible="false" />
+                <ComboBox fx:id="transferAccounts" onAction="#transferAccountAction" visible="false" />
+            <padding>
+               <Insets bottom="10.0" left="10.0" />
+            </padding>
             </HBox>
         </bottom>
     </BorderPane>
 
     <TableView fx:id="transactionTableView" onMouseClicked="#transactionTableSelection">
         <columns>
-            <TableColumn text="Transaction Date" fx:id="transactionTimeColumn"/>
-            <TableColumn text="Transaction Type" fx:id="transactionTypeColumn"/>
-            <TableColumn text="Transaction Amount" fx:id="transactionAmountColumn"/>
-            <TableColumn text="Previous Balance" fx:id="previousBalanceColumn"/>
-            <TableColumn text="New Balance" fx:id="newBalanceColumn"/>
-            <TableColumn text="Transaction Reference" fx:id="transactionIdColumn"/>
+            <TableColumn fx:id="transactionTimeColumn" text="Transaction Date" />
+            <TableColumn fx:id="transactionTypeColumn" text="Transaction Type" />
+            <TableColumn fx:id="transactionAmountColumn" text="Transaction Amount" />
+            <TableColumn fx:id="previousBalanceColumn" text="Previous Balance" />
+            <TableColumn fx:id="newBalanceColumn" text="New Balance" />
+            <TableColumn fx:id="transactionIdColumn" text="Transaction Reference" />
         </columns>
     </TableView>
 </SplitPane>

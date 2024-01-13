@@ -21,7 +21,7 @@
         <TextField fx:id="customerIdDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
         <Label text="Address" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-        <TextArea fx:id="customerAddressDisplay" editable="false" prefHeight="100" prefWidth="149" wrapText="true" GridPane.columnIndex="3" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1" GridPane.valignment="TOP" />
+        <TextArea fx:id="customerAddressDisplay" editable="false" prefHeight="80.0" prefWidth="149" wrapText="true" GridPane.columnIndex="3" GridPane.columnSpan="1" GridPane.rowIndex="1" GridPane.rowSpan="1" GridPane.valignment="TOP" />
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints />
