@@ -19,7 +19,7 @@ public class NewCustomerApplication extends Application {
         newCustomerController = createNewCustomerController();
         newCustomerController.setNewCustomerApplication(this);
     }
-    private NewCustomerController createNewCustomerController(){
+    NewCustomerController createNewCustomerController(){
         return new NewCustomerController();
     }
     @Override
@@ -54,8 +54,7 @@ public class NewCustomerApplication extends Application {
         // check none of the customer detail fields are blank (except for address2 which is allowed to be blank)
         for (Map.Entry<String,String> entry : customerDetails.entrySet()){
             if(entry.getValue()==null || entry.getValue().isBlank()){
-                if (!entry.getKey().equals("address2"))
-                    return -1; break;
+                if (!entry.getKey().equals("address2")) return -1;
             }
         } return 0;
     }
