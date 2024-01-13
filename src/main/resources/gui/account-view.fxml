@@ -10,18 +10,14 @@
         <top>
             <VBox>
             <HBox prefHeight="45.0" prefWidth="588.0">
-               <children>
                       <Button onAction="#backButtonAction" text="Back" />
-               </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="43.0" prefWidth="588.0">
-               <children>
-                  <Label text="Account Details">
+                <Label text="Account Details">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
-                  </Label>
-               </children>
+                </Label>
             </HBox>
                 <GridPane alignment="BOTTOM_CENTER" hgap="10" vgap="10">
                     <Label text="Account Number" GridPane.columnIndex="0" GridPane.rowIndex="0" />

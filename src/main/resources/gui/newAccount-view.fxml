@@ -19,19 +19,15 @@
     </top>
    <left>
       <VBox prefHeight="470.0" prefWidth="305.0" BorderPane.alignment="CENTER">
-         <children>
             <VBox>
-               <children>
                   <Label alignment="TOP_LEFT" prefHeight="45.0" prefWidth="305.0" text="Thank you for choosing to open a new account with Credit Kris. Your support is much appreciated." wrapText="true" />
                   <Label fx:id="overdraftLabel" alignment="TOP_LEFT" text="Your new accountType account has an overdraft facility of overdraftLimit as standard which you are able to make use of immediately." wrapText="true">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></Label>
-               </children>
             </VBox>
             <ScrollPane hbarPolicy="NEVER" prefHeight="240.0" prefWidth="305.0" />
             <HBox prefHeight="84.0" prefWidth="305.0">
-               <children>
                   <CheckBox fx:id="termsCheckBox" mnemonicParsing="false" onAction="#termsCheckBoxAction" text="I have read and accepted your definitely real terms and conditions, and I hereby agree to operate this account in complete accordance with the aforementioned terms." wrapText="true">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -40,22 +36,17 @@
                         <Insets top="10.0" />
                      </padding>
                   </CheckBox>
-               </children>
             </HBox>
-         </children>
          <padding>
             <Insets top="10.0" />
          </padding></VBox>
    </left>
    <right>
       <VBox fx:id="signatoryVBox" prefHeight="470.0" prefWidth="286.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox prefHeight="139.0" prefWidth="286.0">
-               <children>
-                  <Label alignment="TOP_LEFT" text="Are you the only person with authority to manage this account, or do you require additional signatories to authorise withdrawals/transfers from this account?" wrapText="true" />
+         <VBox prefHeight="139.0" prefWidth="286.0">
+               <Label alignment="TOP_LEFT" text="Are you the only person with authority to manage this account, or do you require additional signatories to authorise withdrawals/transfers from this account?" wrapText="true" />
                   <HBox alignment="CENTER" prefHeight="71.0" prefWidth="286.0">
-                     <children>
-                        <RadioButton fx:id="noSignatoryRadioButton" mnemonicParsing="false" onAction="#noSignatoryRadioButtonAction" text="I will be the only authorised person on this account" wrapText="true">
+                     <RadioButton fx:id="noSignatoryRadioButton" mnemonicParsing="false" onAction="#noSignatoryRadioButtonAction" text="I will be the only authorised person on this account" wrapText="true">
                            <font>
                               <Font size="11.0" />
                            </font>
@@ -65,33 +56,25 @@
                               <Font size="11.0" />
                            </font>
                         </RadioButton>
-                     </children>
-                  </HBox>
-               </children></VBox>
+                     </HBox>
+               </VBox>
             <Label fx:id="signatoryLoginLabel" text="We require all signatories to have a customer account with us in order to act as an authorised signatory. If your proposed signatory already has a username/password for the site please ask them to log in using the button below and confirm the addition. Otherwise please select 'create new customer' below." wrapText="true" />
             <HBox fx:id="signatoryButtonsHBox" alignment="CENTER" prefHeight="35.0" prefWidth="286.0" spacing="10.0">
-               <children>
-                  <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonAction" text="Log In" />
-                  <Button fx:id="newCustomerButton" mnemonicParsing="false" onAction="#newCustomerButtonAction" text="Create New Customer" />
-               </children>
+               <Button fx:id="loginButton" mnemonicParsing="false" onAction="#loginButtonAction" text="Log In" />
+               <Button fx:id="newCustomerButton" mnemonicParsing="false" onAction="#newCustomerButtonAction" text="Create New Customer" />
             </HBox>
             <ListView fx:id="signatoryListView" prefHeight="129.0" prefWidth="286.0">
                <VBox.margin>
                   <Insets right="10.0" />
                </VBox.margin>
             </ListView>
-         </children>
          <padding>
             <Insets top="10.0" />
          </padding></VBox>
    </right>
    <bottom>
       <HBox alignment="TOP_CENTER" prefHeight="31.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="openAccountButton" disable="true" mnemonicParsing="false" onAction="#openAccountButtonAction" text="Open Account" />
-         </children>
+         <Button fx:id="openAccountButton" disable="true" mnemonicParsing="false" onAction="#openAccountButtonAction" text="Open Account" />
       </HBox>
    </bottom>
-
-
 </BorderPane>
