@@ -116,7 +116,7 @@ public class PendingTransaction extends Transaction {
         return new PendingTransactionDAO(this).getRemainingTransactions();
     }
 
-    public void completeTransaction(){
+    public int completeTransaction(){
         Account account = new AccountDAO(this).getAccountByAccountNumber(accountNumber);
         Transaction newTransaction = switch (transactionType) {
             case "Deposit": yield new DepositTransaction(account, transactionAmount);
@@ -130,13 +130,15 @@ public class PendingTransaction extends Transaction {
         if(newTransaction != null) {
             newTransaction.setCustomerID(getCustomerID());
             newTransaction.setAuthorised(1);
-            newTransaction.writeData();
-        }
+            return newTransaction.writeData();
+        } else return -1;
     }
 
-    public void authorise(){
+    public int authorise(){
         delete();
-        if (getRemainingTransactions()==0) completeTransaction();
+        if (getRemainingTransactions()==0) {
+            return completeTransaction();
+        } else return -1;
 
     }
     public void delete(){
