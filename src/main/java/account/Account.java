@@ -51,7 +51,7 @@ public abstract class Account implements DataObject {
     void setAccountType(String accountType) {
         this.accountType = accountType;
     }
-    void setSignatories(String signatories){ this.signatories = signatories;}
+    public void setSignatories(String signatories){ this.signatories = signatories;}
     public void setCurrentBalance(String newBalance) {
         currentBalance = newBalance;
     }
