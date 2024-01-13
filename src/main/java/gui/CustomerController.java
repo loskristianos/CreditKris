@@ -1,9 +1,6 @@
 package gui;
 
 import account.Account;
-import account.ClientAccount;
-import account.CommunityAccount;
-import account.SmallBusinessAccount;
 import customer.Customer;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
