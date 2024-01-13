@@ -3,13 +3,27 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <BorderPane>
         <top>
             <VBox>
-                <Button alignment="CENTER_LEFT" onAction="#backButtonAction" text="Back" />
-                <GridPane hgap="10" vgap="10">
+            <HBox prefHeight="45.0" prefWidth="588.0">
+               <children>
+                      <Button alignment="CENTER_LEFT" onAction="#backButtonAction" text="Back" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="43.0" prefWidth="588.0">
+               <children>
+                  <Label text="Account Details">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+                <GridPane alignment="BOTTOM_CENTER" hgap="10" vgap="10">
                     <Label text="Account Number" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                     <TextField fx:id="accountNumberDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
@@ -20,7 +34,7 @@
                     <TextField fx:id="currentBalanceDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                     <Label text="Overdraft Limit" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                    <TextField fx:id="overdraftLimitDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <TextField fx:id="overdraftLimitDisplay" alignment="BOTTOM_CENTER" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints />

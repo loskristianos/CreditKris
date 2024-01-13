@@ -1,35 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-    <GridPane>
-        <Label text="Transaction reference" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-        <TextField fx:id="transactionIdDisplay" GridPane.columnIndex="1" GridPane.rowIndex="0" editable="false"/>
+<VBox prefHeight="268.0" prefWidth="600.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <children>
+         <Label alignment="CENTER" text="Transaction Details">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+      </children></HBox>
+    <GridPane hgap="10.0" vgap="10.0">
+        <Label text="Transaction reference" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="transactionIdDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-        <Label text="Transaction type" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-        <TextField fx:id="transactionTypeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="0" editable="false"/>
+        <Label text="Transaction type" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+        <TextField fx:id="transactionTypeDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="0" />
 
-        <Label text="Transaction amount" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-        <TextField fx:id="transactionAmountDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1" editable="false"/>
+        <Label text="Transaction amount" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="transactionAmountDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-        <Label text="Transaction time" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
-        <TextField fx:id="transactionTimeDisplay" GridPane.columnIndex="3" GridPane.rowIndex="1" editable="false"/>
+        <Label text="Transaction time" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+        <TextField fx:id="transactionTimeDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
 
-        <Label text="Account balance before transaction" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-        <TextField fx:id="previousBalanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="2" editable="false"/>
+        <Label text="Account balance before transaction" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="previousBalanceDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-        <Label text="Account balance after transaction" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
-        <TextField fx:id="newBalanceDisplay" GridPane.columnIndex="3" GridPane.rowIndex="2" editable="false"/>
+        <Label text="Account balance after transaction" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+        <TextField fx:id="newBalanceDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="2" />
 
-        <Label text="Transaction initiated by" fx:id="transactionInitiatorLabel" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
-        <TextField fx:id="transactionInitiatorDisplay" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" editable="false"/>
+        <Label fx:id="transactionInitiatorLabel" text="Transaction initiated by" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <TextField fx:id="transactionInitiatorDisplay" editable="false" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
-        <Label fx:id="targetAccountLabel" wrapText="true" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="3"/>
-        <TextField fx:id="targetAccountDisplay" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="3" editable="false"/>
+        <Label fx:id="targetAccountLabel" visible="false" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <TextField fx:id="targetAccountDisplay" editable="false" visible="false" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <columnConstraints>
+         <ColumnConstraints maxWidth="157.0" minWidth="142.0" prefWidth="142.0" />
+         <ColumnConstraints maxWidth="143.0" minWidth="128.0" prefWidth="143.0" />
+         <ColumnConstraints maxWidth="154.0" minWidth="140.0" prefWidth="140.0" />
+         <ColumnConstraints maxWidth="150.0" minWidth="136.0" prefWidth="150.0" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
     </GridPane>
-    <Button text="Close" alignment="BASELINE_CENTER" onAction="#closeButtonAction"/>
+   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <children>
+          <Button alignment="CENTER" onAction="#closeButtonAction" text="Close" />
+      </children>
+   </HBox>
+   <padding>
+      <Insets left="10.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>
