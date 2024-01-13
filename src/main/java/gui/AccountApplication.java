@@ -58,7 +58,11 @@ public class AccountApplication extends Application {
         Scene scene = new Scene(fxmlloader.load());
         stage.setTitle("Account Details");
         stage.setScene(scene);
-        if (!pendingTransactionList.isEmpty()) new PendingTransactionApplication(pendingTransactionList).start(new Stage());
+        if (!pendingTransactionList.isEmpty()) {
+            PendingTransactionApplication pendingTransactionApplication = new PendingTransactionApplication(pendingTransactionList);
+            pendingTransactionApplication.setAccountController(accountController);
+            pendingTransactionApplication.start(new Stage());
+        }
     }
 
     List<PendingTransaction> pendingTransactionsForCustomerAndAccount(){
