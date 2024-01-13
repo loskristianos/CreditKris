@@ -22,7 +22,7 @@ public class LoginApplication extends Application {
         launch();
     }
 
-    private LoginController createLoginController(){
+    LoginController createLoginController(){
         return new LoginController();
     }
     @Override
