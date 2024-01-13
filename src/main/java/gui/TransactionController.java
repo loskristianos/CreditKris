@@ -49,7 +49,7 @@ public class TransactionController {
             targetAccountDisplay.setVisible(true);
         }
 
-        if (!account.getSignatories().equals("1")){
+        if (!account.getSignatories().equals("0")){
             transactionInitiatorLabel.setVisible(true);
             transactionInitiatorDisplay.setVisible(true);
         }

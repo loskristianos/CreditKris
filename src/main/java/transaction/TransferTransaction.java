@@ -37,7 +37,7 @@ public class TransferTransaction extends Transaction {
     public int writeData(){
         setTransactionID(thisTransactionID);
         thisTransactionID=getTransactionID();
-        if (account.getSignatories().equals("1") || getAuthorised()==1) {
+        if (account.getSignatories().equals("0") || getAuthorised()==1) {
             TransferOut transferOut = new TransferOut(account, transactionAmount);
             transferOut.setTransactionID(thisTransactionID);
             transferOut.setTargetAccountNumber(targetAccount.getAccountNumber());
