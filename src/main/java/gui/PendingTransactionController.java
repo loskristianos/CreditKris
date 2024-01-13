@@ -15,7 +15,6 @@ public class PendingTransactionController {
     Stage currentStage;
 
     @FXML private TableView<PendingTransaction> pendingTransactionTable;
-    @FXML private TableColumn<PendingTransaction,String> transactionDateColumn;
     @FXML private TableColumn<PendingTransaction,String> transactionTypeColumn;
     @FXML private TableColumn<PendingTransaction,String> transactionAmountColumn;
     @FXML private TableColumn<PendingTransaction,String> targetAccountColumn;
@@ -25,17 +24,17 @@ public class PendingTransactionController {
     public PendingTransactionController(){
     }
 
-    @FXML private void initialise(){
+    @FXML private void initialize(){
         // set TableColumns
-        transactionDateColumn.setCellValueFactory(new PropertyValueFactory<>("transactionTime"));
         transactionTypeColumn.setCellValueFactory(new PropertyValueFactory<>("transactionType"));
         transactionAmountColumn.setCellValueFactory(new PropertyValueFactory<>("transactionAmount"));
         targetAccountColumn.setCellValueFactory(new PropertyValueFactory<>("targetAccountNumber"));
         transactionInitiatorColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
 
         for (PendingTransaction transaction : pendingTransactionList){
-            pendingTransactionTable.getItems().add(transaction);
             if (transaction.getTargetAccountNumber()!=null) targetAccountColumn.setVisible(true);
+            pendingTransactionTable.getItems().add(transaction);
+
         }
     }
 
