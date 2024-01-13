@@ -8,7 +8,8 @@ public class TransferTransaction extends Transaction {
 
    Account targetAccount;
    String transactionAmount;
-   String transactionID;
+   String thisTransactionID;
+
 
     // constructor for new transactions from UI account screen
     public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
@@ -28,23 +29,20 @@ public class TransferTransaction extends Transaction {
             setTransactionType("Transfer");
         }
     }
-    private void setThisTransactionID(String transferOutID){
-        this.transactionID=transferOutID;
-        super.setTransactionID(transferOutID);
-    }
     @Override
     public String calculateNewBalance() {
         return null;
     }
 
     public int writeData(){
-
+        setTransactionID(thisTransactionID);
+        thisTransactionID=getTransactionID();
         if (account.getSignatories().equals("1") || getAuthorised()==1) {
             TransferOut transferOut = new TransferOut(account, transactionAmount);
-            transferOut.setTransactionID(transactionID);
+            transferOut.setTransactionID(thisTransactionID);
             transferOut.setTargetAccountNumber(targetAccount.getAccountNumber());
             transferOut.setCustomerID(getCustomerID());
-            setThisTransactionID(transferOut.getTransactionID());
+            transferOut.setAuthorised(1);
             transferOut.writeData();
             TransferIn transferIn = new TransferIn(targetAccount, transactionAmount);
             transferIn.setTargetAccountNumber(account.getAccountNumber());
