@@ -48,16 +48,22 @@ public class CustomerApplication extends Application {
         stage.setScene(scene);
     }
 
-    Account createNewAccount(String accountType){
+    void createNewAccount(String accountType) throws Exception{
         Account newAccount = switch (accountType) {
             case "Client": yield new ClientAccount(customer);
             case "Community": yield new CommunityAccount(customer);
             case "Business": yield new SmallBusinessAccount(customer);
             default: yield null;
         };
-        assert newAccount != null;
-        newAccount.writeData();
-        return newAccount.getThisAccount();
+        if (newAccount != null) {
+            NewAccountApplication newAccountApplication = new NewAccountApplication(customer,newAccount);
+            newAccountApplication.setCustomerApplication(this);
+            newAccountApplication.start(new Stage());
+        }
+    }
+
+    void addAccountToList(Account returnedAccount){
+        customerController.addAccountToTable(returnedAccount);
     }
 
     void selectAccount(Account selectedAccount) throws Exception{

@@ -77,16 +77,16 @@ public class CustomerController {
         customerApplication.checkPendingTransactions();
     }
 
-    @FXML void newClientButtonAction(){
-        addAccountToTable(customerApplication.createNewAccount("Client"));
+    @FXML void newClientButtonAction() throws Exception{
+        customerApplication.createNewAccount("Client");
     }
 
-    @FXML void newCommunityButtonAction(){
-        addAccountToTable(customerApplication.createNewAccount("Community"));
+    @FXML void newCommunityButtonAction() throws Exception {
+        customerApplication.createNewAccount("Community");
     }
 
-    @FXML void newBusinessButtonAction(){
-        addAccountToTable(customerApplication.createNewAccount("Business"));
+    @FXML void newBusinessButtonAction() throws Exception {
+        customerApplication.createNewAccount("Business");
     }
 
     @FXML void logOutButtonAction() throws Exception{
