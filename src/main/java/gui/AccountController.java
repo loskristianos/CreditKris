@@ -109,12 +109,22 @@ public class AccountController {
     }
     private void doTransaction(String transactionType){
         String transactionAmount = confirmTransactionAmount(transactionType);
-        int x = accountApplication.createTransaction(transactionAmount, transactionType);
-        switch (x){
-            case 0: successDialog(transactionType); break;
-            case -1: unspecifiedFailureDialog(transactionType); break;
-            case -2: pendingTransactionsDialog(transactionType); break;
-            case -3: overdraftLimitDialog(transactionType); break;
+        if (transactionAmount != null && !transactionAmount.isBlank()) {
+            int x = accountApplication.createTransaction(transactionAmount, transactionType);
+            switch (x) {
+                case 0:
+                    successDialog(transactionType);
+                    break;
+                case -1:
+                    unspecifiedFailureDialog(transactionType);
+                    break;
+                case -2:
+                    pendingTransactionsDialog(transactionType);
+                    break;
+                case -3:
+                    overdraftLimitDialog(transactionType);
+                    break;
+            }
         }
     }
 
@@ -135,6 +145,7 @@ public class AccountController {
         transactionDialog.setHeaderText("Please enter the amount of your " +transactionType.toLowerCase()+".");
         transactionDialog.showAndWait();
         return transactionDialog.getEditor().getText();
+       // if (amount !=null && !amount.isBlank()) return amount;
     }
 
     void successDialog(String transactionType){
