@@ -124,11 +124,12 @@ public abstract class Transaction implements DataObject {
 
     public void createPendingTransactions(){
         List<Signatory> signatoryList = account.getSignatoryList();
+        String customerName = getInitiatingCustomer().getFullName();
         for (Signatory signatory : signatoryList){
-
             if (!customerID.equals(signatory.getCustomerID())) {    // prevents creation of pending transaction for customer initiating this transaction
                 PendingTransaction pendingTransaction = new PendingTransaction(account, this);
                 pendingTransaction.setSignatoryID(signatory.getCustomerID());
+                pendingTransaction.setCustomerName(customerName);
                 if (targetAccountNumber != null) {pendingTransaction.setTargetAccountNumber(targetAccountNumber);}
                 pendingTransaction.writeData();
             }
