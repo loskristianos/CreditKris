@@ -111,7 +111,7 @@ public abstract class Transaction implements DataObject {
     public int writeData(){
         if (overdraftCheck()<0) return -3;
         setTransactionID(transactionID);
-        if (account.getSignatories().equals("1") || authorised==1 ||transactionType.equals("Transfer In") || transactionType.equals("Deposit")) {
+        if (account.getSignatories().equals("1") || getAuthorised()==1 ||transactionType.equals("Transfer In") || transactionType.equals("Deposit")) {
             new TransactionDAO(this).write();
             new AccountDAO(account).update();
             return 0;
