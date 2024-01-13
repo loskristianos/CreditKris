@@ -62,9 +62,10 @@ public class PendingTransactionDAO extends DAO{
 
     public Integer getRemainingTransactions(){
         String transactionID = transaction.getTransactionID();
-        sqlStatement = "SELECT + FROM pending_transactions WHERE transaction_id = '" + transactionID + "'";
+        sqlStatement = "SELECT * FROM pending_transactions WHERE transaction_id = '" + transactionID + "'";
         List<HashMap<String,String>> resultList = super.databaseLookup();
-        return resultList.size();
+        if (resultList!=null) return resultList.size();
+        else return 0;
     }
 
     public void deletePendingTransaction(){
