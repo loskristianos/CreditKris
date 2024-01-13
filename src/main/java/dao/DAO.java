@@ -82,7 +82,7 @@ public abstract class DAO {
             String value = entry.getValue();
             if (value != null) {
                 columns.add(mappedKey);
-                values.add(value);
+                values.add(value.replace("'","''"));
             }
         }
         return "INSERT INTO " + tableName + " " + columns + " VALUES " + values;

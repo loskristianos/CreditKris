@@ -2,7 +2,7 @@ package view;
 
 
 import customer.Customer;
-import gui.CreateCustomerScreen;
+import oldgui.CreateCustomerScreen;
 import login.LoginObject;
 
 import java.util.HashMap;

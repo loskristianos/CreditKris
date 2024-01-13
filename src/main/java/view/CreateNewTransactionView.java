@@ -2,7 +2,7 @@ package view;
 
 import account.Account;
 import customer.Customer;
-import gui.CreateNewTransactionScreen;
+import oldgui.CreateNewTransactionScreen;
 import transaction.DepositTransaction;
 import transaction.Transaction;
 import transaction.TransferTransaction;

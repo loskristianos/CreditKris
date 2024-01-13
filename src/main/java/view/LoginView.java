@@ -2,7 +2,7 @@ package view;
 
 
 import customer.Customer;
-import gui.LoginScreen;
+import oldgui.LoginScreen;
 import login.LoginObject;
 
 public class LoginView extends View {

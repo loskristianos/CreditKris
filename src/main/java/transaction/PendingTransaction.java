@@ -14,6 +14,7 @@ public class PendingTransaction extends Transaction {
     private String transactionType;
     private String signatoryID;
     private String targetAccountNumber;
+    private String customerName;
 
     // constructor for new pending transaction
     public PendingTransaction(Account account, Transaction transaction) {
@@ -22,6 +23,7 @@ public class PendingTransaction extends Transaction {
         transactionType = transaction.getTransactionType();
         accountNumber = account.getAccountNumber();
         transactionID = transaction.getTransactionID();
+        customerID = transaction.getCustomerID();
     }
 
     //  constructor for PendingTransaction objects created from database returns (existing transactions)
@@ -39,6 +41,8 @@ public class PendingTransaction extends Transaction {
             put("transactionType", transactionType);
             put("signatoryID",signatoryID);
             put("targetAccountNumber",targetAccountNumber);
+            put("customerID",customerID);
+            put("customerName",customerName);
         }};
     }
 
@@ -50,6 +54,8 @@ public class PendingTransaction extends Transaction {
         transactionType = details.get("transactionType");
         signatoryID = details.get("signatoryID");
         targetAccountNumber = details.get("targetAccountNumber");
+        customerID = details.get("customerID");
+        customerName = details.get("customerName");
     }
 
     public String getTransactionID(){
@@ -58,6 +64,9 @@ public class PendingTransaction extends Transaction {
     public String getSignatoryID(){
         return signatoryID;
     }
+    public String getAccountNumber(){
+        return accountNumber;
+    }
     public String getTargetAccountNumber(){
         return targetAccountNumber;
     }
@@ -65,9 +74,6 @@ public class PendingTransaction extends Transaction {
         targetAccountNumber = targetAccount;
     }
 
-    public void setTransactionID(String transactionID){
-        this.transactionID = transactionID;
-    }
     public void setSignatoryID(String signatory){
         signatoryID = signatory;
     }
@@ -75,9 +81,24 @@ public class PendingTransaction extends Transaction {
         this.customerID = customerID;
     }
 
-    public String getCustomerId(){
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerName(){
+        return customerName;
+    }
+
+    public String getCustomerID(){
         return customerID;
     }
+    public String getTransactionType(){
+        return transactionType;
+    }
+    public String getTransactionAmount(){
+        return transactionAmount;
+    }
+
 
     @Override
     public String calculateNewBalance() {
@@ -85,8 +106,9 @@ public class PendingTransaction extends Transaction {
     } // not required for pending transactions
 
     @Override
-    public void writeData() {
+    public int writeData() {
           new PendingTransactionDAO(this).write();
+          return 0;
     }
 
     public Integer getRemainingTransactions(){
@@ -94,21 +116,29 @@ public class PendingTransaction extends Transaction {
         return new PendingTransactionDAO(this).getRemainingTransactions();
     }
 
-    public void completeTransaction(){
+    public int completeTransaction(){
         Account account = new AccountDAO(this).getAccountByAccountNumber(accountNumber);
-        switch (transactionType) {
-            case "Deposit": new DepositTransaction(account, transactionAmount);
-            case "Withdrawal": new WithdrawalTransaction(account, transactionAmount);
+        Transaction newTransaction = switch (transactionType) {
+            case "Deposit": yield new DepositTransaction(account, transactionAmount);
+            case "Withdrawal": yield new WithdrawalTransaction(account, transactionAmount);
             case "Transfer": {
                 Account targetAccount = new AccountDAO(this).getAccountByAccountNumber(targetAccountNumber);
-                new TransferTransaction(account, targetAccount, transactionAmount);
+                yield new TransferTransaction(account, targetAccount, transactionAmount);
             }
-        }
+            default: yield null;
+        };
+        if(newTransaction != null) {
+            newTransaction.setCustomerID(getCustomerID());
+            newTransaction.setAuthorised(1);
+            return newTransaction.writeData();
+        } else return -1;
     }
 
-    public void authorise(){
+    public int authorise(){
         delete();
-        if (getRemainingTransactions()==0) completeTransaction();
+        if (getRemainingTransactions()==0) {
+            return completeTransaction();
+        } else return -1;
 
     }
     public void delete(){

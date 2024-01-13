@@ -1,4 +1,4 @@
-package gui;
+package oldgui;
 
 import account.Account;
 import customer.Customer;
@@ -69,7 +69,7 @@ public class AccountScreen {
         // (will be added when transfer button is clicked, in EventHandler further below)
         ComboBox<Account> transferAccounts = new ComboBox<>();
         for (Account account : accountList) {
-            if (account.getAccountNumber() != accountNumber)
+            if (!account.getAccountNumber().equals(accountNumber))
                 transferAccounts.getItems().add(account);
         }
 

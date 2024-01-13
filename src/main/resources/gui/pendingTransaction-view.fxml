@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+    <HBox alignment="CENTER" >
+        <Label text="Transactions awaiting your authorisation"/>
+    </HBox>
+    <TableView fx:id="pendingTransactionTable" onMouseClicked="#pendingTransactionSelection">
+        <columns>
+            <TableColumn text="Transaction Type" fx:id="transactionTypeColumn"/>
+            <TableColumn text="Transaction Amount" fx:id="transactionAmountColumn"/>
+            <TableColumn text="Destination Account" fx:id="targetAccountColumn" visible="false"/>
+            <TableColumn text="Transaction requested by" fx:id="transactionInitiatorColumn"/>
+        </columns>
+    </TableView>
+    <HBox alignment="CENTER" spacing="70">
+
+        <Button text="Authorise all transactions" wrapText="true" fx:id="authoriseAllButton" onAction="#authoriseAllButtonAction"/>
+
+
+            <Button text="Close" fx:id="closeButton" onAction="#closeButtonAction"/>
+
+    </HBox>
+</VBox>

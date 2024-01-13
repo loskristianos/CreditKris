@@ -8,13 +8,17 @@ public class TransferTransaction extends Transaction {
 
    Account targetAccount;
    String transactionAmount;
+   String thisTransactionID;
+
 
     // constructor for new transactions from UI account screen
     public TransferTransaction(Account account, Account targetAccount, String transactionAmount){
+        super(account,transactionAmount);
         this.account = account;
         this.targetAccount = targetAccount;
         this.transactionAmount = transactionAmount;
-        super.setTargetAccountNumber(targetAccount.getAccountNumber());
+        setTargetAccountNumber(targetAccount.getAccountNumber());
+        setTransactionAmount(transactionAmount);
         setTransactionType("Transfer");
         }
 
@@ -25,19 +29,30 @@ public class TransferTransaction extends Transaction {
             setTransactionType("Transfer");
         }
     }
-
     @Override
     public String calculateNewBalance() {
         return null;
     }
 
-    public void writeData(){
-        if (account.getSignatories().equals("1")) {
-            new TransferOut(account, transactionAmount).writeData();
-            new TransferIn(targetAccount, transactionAmount).writeData();
+    public int writeData(){
+        setTransactionID(thisTransactionID);
+        thisTransactionID=getTransactionID();
+        if (account.getSignatories().equals("0") || getAuthorised()==1) {
+            TransferOut transferOut = new TransferOut(account, transactionAmount);
+            transferOut.setTransactionID(thisTransactionID);
+            transferOut.setTargetAccountNumber(targetAccount.getAccountNumber());
+            transferOut.setCustomerID(getCustomerID());
+            transferOut.setAuthorised(1);
+            transferOut.writeData();
+            TransferIn transferIn = new TransferIn(targetAccount, transactionAmount);
+            transferIn.setTargetAccountNumber(account.getAccountNumber());
+            transferIn.setCustomerID(getCustomerID());
+            transferIn.writeData();
+            return 0;
         }
         else {
             createPendingTransactions();
+            return -2;
         }
     }
 }

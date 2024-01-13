@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+
+        <GridPane alignment="CENTER" hgap="10" vgap="20">
+            <Label text="Username" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+            <TextField fx:id="userName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+            <Label text="Password" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+            <PasswordField fx:id="password" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+            <Button defaultButton="true" onAction="#loginButtonAction" text="Log In" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+            <Button onAction="#newUserButtonAction" text="New User" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+        </GridPane>
+</VBox>
