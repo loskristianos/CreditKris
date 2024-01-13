@@ -1,10 +1,7 @@
 package account;
 
 import customer.Customer;
-import dao.AccountDAO;
-import dao.PendingTransactionDAO;
-import dao.SignatoryDAO;
-import dao.TransactionDAO;
+import dao.*;
 import interfaces.DataObject;
 import transaction.PendingTransaction;
 import transaction.Transaction;

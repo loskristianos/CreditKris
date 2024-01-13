@@ -1,11 +1,9 @@
 package customer;
 
 import account.Account;
-import dao.AccountDAO;
-import dao.PendingTransactionDAO;
+import dao.*;
 import interfaces.DataObject;
 import login.LoginObject;
-import dao.CustomerDAO;
 import transaction.PendingTransaction;
 
 import java.util.HashMap;
