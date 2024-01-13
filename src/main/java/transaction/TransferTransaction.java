@@ -39,7 +39,7 @@ public class TransferTransaction extends Transaction {
 
     public int writeData(){
 
-        if (account.getSignatories().equals("1")) {
+        if (account.getSignatories().equals("1") || getAuthorised()==1) {
             TransferOut transferOut = new TransferOut(account, transactionAmount);
             transferOut.setTransactionID(transactionID);
             transferOut.setTargetAccountNumber(targetAccount.getAccountNumber());
