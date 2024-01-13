@@ -33,6 +33,7 @@ public class MapFieldsToColumns {
         put("currentBalance", "current_balance");
         put("signatoryID", "signatory_id");
         put("targetAccountNumber", "target_account");
+        put("customerName","customer_name");
     }};
 
     public static HashMap<String,String> mappingsFromDB = new HashMap<>() {{
@@ -60,5 +61,6 @@ public class MapFieldsToColumns {
         put("current_balance", "currentBalance");
         put("signatory_id","signatoryID");
         put("target_account","targetAccountNumber");
+        put("customer_name","customerName");
     }};
 }
