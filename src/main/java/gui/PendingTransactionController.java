@@ -49,7 +49,7 @@ public class PendingTransactionController {
     void setCurrentStage(Stage stage){
         currentStage = stage;
     }
-    @FXML private void pendingTransactionSelection() throws Exception{
+    @FXML private void pendingTransactionSelection() {
         PendingTransaction selectedTransaction = pendingTransactionTable.getSelectionModel().getSelectedItem();
         if (selectedTransaction != null) pendingTransactionApplication.selectPendingTransaction(selectedTransaction);
 
