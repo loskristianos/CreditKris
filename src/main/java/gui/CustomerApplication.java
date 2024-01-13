@@ -72,7 +72,9 @@ public class CustomerApplication extends Application {
         if (pendingTransactionList != null) {
             StringJoiner accountsWithPendingTransactions = new StringJoiner("\n", "\n", "\n\n");
             for (PendingTransaction transaction : pendingTransactionList) {
-                accountsWithPendingTransactions.add(transaction.getAccountNumber());
+                if (!accountsWithPendingTransactions.toString().contains(transaction.getAccountNumber())) {
+                    accountsWithPendingTransactions.add(transaction.getAccountNumber());
+                }
             }
             if (!accountsWithPendingTransactions.toString().isBlank()) {
                 customerController.pendingTransactionAlert(accountsWithPendingTransactions.toString());
