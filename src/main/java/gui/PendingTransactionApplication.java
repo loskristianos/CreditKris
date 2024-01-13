@@ -10,6 +10,7 @@ import java.util.List;
 
 public class PendingTransactionApplication extends Application {
     PendingTransactionController pendingTransactionController;
+    AccountController accountController;
     List<PendingTransaction> pendingTransactionList;
     public PendingTransactionApplication(List<PendingTransaction> pendingTransactionList){
         this.pendingTransactionList = pendingTransactionList;
@@ -18,6 +19,10 @@ public class PendingTransactionApplication extends Application {
 
     public PendingTransactionController createPendingTransactionController(){
         return new PendingTransactionController();
+    }
+
+    public void setAccountController(AccountController accountController) {
+        this.accountController = accountController;
     }
 
     @Override
@@ -36,7 +41,16 @@ public class PendingTransactionApplication extends Application {
     }
 
     public void selectPendingTransaction(PendingTransaction pendingTransaction){
-       int x = pendingTransactionController.confirmAuthorisationDialog(pendingTransaction);
-       if (x==0) pendingTransaction.authorise();
+        int x;
+        int y;
+        x = pendingTransactionController.confirmAuthorisationDialog(pendingTransaction);
+        if (x==0) y = pendingTransaction.authorise();
+        else y = -2;
+        switch (y){
+            case 0: accountController.successDialog(pendingTransaction.getTransactionType());
+            case -1: accountController.unspecifiedFailureDialog(pendingTransaction.getTransactionType());
+            case -2: accountController.pendingTransactionsDialog(pendingTransaction.getTransactionType());
+            case -3: accountController.overdraftLimitDialog(pendingTransaction.getTransactionType());
+        }
     }
 }
