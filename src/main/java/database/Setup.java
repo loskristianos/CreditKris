@@ -30,9 +30,9 @@ public class Setup {
         }
         switch (databaseCheck()){
             case 0: return;
-            case -1: setupDatabase();
+            case -1: setupDatabase();break;
             case -2:
-                System.out.println("SQL Error");
+                System.out.println("SQL Error"); break;   // temp, will log Exception when logging is complete
         }
     }
 
