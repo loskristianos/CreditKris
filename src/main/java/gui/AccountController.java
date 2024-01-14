@@ -88,7 +88,7 @@ public class AccountController {
     }
 
     @FXML private void backButtonAction(){
-        currentStage.setScene(previousScene);
+        accountApplication.back();
     }
 
     @FXML private void depositButtonAction(){

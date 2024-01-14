@@ -17,7 +17,9 @@ public class AccountApplication extends Application {
     List<PendingTransaction> pendingTransactionList;
     List<Account> accountList;
     AccountController accountController;
+    CustomerApplication customerApplication;
     Scene previousScene;
+    Stage currentStage;
     Account targetAccount;
     public AccountApplication(Account inputAccount, Customer inputCustomer){
         account = inputAccount;
@@ -34,17 +36,19 @@ public class AccountApplication extends Application {
     public void setAccountList(List<Account> accountList){
         this.accountList = accountList;
     }
-
     public void setPreviousScene(Scene scene) {
         previousScene = scene;
     }
-
     public void setTargetAccount(Account account){
         targetAccount = account;
+    }
+    public void setCustomerApplication(CustomerApplication customerApplication){
+        this.customerApplication = customerApplication;
     }
     @Override
     public void start(Stage stage) throws Exception {
         accountController.setCurrentStage(stage);
+        currentStage = stage;
         accountController.setAccount(account);
         accountController.setCustomer(customer);
         accountController.setAccountList(accountList);
@@ -98,5 +102,10 @@ public class AccountApplication extends Application {
     public void selectTransaction(Transaction selectedTransaction) throws Exception{
         TransactionApplication transactionApplication = new TransactionApplication(selectedTransaction, account);
         transactionApplication.start(new Stage());
+    }
+
+    public void back(){
+        currentStage.setScene(previousScene);
+        customerApplication.refreshData();
     }
 }
