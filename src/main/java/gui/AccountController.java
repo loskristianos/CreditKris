@@ -130,6 +130,7 @@ public class AccountController {
 
     void addTransactionToTable(Transaction completedTransaction){
         transactionList.add(completedTransaction);
+        currentBalanceDisplay.setText(account.getCurrentBalance());
         transactionTableView.getItems().add(completedTransaction);
         transactionTableView.refresh();
     }
@@ -145,7 +146,6 @@ public class AccountController {
         transactionDialog.setHeaderText("Please enter the amount of your " +transactionType.toLowerCase()+".");
         transactionDialog.showAndWait();
         return transactionDialog.getEditor().getText();
-       // if (amount !=null && !amount.isBlank()) return amount;
     }
 
     void successDialog(String transactionType){
