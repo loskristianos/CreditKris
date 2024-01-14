@@ -1,15 +1,12 @@
-DROP TABLES login,customers,accounts,transactions,signatories,pending_transactions;
-
-CREATE TABLE login (customer_id INTEGER PRIMARY KEY NOT NULL ON CONFLICT IGNORE UNIQUE, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);
-
-CREATE TABLE customers (customer_id INTEGER PRIMARY KEY UNIQUE NOT NULL,first_name TEXT NOT NULL, last_name TEXT NOT NULL, dob TEXT NOT NULL, address1 TEXT NOT NULL, address2 TEXT, town TEXT, postcode TEXT NOT NULL);
-
-CREATE TABLE accounts (account_number INTEGER PRIMARY KEY NOT NULL UNIQUE,account_type TEXT NOT NULL, customer_id TEXT NOT NULL,current_balance TEXT NOT NULL DEFAULT (0),overdraft_limit TEXT NOT NULL, signatories TEXT NOT NULL DEFAULT (0));
-
+DROP TABLE [IF EXISTS] login;
+DROP TABLE [IF EXISTS] customers;
+DROP TABLE [IF EXISTS] accounts;
+DROP TABLE [IF EXISTS] transactions;
+DROP TABLE [IF EXISTS] signatories;
+DROP TABLE [IF EXISTS] pending_transactions;
+CREATE TABLE login (customer_id INTEGER PRIMARY KEY NOT NULL ON CONFLICT ROLLBACK, username TEXT UNIQUE NOT NULL, password TEXT NOT NULL);
+CREATE TABLE customers (customer_id TEXT PRIMARY KEY UNIQUE NOT NULL,first_name TEXT NOT NULL, last_name TEXT NOT NULL, dob TEXT NOT NULL, address1 TEXT NOT NULL, address2 TEXT, town TEXT, postcode TEXT NOT NULL);
+CREATE TABLE accounts (account_number TEXT PRIMARY KEY NOT NULL UNIQUE,account_type TEXT NOT NULL, customer_id TEXT NOT NULL,current_balance TEXT NOT NULL DEFAULT "0",overdraft_limit TEXT NOT NULL, signatories TEXT NOT NULL DEFAULT "0");
 CREATE TABLE transactions (transaction_id TEXT NOT NULL,account_number TEXT NOT NULL,transaction_amount TEXT NOT NULL,transaction_type TEXT NOT NULL,previous_balance TEXT NOT NULL, new_balance TEXT NOT NULL, transaction_time TEXT DEFAULT (CURRENT_TIMESTAMP) NOT NULL, customer_id TEXT NOT NULL, target_account TEXT);
-
 CREATE TABLE signatories (account_number TEXT NOT NULL,customer_id TEXT NOT NULL);
-
 CREATE TABLE pending_transactions (transaction_id TEXT NOT NULL,account_number TEXT NOT NULL,customer_id TEXT NOT NULL,transaction_amount TEXT NOT NULL,transaction_type TEXT NOT NULL,signatory_id TEXT NOT NULL,target_account TEXT, customer_name TEXT);
-
-
