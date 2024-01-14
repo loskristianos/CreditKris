@@ -95,6 +95,10 @@ public class CustomerController {
         accountsTable.refresh();
     }
 
+    void refreshData(){
+        accountsTable.refresh();
+    }
+
     void pendingTransactionAlert(String accountsWithPendingTransactions){
         Alert pendingTransactionsAlert = new Alert(Alert.AlertType.INFORMATION);
         pendingTransactionsAlert.setContentText("You have new transactions awaiting authorisation for the following accounts:\n" + accountsWithPendingTransactions

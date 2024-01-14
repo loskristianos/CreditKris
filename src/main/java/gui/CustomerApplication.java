@@ -68,6 +68,7 @@ public class CustomerApplication extends Application {
 
     void selectAccount(Account selectedAccount) throws Exception{
         AccountApplication accountApplication = new AccountApplication(selectedAccount,customer);
+        accountApplication.setCustomerApplication(this);
         accountApplication.setAccountList(accountList);
         accountApplication.setPreviousScene(currentScene);
         accountApplication.start(currentStage);
@@ -86,5 +87,9 @@ public class CustomerApplication extends Application {
                 customerController.pendingTransactionAlert(accountsWithPendingTransactions.toString());
             }
         }
+    }
+
+    public void refreshData(){
+        customerController.refreshData();
     }
 }
