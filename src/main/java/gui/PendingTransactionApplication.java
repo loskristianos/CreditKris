@@ -47,10 +47,10 @@ public class PendingTransactionApplication extends Application {
         if (x==0) y = pendingTransaction.authorise();
         else y = -2;
         switch (y){
-            case 0: accountController.successDialog(pendingTransaction.getTransactionType());
-            case -1: accountController.unspecifiedFailureDialog(pendingTransaction.getTransactionType());
-            case -2: accountController.pendingTransactionsDialog(pendingTransaction.getTransactionType());
-            case -3: accountController.overdraftLimitDialog(pendingTransaction.getTransactionType());
+            case 0: accountController.successDialog(pendingTransaction.getTransactionType()); break;
+            case -1: accountController.unspecifiedFailureDialog(pendingTransaction.getTransactionType()); break;
+            case -2: accountController.pendingTransactionsDialog(pendingTransaction.getTransactionType()); break;
+            case -3: accountController.overdraftLimitDialog(pendingTransaction.getTransactionType()); break;
         }
     }
 }
