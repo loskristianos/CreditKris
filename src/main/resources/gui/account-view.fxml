@@ -30,7 +30,7 @@
                     <TextField fx:id="currentBalanceDisplay" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
                     <Label text="Overdraft Limit" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                    <TextField fx:id="overdraftLimitDisplay" alignment="BOTTOM_CENTER" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                    <TextField fx:id="overdraftLimitDisplay" editable="false" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                <columnConstraints>
                   <ColumnConstraints />
                   <ColumnConstraints />
