@@ -42,7 +42,11 @@ public class PendingTransactionApplication extends Application {
     public void authoriseTransaction(PendingTransaction pendingTransaction){
         int x = pendingTransaction.authorise();
         switch (x){
-            case 0: accountController.successDialog(pendingTransaction.getTransactionType()); break;
+            case 0: {
+                accountController.successDialog(pendingTransaction.getTransactionType());
+                pendingTransactionController.updateTable(pendingTransaction);
+                break;
+            }
             case -1: accountController.unspecifiedFailureDialog(pendingTransaction.getTransactionType()); break;
             case -2: accountController.pendingTransactionsDialog(pendingTransaction.getTransactionType()); break;
             case -3: accountController.overdraftLimitDialog(pendingTransaction.getTransactionType()); break;

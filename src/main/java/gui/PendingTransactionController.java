@@ -87,4 +87,9 @@ public class PendingTransactionController {
             return 0;
         } else return -1;
     }
+
+    void updateTable(PendingTransaction pendingTransaction){
+        pendingTransactionTable.getItems().remove(pendingTransaction);
+        pendingTransactionTable.refresh();
+    }
 }
