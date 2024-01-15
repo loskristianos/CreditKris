@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class ClientAccount extends Account {
 
-    final String overdraftLimit = "1500";
+    final String overdraftLimit = "1500.00";
     final String accountType = "Client";
 
     public ClientAccount(Customer customer){
