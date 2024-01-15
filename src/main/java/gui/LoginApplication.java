@@ -25,6 +25,10 @@ public class LoginApplication extends Application {
     LoginController createLoginController(){
         return new LoginController();
     }
+    LoginObject createLoginObject(String username, String password){
+        return new LoginObject(username,password);
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         loginController.setCurrentStage(stage);
@@ -39,15 +43,18 @@ public class LoginApplication extends Application {
     }
 
     int loginAttempt(String username, String password) throws Exception{
-        LoginObject loginObject = new LoginObject(username, password);
+        LoginObject loginObject = createLoginObject(username,password);
         Customer returnedCustomer = loginObject.loginAttempt();
         if (returnedCustomer != null ){
-            new CustomerApplication(returnedCustomer).start(currentStage);
+            launchCustomerApplication(returnedCustomer);
             return 0;
         }
         else {
             return -1;
         }
+    }
 
+    void launchCustomerApplication(Customer customer)throws Exception{
+        new CustomerApplication(customer).start(currentStage);
     }
 }

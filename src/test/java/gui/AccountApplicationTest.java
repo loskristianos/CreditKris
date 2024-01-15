@@ -52,7 +52,6 @@ class TestCustomer extends Customer{
         PendingTransaction pending3 = new PendingTransaction(testData3);
 
         List<PendingTransaction> pendingList = new ArrayList<>(){{add(pending1);add(pending2);add(pending3);}};
-        System.out.println(pendingList);
         return pendingList;
     }
 }
