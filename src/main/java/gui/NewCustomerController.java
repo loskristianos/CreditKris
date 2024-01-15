@@ -2,12 +2,11 @@ package gui;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import javafx.util.converter.DateTimeStringConverter;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 public class NewCustomerController {
@@ -29,7 +28,11 @@ public class NewCustomerController {
 
     public NewCustomerController(){
     }
-
+    @FXML private void initialize(){
+        // set formatting on DoB text field
+        SimpleDateFormat dobFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dobField.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(dobFormat)));
+    }
     public void setCurrentStage(Stage stage){
         currentStage = stage;
     }
