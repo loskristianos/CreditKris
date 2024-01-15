@@ -60,7 +60,7 @@ public class NewAccountApplication extends Application {
             }
         }
         currentStage.close();
-        customerApplication.addAccountToList(returnedAccount);
+        customerApplication.reload();
     }
 
     public void setSignatoryList(List<Customer> signatoryList) {

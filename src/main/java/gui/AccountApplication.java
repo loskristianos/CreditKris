@@ -112,7 +112,7 @@ public class AccountApplication extends Application {
 
     public void back(){
         currentStage.setScene(previousScene);
-        customerApplication.refreshData();
+        customerApplication.reload();
     }
 
     public void reload(){

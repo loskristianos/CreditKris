@@ -64,10 +64,6 @@ public class CustomerApplication extends Application {
         }
     }
 
-    void addAccountToList(Account returnedAccount){
-        //customerController.addAccountToTable(returnedAccount);
-    }
-
     void selectAccount(Account selectedAccount) throws Exception{
         AccountApplication accountApplication = new AccountApplication(selectedAccount,customer);
         accountApplication.setCustomerApplication(this);
@@ -91,7 +87,7 @@ public class CustomerApplication extends Application {
         }
     }
 
-    public void refreshData(){
+    public void reload(){
         try {start(currentStage);}
         catch (Exception x) {x.printStackTrace();}
     }
