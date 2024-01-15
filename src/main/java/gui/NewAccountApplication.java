@@ -48,6 +48,9 @@ public class NewAccountApplication extends Application {
     public void setCustomerApplication(CustomerApplication customerApplication){
         this.customerApplication = customerApplication;
     }
+    public void setCurrentStage(Stage stage){
+        currentStage = stage;
+    }
     public NewAccountController createNewAccountController(){
         return new NewAccountController();
     }
@@ -61,7 +64,7 @@ public class NewAccountApplication extends Application {
     }
 
     public void openAccount(){
-        if (signatoryList != null) account.setSignatories(String.valueOf(signatoryList.size()));
+        if (signatoryList != null && !signatoryList.isEmpty()) account.setSignatories(String.valueOf(signatoryList.size()));
         else account.setSignatories("0");
         account.writeData();
         Account returnedAccount = account.getThisAccount();
@@ -78,6 +81,9 @@ public class NewAccountApplication extends Application {
 
     public void setSignatoryList(List<Customer> signatoryList) {
         this.signatoryList = signatoryList;
+    }
+    public List<Customer> getSignatoryList(){
+        return signatoryList;
     }
 
     public void newSignatorySignup() throws Exception{
