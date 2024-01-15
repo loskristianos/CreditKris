@@ -59,6 +59,8 @@ public abstract class Transaction implements DataObject {
         newBalance = details.get("newBalance");
         transactionTime = details.get("transactionTime");
         customerID = details.get("customerID");
+        targetAccountNumber = details.get("targetAccountNumber");
+        transactionType = details.get("transactionType");
     }
 
     public void setTransactionType(String transactionType) {
