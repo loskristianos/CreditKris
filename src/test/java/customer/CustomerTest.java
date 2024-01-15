@@ -9,43 +9,54 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerTest {
 
-        HashMap<String,String> testData = new HashMap<>(Map.of("customerID","123", "firstName","Rodney", "lastName","Price", "dob","12/09/1972", "address1","1 The Street", "address2","Amble", "addressTown","MORPETH", "addressPostcode","NE65 1BK"));
-        HashMap<String,String> testData2 = new HashMap<>(Map.of("customerID","456", "firstName","Mark", "lastName","Myrie", "dob","17/07/1973", "address1","10 The Close", "address2","Southwark", "addressTown","LONDON", "addressPostcode","SE1 1BB"));
+    HashMap<String, String> testCustomerDetails = new HashMap<>(Map.of("customerID", "432", "firstName", "Rodney", "lastName", "Price", "dob", "12/06/1972", "address1", "1 The Street", "address2", "The Village", "addressTown", "Townsville", "addressPostcode", "AB1 2CD"));
+    HashMap<String,String> testCustomerDetails2 = new HashMap<>(Map.of("customerID","456", "firstName","Mark", "lastName","Myrie", "dob","17/07/1973", "address1","10 The Close", "address2","Southwark", "addressTown","LONDON", "addressPostcode","SE1 1BB"));
 
     @Test
-    void withArgsConstructor()  {
-        var customer = new Customer(testData);
+    void constructorfromHashMap()  {
+        Customer customer = new Customer(testCustomerDetails);
         HashMap<String, String> returnedDetails = customer.getDetails();
-        assertEquals(testData, returnedDetails);
+        assertEquals(testCustomerDetails, returnedDetails);
     }
 
     @Test
-    void withArgsConstructorSetData() {
-        var customer = new Customer(testData);
-        customer.setDetails(testData2);
-        assertEquals(testData2, customer.getDetails());
+    void setDetails() {
+        Customer customer = new Customer(testCustomerDetails);
+        customer.setDetails(testCustomerDetails2);
+        assertEquals(testCustomerDetails2, customer.getDetails());
     }
 
     @Test
     void getCustomerID() {
-        Customer customer = new Customer(testData);
-        assertEquals("123", customer.getCustomerID());
+        Customer customer = new Customer(testCustomerDetails);
+        assertEquals("432", customer.getCustomerID());
+    }
+
+    @Test
+    void getDoB() {
+        Customer customer = new Customer(testCustomerDetails);
+        assertEquals("12/06/1972",customer.getDob());
     }
 
     @Test
     void setCustomerID() {
-        Customer customer = new Customer(testData);
+        Customer customer = new Customer(testCustomerDetails2);
         customer.setCustomerID("9999");
         assertEquals("9999",customer.getCustomerID());
     }
 
-
     @Test
     void getFullAddress() {
-        Customer customer = new Customer(testData);
-        assertEquals("1 The Street\nAmble\nMORPETH\nNE65 1BK",customer.getFullAddress());
-        testData.remove("address2");
-        Customer customer2 = new Customer(testData);
-        assertEquals("1 The Street\nMORPETH\nNE65 1BK",customer2.getFullAddress());
+        Customer customer = new Customer(testCustomerDetails);
+        assertEquals("1 The Street\nThe Village\nTownsville\nAB1 2CD",customer.getFullAddress());
+        testCustomerDetails.remove("address2");
+        Customer customer2 = new Customer(testCustomerDetails);
+        assertEquals("1 The Street\nTownsville\nAB1 2CD",customer2.getFullAddress());
+    }
+
+    @Test
+    void getFullName() {
+        Customer customer = new Customer(testCustomerDetails);
+        assertEquals("Rodney Price",customer.getFullName());
     }
 }
