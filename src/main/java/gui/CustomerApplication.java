@@ -24,11 +24,6 @@ public class CustomerApplication extends Application {
 
     public CustomerApplication(Customer customer){
         this.customer = customer;
-        accountList = customer.getAccounts();
-        customerController = createCustomerController();
-        customerController.setCustomer(customer);
-        customerController.setAccountList(accountList);
-        customerController.setCustomerApplication(this);
     }
     public CustomerController createCustomerController(){
         return new CustomerController();
@@ -36,6 +31,7 @@ public class CustomerApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        setFields();
         customerController.setCurrentStage(stage);
         currentStage = stage;
         FXMLLoader fxmlloader =new FXMLLoader();
@@ -47,7 +43,13 @@ public class CustomerApplication extends Application {
         stage.setTitle("Customer Accounts");
         stage.setScene(scene);
     }
-
+    void setFields(){
+        accountList = customer.getAccounts();
+        customerController = createCustomerController();
+        customerController.setCustomer(customer);
+        customerController.setAccountList(accountList);
+        customerController.setCustomerApplication(this);
+    }
     void createNewAccount(String accountType) throws Exception{
         Account newAccount = switch (accountType) {
             case "Client": yield new ClientAccount(customer);
@@ -63,7 +65,7 @@ public class CustomerApplication extends Application {
     }
 
     void addAccountToList(Account returnedAccount){
-        customerController.addAccountToTable(returnedAccount);
+        //customerController.addAccountToTable(returnedAccount);
     }
 
     void selectAccount(Account selectedAccount) throws Exception{
@@ -90,6 +92,7 @@ public class CustomerApplication extends Application {
     }
 
     public void refreshData(){
-        customerController.refreshData();
+        try {start(currentStage);}
+        catch (Exception x) {x.printStackTrace();}
     }
 }
