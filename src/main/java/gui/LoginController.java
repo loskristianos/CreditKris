@@ -35,7 +35,7 @@ public class LoginController {
     void alert(){
         Alert alert = new Alert(Alert.AlertType.ERROR,"", ButtonType.OK);
         alert.setTitle("Unable to login");
-        alert.setHeaderText("No matching login found.");
+        alert.setHeaderText("No matching login details found.");
         alert.setContentText("Please check your details and try again, or create a new user account.");
         alert.show();
 
