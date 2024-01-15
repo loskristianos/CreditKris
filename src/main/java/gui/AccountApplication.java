@@ -24,10 +24,7 @@ public class AccountApplication extends Application {
     public AccountApplication(Account inputAccount, Customer inputCustomer){
         account = inputAccount;
         customer = inputCustomer;
-        transactionList = account.getTransactions();
-        accountController = createAccountController();
-        accountController.setTransactionList(transactionList);
-        accountController.setAccountApplication(this);
+
     }
 
     public AccountController createAccountController(){
@@ -47,12 +44,8 @@ public class AccountApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws Exception {
-        accountController.setCurrentStage(stage);
         currentStage = stage;
-        accountController.setAccount(account);
-        accountController.setCustomer(customer);
-        accountController.setAccountList(accountList);
-        accountController.setTransactionList(transactionList);
+        setFields();
         pendingTransactionList = pendingTransactionsForCustomerAndAccount();
         accountController.setPendingTransactionList(pendingTransactionList);
         accountController.setPreviousScene(previousScene);
@@ -65,8 +58,21 @@ public class AccountApplication extends Application {
         if (!pendingTransactionList.isEmpty()) {
             PendingTransactionApplication pendingTransactionApplication = new PendingTransactionApplication(pendingTransactionList);
             pendingTransactionApplication.setAccountController(accountController);
+            pendingTransactionApplication.setAccountApplication(this);
             pendingTransactionApplication.start(new Stage());
         }
+    }
+
+    void setFields(){
+        transactionList = account.getTransactions();
+        accountController = createAccountController();
+        accountController.setTransactionList(transactionList);
+        accountController.setAccountApplication(this);
+        accountController.setAccount(account);
+        accountController.setCustomer(customer);
+        accountController.setAccountList(accountList);
+        accountController.setTransactionList(transactionList);
+        accountController.setCurrentStage(currentStage);
     }
 
     List<PendingTransaction> pendingTransactionsForCustomerAndAccount(){
@@ -107,5 +113,10 @@ public class AccountApplication extends Application {
     public void back(){
         currentStage.setScene(previousScene);
         customerApplication.refreshData();
+    }
+
+    public void reload(){
+        try {start(currentStage);}
+        catch (Exception exception){}
     }
 }
