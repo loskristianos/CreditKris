@@ -1,9 +1,11 @@
 package gui;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import transaction.PendingTransaction;
 
 import java.util.List;
@@ -42,6 +44,12 @@ public class PendingTransactionApplication extends Application {
         Scene scene = new Scene(fxmlloader.load());
         stage.setTitle("Transactions awaiting authorisation");
         stage.setScene(scene);
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                                    @Override
+                                    public void handle(WindowEvent windowEvent) {
+                                        close();
+                                    }
+        });
         stage.showAndWait();
     }
 
@@ -49,6 +57,7 @@ public class PendingTransactionApplication extends Application {
         currentStage.close();
         accountApplication.reload();
     }
+
 
     public void authoriseTransaction(PendingTransaction pendingTransaction){
         int x = pendingTransaction.authorise();
