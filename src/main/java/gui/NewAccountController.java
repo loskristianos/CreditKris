@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,19 @@ public class NewAccountController {
         signatoryListView.setVisible(false);
         termsText.setText(termsString);
 
+        // set up signatoryListView to display names instead of object references
+        signatoryListView.setCellFactory(new Callback<ListView<Customer>, ListCell<Customer>>() {
+            @Override
+            public ListCell<Customer> call(ListView<Customer> customerListView) {
+                return new ListCell<Customer>(){
+                    public void updateItem(Customer item, boolean empty){
+                        super.updateItem(item, empty);
+                        if (item==null || empty) {setGraphic(null);}
+                        else {setText(item.getFullName());}
+                    }
+                };
+            }
+        });
 
         String overdraftReplace = overdraftLabel.getText().replace("overdraftLimit","£"+account.getOverdraftLimit());
         String accountReplace = overdraftReplace.replace("accountType", account.getAccountType()).toLowerCase();
