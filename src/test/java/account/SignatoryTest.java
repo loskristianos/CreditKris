@@ -25,4 +25,11 @@ class SignatoryTest {
         expectedDetails.put("accountNumber","5432");expectedDetails.put("customerID","5678");
         assertEquals(expectedDetails, testSignatory.getDetails());
     }
+
+    @Test
+    void getMethods() {
+        Signatory signatory = new Signatory(testDetails);
+        assertEquals("1234",signatory.getAccountNumber());
+        assertEquals("9876",signatory.getCustomerID());
+    }
 }
