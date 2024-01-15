@@ -66,7 +66,7 @@ public class PendingTransactionController {
     }
 
     @FXML private void closeButtonAction(){
-        currentStage.close();
+        pendingTransactionApplication.close();
     }
 
     int confirmAuthorisationDialog(PendingTransaction pendingTransaction){

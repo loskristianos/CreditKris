@@ -11,7 +11,9 @@ import java.util.List;
 public class PendingTransactionApplication extends Application {
     PendingTransactionController pendingTransactionController;
     AccountController accountController;
+    AccountApplication accountApplication;
     List<PendingTransaction> pendingTransactionList;
+    Stage currentStage;
     public PendingTransactionApplication(List<PendingTransaction> pendingTransactionList){
         this.pendingTransactionList = pendingTransactionList;
         pendingTransactionController = createPendingTransactionController();
@@ -23,6 +25,10 @@ public class PendingTransactionApplication extends Application {
 
     public void setAccountController(AccountController accountController) {
         this.accountController = accountController;
+    }
+
+    public void setAccountApplication(AccountApplication accountApplication) {
+        this.accountApplication = accountApplication;
     }
 
     @Override
@@ -37,6 +43,11 @@ public class PendingTransactionApplication extends Application {
         stage.setTitle("Transactions awaiting authorisation");
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    public void close(){
+        currentStage.close();
+        accountApplication.reload();
     }
 
     public void authoriseTransaction(PendingTransaction pendingTransaction){
