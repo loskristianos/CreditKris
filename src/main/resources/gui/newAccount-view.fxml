@@ -26,7 +26,10 @@
                         <Insets bottom="10.0" />
                      </padding></Label>
             </VBox>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="240.0" prefWidth="305.0" />
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" prefHeight="240.0" prefWidth="305.0" style="-fx-background-color: white;">
+            <content>
+               <Label fx:id="termsText" text="Label" wrapText="true"/>
+            </content></ScrollPane>
             <HBox prefHeight="84.0" prefWidth="305.0">
                   <CheckBox fx:id="termsCheckBox" mnemonicParsing="false" onAction="#termsCheckBoxAction" text="I have read and accepted your definitely real terms and conditions, and I hereby agree to operate this account in complete accordance with the aforementioned terms." wrapText="true">
                      <HBox.margin>
