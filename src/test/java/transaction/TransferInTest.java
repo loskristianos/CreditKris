@@ -20,4 +20,11 @@ class TransferInTest {
         assertEquals("608.50",account.getCurrentBalance());
         assertEquals("Transfer In",transaction.getTransactionType());
     }
+
+    @Test
+    void overdraftCheck() {
+        Account account = new ClientAccount(testAccountDetails);
+        Transaction transaction = new TransferIn(account, "3000.00");
+        assertEquals(0,transaction.overdraftCheck());
+    }
 }

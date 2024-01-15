@@ -55,4 +55,11 @@ class WithdrawalTransactionTest {
         Transaction transaction = new WithdrawalTransaction(testData);
         assertEquals("504.10",transaction.calculateNewBalance());
     }
+
+    @Test
+    void overdraftCheck() {
+        Account account = new ClientAccount(testAccountDetails);
+        Transaction transaction = new WithdrawalTransaction(account, "2000.00");
+        assertEquals(-3,transaction.overdraftCheck());
+    }
 }

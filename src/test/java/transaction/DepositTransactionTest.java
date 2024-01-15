@@ -56,4 +56,11 @@ class DepositTransactionTest {
         Transaction transaction = new DepositTransaction(testData);
         assertEquals("573.40", transaction.calculateNewBalance());
     }
+
+    @Test
+    void overdraftCheck() {
+        Account account = new ClientAccount(testAccountDetails);
+        Transaction transaction = new DepositTransaction(account, "3000.00");
+        assertEquals(0,transaction.overdraftCheck());
+    }
 }

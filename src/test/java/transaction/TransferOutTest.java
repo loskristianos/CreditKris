@@ -1,6 +1,7 @@
 package transaction;
 
 import account.Account;
+import account.ClientAccount;
 import account.SmallBusinessAccount;
 import org.junit.jupiter.api.Test;
 
@@ -19,5 +20,12 @@ class TransferOutTest {
         assertEquals("8.50",transaction.getNewBalance());
         assertEquals("8.50",account.getCurrentBalance());
         assertEquals("Transfer Out",transaction.getTransactionType());
+    }
+
+    @Test
+    void overdraftCheck() {
+        Account account = new ClientAccount(testAccountDetails);
+        Transaction transaction = new TransferOut(account, "3000.00");
+        assertEquals(-3,transaction.overdraftCheck());
     }
 }
