@@ -77,11 +77,8 @@ public class AccountApplication extends Application {
 
     List<PendingTransaction> pendingTransactionsForCustomerAndAccount(){
         List<PendingTransaction> allPendingForCustomer = customer.getPendingTransactions();
-        for (PendingTransaction transaction : allPendingForCustomer){
-            if(!transaction.getAccountNumber().equals(account.getAccountNumber())){
-                allPendingForCustomer.remove(transaction);
-            }
-        } return allPendingForCustomer;
+        allPendingForCustomer.removeIf(transaction -> !transaction.getAccountNumber().equals(account.getAccountNumber()));
+        return allPendingForCustomer;
     }
 
     int createTransaction(String transactionAmount, String transactionType){
