@@ -37,16 +37,11 @@ public class PendingTransactionApplication extends Application {
         stage.setTitle("Transactions awaiting authorisation");
         stage.setScene(scene);
         stage.showAndWait();
-
     }
 
-    public void selectPendingTransaction(PendingTransaction pendingTransaction){
-        int x;
-        int y;
-        x = pendingTransactionController.confirmAuthorisationDialog(pendingTransaction);
-        if (x==0) y = pendingTransaction.authorise();
-        else y = -2;
-        switch (y){
+    public void authoriseTransaction(PendingTransaction pendingTransaction){
+        int x = pendingTransaction.authorise();
+        switch (x){
             case 0: accountController.successDialog(pendingTransaction.getTransactionType()); break;
             case -1: accountController.unspecifiedFailureDialog(pendingTransaction.getTransactionType()); break;
             case -2: accountController.pendingTransactionsDialog(pendingTransaction.getTransactionType()); break;

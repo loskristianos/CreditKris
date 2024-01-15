@@ -51,12 +51,17 @@ public class PendingTransactionController {
     }
     @FXML private void pendingTransactionSelection() {
         PendingTransaction selectedTransaction = pendingTransactionTable.getSelectionModel().getSelectedItem();
-        if (selectedTransaction != null) pendingTransactionApplication.selectPendingTransaction(selectedTransaction);
+        if (selectedTransaction != null && confirmAuthorisationDialog(selectedTransaction)==0) {
+            pendingTransactionApplication.authoriseTransaction(selectedTransaction);
+        }
 
     }
     @FXML private void authoriseAllButtonAction(){
-        for (PendingTransaction transaction : pendingTransactionList) {
-            transaction.authorise();
+        int x = confirmAuthoriseAllDialog();
+        if (x==0) {
+            for (PendingTransaction transaction : pendingTransactionList) {
+                pendingTransactionApplication.authoriseTransaction(transaction);
+            }
         }
     }
 
@@ -69,7 +74,16 @@ public class PendingTransactionController {
         confirmAuthorisation.setTitle("Confirm Authorisation");
         confirmAuthorisation.setHeaderText("Authorise £" + pendingTransaction.getTransactionAmount() + " " + pendingTransaction.getTransactionType());
         Optional<ButtonType> result = confirmAuthorisation.showAndWait();
-        if (result.get()==ButtonType.OK){
+        if (result.isPresent() && result.get()==ButtonType.OK){
+            return 0;
+        } else return -1;
+    }
+    int confirmAuthoriseAllDialog(){
+        Alert confirmAuthoriseAll = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAuthoriseAll.setTitle("Confirm Authorisation");
+        confirmAuthoriseAll.setHeaderText("Authorise all of the transactions listed here?");
+        Optional<ButtonType> result = confirmAuthoriseAll.showAndWait();
+        if (result.isPresent() && result.get()==ButtonType.OK){
             return 0;
         } else return -1;
     }
