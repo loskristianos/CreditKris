@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import transaction.PendingTransaction;
 import transaction.Transaction;
 
@@ -44,6 +45,21 @@ public class AccountController {
         currentBalanceDisplay.setText(account.getCurrentBalance());
         overdraftLimitDisplay.setText(account.getOverdraftLimit());
         if(accountList.size()>1) transferButton.setVisible(true);
+
+        // sut up ComboBox to list available accounts for transfer
+        transferAccounts.setCellFactory(new Callback<ListView<Account>, ListCell<Account>>() {
+            @Override
+            public ListCell<Account> call(ListView<Account> accountListView) {
+                return new ListCell<Account>() {
+                    public void updateItem(Account item, boolean empty){
+                        super.updateItem(item, empty);
+                        if (item == null || empty) {setGraphic(null);}
+                        else {setText(item.getAccountNumber() + ": " + item.getAccountType() + " account");
+                    }
+                }
+            };
+        }});
+
         for (Account account : accountList){
             if (!account.getAccountNumber().equals(this.account.getAccountNumber()))
                 transferAccounts.getItems().add(account);
