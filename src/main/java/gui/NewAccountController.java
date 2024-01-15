@@ -15,8 +15,10 @@ public class NewAccountController {
     private Account account;
     private List<Customer> signatoryList;
     private NewAccountApplication newAccountApplication;
+    String termsString;
 
     @FXML private Label newAccountTitle;
+    @FXML private Label termsText;
     @FXML private Label overdraftLabel;
     @FXML private CheckBox termsCheckBox;
     @FXML private Button loginButton;
@@ -39,6 +41,7 @@ public class NewAccountController {
         signatoryLoginLabel.setVisible(false);
         signatoryButtonsHBox.setVisible(false);
         signatoryListView.setVisible(false);
+        termsText.setText(termsString);
 
 
         String overdraftReplace = overdraftLabel.getText().replace("overdraftLimit","£"+account.getOverdraftLimit());
@@ -50,6 +53,10 @@ public class NewAccountController {
     }
     public void setAccount(Account account){
         this.account = account;
+    }
+
+    public void setTermsString(String terms){
+        termsString = terms;
     }
 
     public void setNewAccountApplication(NewAccountApplication newAccountApplication) {

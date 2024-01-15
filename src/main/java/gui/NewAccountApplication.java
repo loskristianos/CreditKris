@@ -8,8 +8,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
+import java.util.StringJoiner;
 
 public class NewAccountApplication extends Application {
 
@@ -32,6 +36,7 @@ public class NewAccountApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         currentStage = stage;
+        newAccountController.setTermsString(getTermsString());
         FXMLLoader fxmlloader =new FXMLLoader();
         fxmlloader.setController(newAccountController);
         fxmlloader.setLocation(getClass().getResource("newAccount-view.fxml"));
@@ -45,6 +50,14 @@ public class NewAccountApplication extends Application {
     }
     public NewAccountController createNewAccountController(){
         return new NewAccountController();
+    }
+
+    String getTermsString(){
+        try {List<String> lines = Files.readAllLines(Paths.get("terms.txt"));
+        StringJoiner sj = new StringJoiner("\n");
+        for (String line : lines) {
+            sj.add(line);
+        } return sj.toString();} catch (IOException e) {} return null;
     }
 
     public void openAccount(){
