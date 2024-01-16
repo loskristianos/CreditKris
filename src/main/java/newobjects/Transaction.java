@@ -20,6 +20,10 @@ public class Transaction {
         // set TransactionType here
     }
 
+    public Transaction(Account account){
+        account.setTransaction(this); // create new transaction with account as param, then pass the transaction into the account to use the methods in Account to set balances, validate, etc.
+    }
+
     // set fields
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
