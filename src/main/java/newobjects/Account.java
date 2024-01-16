@@ -56,8 +56,8 @@ public class Account {
     public String getAccountNumber(){
         return accountNumber;
     }
-    public String getAccountType(){
-        return String.valueOf(accountType);
+    public Type getAccountType(){
+        return accountType;
     }
     public BigDecimal getCurrentBalance() {
         return currentBalance;
