@@ -3,12 +3,16 @@ package gui;
 import account.Account;
 import account.Signatory;
 import customer.Customer;
+import database.Setup;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
@@ -56,7 +60,9 @@ public class NewAccountApplication extends Application {
     }
 
     String getTermsString(){
-        try {List<String> lines = Files.readAllLines(Paths.get("terms.txt"));
+        try (InputStream inputStream = getClass().getResourceAsStream("terms.txt");
+             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))){
+            List<String> lines = bufferedReader.lines().toList();
         StringJoiner sj = new StringJoiner("\n");
         for (String line : lines) {
             sj.add(line);

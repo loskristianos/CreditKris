@@ -7,7 +7,10 @@
 
 package database;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.*;
@@ -15,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 public class Setup {
 
@@ -62,8 +66,10 @@ public class Setup {
 
     private static void setupDatabase(){
         try (Connection dbConnection = DriverManager.getConnection(url);
-             Statement statement = dbConnection.createStatement()) {
-            List<String> sqlCommands = Files.readAllLines(Paths.get("sql_table_setup.txt"));
+             Statement statement = dbConnection.createStatement();
+             InputStream inputStream = Setup.class.getResourceAsStream("sql_table_setup.txt");
+             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            List<String> sqlCommands = bufferedReader.lines().toList();
             for(String command : sqlCommands){
                 statement.executeUpdate(command);
             }
