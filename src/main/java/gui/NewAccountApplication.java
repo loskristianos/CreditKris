@@ -60,7 +60,7 @@ public class NewAccountApplication extends Application {
     }
 
     String getTermsString(){
-        try (InputStream inputStream = getClass().getResourceAsStream("terms.txt");
+        try (InputStream inputStream = getClass().getResourceAsStream("/terms.txt");
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))){
             List<String> lines = bufferedReader.lines().toList();
         StringJoiner sj = new StringJoiner("\n");

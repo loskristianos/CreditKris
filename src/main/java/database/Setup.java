@@ -67,7 +67,7 @@ public class Setup {
     private static void setupDatabase(){
         try (Connection dbConnection = DriverManager.getConnection(url);
              Statement statement = dbConnection.createStatement();
-             InputStream inputStream = Setup.class.getResourceAsStream("sql_table_setup.txt");
+             InputStream inputStream = Setup.class.getResourceAsStream("/sql_table_setup.txt");
              BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
             List<String> sqlCommands = bufferedReader.lines().toList();
             for(String command : sqlCommands){
