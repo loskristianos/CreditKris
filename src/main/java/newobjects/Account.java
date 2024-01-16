@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class Account {
     public enum Type {CLIENT, BUSINESS, COMMUNITY}
     private Customer customer;
+    private Transaction transaction;
     private String accountNumber;
     private Type accountType;
     private BigDecimal currentBalance;
@@ -23,7 +24,7 @@ public class Account {
     }
 
     public Account(Transaction transaction){
-        // apply transaction to account
+        this.transaction = transaction;
     }
 
     public Account(Customer customer){
