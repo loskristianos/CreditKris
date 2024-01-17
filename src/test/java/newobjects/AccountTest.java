@@ -10,7 +10,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AccountTest {
 
-
+    @Test
+    void overDraftLimitByType() {
+        Account clientAccount = new Account(Account.Type.CLIENT);
+        Account businessAccount = new Account(Account.Type.BUSINESS);
+        Account communityAccount = new Account(Account.Type.COMMUNITY);
+        assertEquals(new BigDecimal("1500.00"), clientAccount.getOverdraftLimit());
+        assertEquals(new BigDecimal("1000.00"), businessAccount.getOverdraftLimit());
+        assertEquals(new BigDecimal("2500.00"), communityAccount.getOverdraftLimit());
+    }
 
     @Test
     void signatoryCheckTest() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
