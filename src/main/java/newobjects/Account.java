@@ -23,14 +23,6 @@ public class Account {
         setOverdraftLimit(type);
     }
 
-    public Account(Transaction transaction){
-        this.transaction = transaction;
-    }
-
-    public Account(Customer customer){
-        this.customer = customer;
-    }
-
     // set fields
     public void setCurrentBalance(BigDecimal currentBalance){
         this.currentBalance = currentBalance;
