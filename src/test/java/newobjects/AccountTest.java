@@ -48,9 +48,35 @@ class AccountTest {
         transaction2.setTransactionAmount(new BigDecimal("5000.00"));
         assertEquals(0,testMethod.invoke(account,transaction2));
         assertEquals(Transaction.Status.NOT_SET, transaction2.getTransactionStatus());
-
-
-
     }
 
+    @Test
+    void paymentInTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Account account = new Account(Account.Type.CLIENT);
+        account.setCurrentBalance(new BigDecimal("200.00"));
+        Transaction transaction = new Transaction(Transaction.Type.DEPOSIT);
+        transaction.setTransactionAmount(new BigDecimal("300.00"));
+        Method testMethod = account.getClass().getDeclaredMethod("paymentIn", Transaction.class);
+        testMethod.setAccessible(true);
+        testMethod.invoke(account,transaction);
+        assertEquals(new BigDecimal("500.00"), account.getCurrentBalance());
+        assertEquals(new BigDecimal("200.00"), transaction.getPreviousBalance());
+        assertEquals(new BigDecimal("500.00"), transaction.getNewBalance());
+        assertEquals(Transaction.Status.COMPLETE, transaction.getTransactionStatus());
+    }
+
+    @Test
+    void paymentOutTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Account account = new Account(Account.Type.CLIENT);
+        account.setCurrentBalance(new BigDecimal("200.00"));
+        Transaction transaction = new Transaction(Transaction.Type.WITHDRAWAL);
+        transaction.setTransactionAmount(new BigDecimal("300.00"));
+        Method testMethod = account.getClass().getDeclaredMethod("paymentOut", Transaction.class);
+        testMethod.setAccessible(true);
+        testMethod.invoke(account,transaction);
+        assertEquals(new BigDecimal("-100.00"), account.getCurrentBalance());
+        assertEquals(new BigDecimal("200.00"), transaction.getPreviousBalance());
+        assertEquals(new BigDecimal("-100.00"), transaction.getNewBalance());
+        assertEquals(Transaction.Status.COMPLETE, transaction.getTransactionStatus());
+    }
 }
