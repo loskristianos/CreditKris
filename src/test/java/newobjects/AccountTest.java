@@ -11,6 +11,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountTest {
 
     @Test
+    void validateTransaction() {
+        Account account = new Account(Account.Type.CLIENT);
+        account.setSignatories(1);
+        Transaction transaction = new Transaction(Transaction.Type.DEPOSIT);
+        transaction.setTransactionAmount(new BigDecimal("350.00"));
+        Transaction result = account.validateTransaction(transaction);
+        assertEquals(Transaction.Status.COMPLETE,result.getTransactionStatus());
+        assertEquals(new BigDecimal("0.00"),transaction.getPreviousBalance());
+        assertEquals(new BigDecimal("350.00"),transaction.getNewBalance());
+        assertEquals(new BigDecimal("350.00"),account.getCurrentBalance());
+    }
+
+    @Test
     void overDraftLimitByType() {
         Account clientAccount = new Account(Account.Type.CLIENT);
         Account businessAccount = new Account(Account.Type.BUSINESS);
