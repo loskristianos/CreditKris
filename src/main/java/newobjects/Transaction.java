@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public class Transaction {
     public enum Type {DEPOSIT, WITHDRAWAL, TRANSFER_IN, TRANSFER_OUT}
-    public enum Status {COMPLETE,FAILED_BALANCE,AUTHORISED, REQUIRES_AUTHORISATION}
+    public enum Status {COMPLETE,FAILED_BALANCE,AUTHORISED, REQUIRES_AUTHORISATION, NOT_SET}
     private String transactionID;
     private String accountNumber;
     private String customerID;          // customerID of the user requesting the transaction (only really applicable to accounts with more than one signatory)
@@ -17,10 +17,12 @@ public class Transaction {
     private String transferAccountNumber; // only used for TransferTransaction
 
     public Transaction(){
+        setTransactionStatus(Status.NOT_SET);
         // set TransactionType here
     }
 
     public Transaction(Account account){
+        setTransactionStatus(Status.NOT_SET);
         account.setTransaction(this); // create new transaction with account as param, then pass the transaction into the account to use the methods in Account to set balances, validate, etc.
     }
 
