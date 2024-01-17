@@ -51,6 +51,9 @@ public class Account {
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
+    public void setTransaction(Transaction transaction){
+        this.transaction = transaction;
+    }
 
     // get fields
     public String getAccountNumber(){
