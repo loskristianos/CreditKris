@@ -20,6 +20,10 @@ public class Transaction {
         setTransactionStatus(Status.NOT_SET);
         // set TransactionType here
     }
+    public Transaction (Type type){
+        setTransactionStatus(Status.NOT_SET);
+        setTransactionType(type);
+    }
 
     public Transaction(Account account){
         setTransactionStatus(Status.NOT_SET);
