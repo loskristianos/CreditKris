@@ -120,7 +120,7 @@ public class Account {
     }
     private int signatoryCheck(Transaction transaction) {
         Transaction.Status status = transaction.getTransactionStatus();
-        if (getSignatories()==0 || status.equals(Transaction.Status.AUTHORISED)) return 0;
+        if (getSignatories()==1 || status.equals(Transaction.Status.AUTHORISED)) return 0;
         else {
             transaction.setTransactionStatus(Transaction.Status.REQUIRES_AUTHORISATION);
             return -1;
