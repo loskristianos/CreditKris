@@ -55,13 +55,14 @@ public class Account {
         return accountType;
     }
     public BigDecimal getCurrentBalance() {
-        return currentBalance;
+        if(currentBalance == null) return new BigDecimal("0.00");
+        else return currentBalance;
     }
     public BigDecimal getOverdraftLimit() {
         return overdraftLimit;
     }
     public BigDecimal getAvailableBalance(){
-        return currentBalance.add(overdraftLimit);
+        return getCurrentBalance().add(overdraftLimit);
     }
     public Integer getSignatories() {
         return signatories;
@@ -85,16 +86,16 @@ public class Account {
     }
     private void paymentIn(Transaction transaction){
         BigDecimal transactionAmount = transaction.getTransactionAmount();
-        transaction.setPreviousBalance(currentBalance);
-        setCurrentBalance(currentBalance.add(transactionAmount));
-        transaction.setNewBalance(currentBalance);
+        transaction.setPreviousBalance(getCurrentBalance());
+        setCurrentBalance(getCurrentBalance().add(transactionAmount));
+        transaction.setNewBalance(getCurrentBalance());
         transaction.setTransactionStatus(Transaction.Status.COMPLETE);
     }
     private void paymentOut(Transaction transaction){
         BigDecimal transactionAmount = transaction.getTransactionAmount();
-        transaction.setPreviousBalance(currentBalance);
-        setCurrentBalance(currentBalance.subtract(transactionAmount));
-        transaction.setNewBalance(currentBalance);
+        transaction.setPreviousBalance(getCurrentBalance());
+        setCurrentBalance(getCurrentBalance().subtract(transactionAmount));
+        transaction.setNewBalance(getCurrentBalance());
         transaction.setTransactionStatus(Transaction.Status.COMPLETE);
     }
     private int balanceCheck(Transaction transaction) {
