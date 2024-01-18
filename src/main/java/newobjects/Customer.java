@@ -1,21 +1,33 @@
 package newobjects;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "customers")
 public class Customer {
 
-    private String customerID;
+    @DatabaseField(canBeNull = false)
+    private Integer customerID;
+    @DatabaseField
     private String firstName;
+    @DatabaseField
     private String lastName;
+    @DatabaseField
     private String dob;
+    @DatabaseField
     private String address1;
+    @DatabaseField
     private String address2;
+    @DatabaseField
     private String town;
+    @DatabaseField
     private String postcode;
 
-    public String getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(String customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
