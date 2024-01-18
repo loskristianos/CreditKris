@@ -4,18 +4,27 @@
  */
 package newobjects;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import customer.Customer;
 
 import java.math.BigDecimal;
 
+@DatabaseTable(tableName = "accounts")
 public class Account {
     public enum Type {CLIENT, BUSINESS, COMMUNITY}
     private Customer customer;
     private Transaction transaction;
-    private String accountNumber;
+    @DatabaseField(id = true)
+    private Integer accountNumber;
+    @DatabaseField(dataType = DataType.ENUM_NAME)
     private Type accountType;
+    @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal currentBalance;
+    @DatabaseField(dataType = DataType.BIG_DECIMAL)
     private BigDecimal overdraftLimit;
+    @DatabaseField
     private Integer signatories;
 
     private Account(Type type){
@@ -53,7 +62,7 @@ public class Account {
     private void setAccountType(Type accountType){
         this.accountType = accountType;
     }
-    public void setAccountNumber(String accountNumber) {
+    public void setAccountNumber(Integer accountNumber) {
         this.accountNumber = accountNumber;
     }
     public void setTransaction(Transaction transaction){
@@ -61,7 +70,7 @@ public class Account {
     }
 
     // get fields
-    public String getAccountNumber(){
+    public Integer getAccountNumber(){
         return accountNumber;
     }
     public Type getAccountType(){

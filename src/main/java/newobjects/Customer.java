@@ -1,16 +1,30 @@
 package newobjects;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "customers")
 public class Customer {
 
+    @DatabaseField(id = true, canBeNull = false, unique = true)
     private String customerID;
+    @DatabaseField(canBeNull = false, unique = true)
     private String username;
+    @DatabaseField(canBeNull = false)
     private String password;
+    @DatabaseField
     private String firstName;
+    @DatabaseField
     private String lastName;
+    @DatabaseField
     private String dob;
+    @DatabaseField
     private String address1;
+    @DatabaseField
     private String address2;
+    @DatabaseField
     private String town;
+    @DatabaseField
     private String postcode;
 
     public String getCustomerID() {
