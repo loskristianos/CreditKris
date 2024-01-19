@@ -69,4 +69,8 @@ public class AccountApplication extends Application {
             default -> {return -1;}
         }
     }
+
+    public void goBack(){
+        // reload previous scene in current stage
+    }
 }

@@ -16,7 +16,6 @@ import java.util.List;
 public class AccountController {
 
     Account account;
-    Customer customer;
     List<Account> accountList;
     List<Transaction> transactionList;
     AccountApplication accountApplication;
@@ -79,7 +78,24 @@ public class AccountController {
         }
     }
 
+    public void setAccountApplication(AccountApplication accountApplication) {
+        this.accountApplication = accountApplication;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList){
+        this.transactionList = transactionList;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public void setAccountList(List<Account> accountList) {
+        this.accountList = accountList;
+    }
+
     @FXML private void backButtonAction(){
+        accountApplication.goBack();
      }
 
     @FXML private void depositButtonAction(){
