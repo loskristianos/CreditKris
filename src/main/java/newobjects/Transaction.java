@@ -16,18 +16,33 @@ public class Transaction {
     private Status transactionStatus;
     private String transferAccountNumber; // only used for TransferTransaction
 
-    public Transaction(){
-        setTransactionStatus(Status.NOT_SET);
-        // set TransactionType here
-    }
-    public Transaction (Type type){
+    private Transaction (Type type){
         setTransactionStatus(Status.NOT_SET);
         setTransactionType(type);
     }
 
-    public Transaction(Account account){
-        setTransactionStatus(Status.NOT_SET);
-        account.setTransaction(this); // create new transaction with account as param, then pass the transaction into the account to use the methods in Account to set balances, validate, etc.
+    public static Transaction createDepositTransaction(BigDecimal transactionAmount){
+        Transaction depositTransaction = new Transaction (Type.DEPOSIT);
+        depositTransaction.setTransactionAmount(transactionAmount);
+        return depositTransaction;
+    }
+
+    public static Transaction createWithdrawalTransaction(BigDecimal transactionAmount){
+        Transaction withdrawalTransaction = new Transaction(Type.WITHDRAWAL);
+        withdrawalTransaction.setTransactionAmount(transactionAmount);
+        return withdrawalTransaction;
+    }
+
+    public static Transaction createTransferInTransaction(BigDecimal transactionAmount){
+        Transaction transferIn = new Transaction(Type.TRANSFER_IN);
+        transferIn.setTransactionAmount(transactionAmount);
+        return transferIn;
+    }
+
+    public static Transaction createTransferOutTransaction(BigDecimal transactionAmount){
+        Transaction transferOut = new Transaction(Type.TRANSFER_OUT);
+        transferOut.setTransactionAmount(transactionAmount);
+        return transferOut;
     }
 
     // set fields
