@@ -11,6 +11,8 @@ public class Signatory {
     @DatabaseField
     private Integer accountNumber;
 
+    Signatory(){}   // no-args constructor required for ormlite
+
     private Signatory(Integer customerID, Integer accountNumber){
         setCustomerID(customerID);
         setAccountNumber(accountNumber);

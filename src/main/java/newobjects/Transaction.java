@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 public class Transaction {
     public enum Type {DEPOSIT, WITHDRAWAL, TRANSFER_IN, TRANSFER_OUT}
     public enum Status {COMPLETE,FAILED_BALANCE,AUTHORISED, REQUIRES_AUTHORISATION, NOT_SET}
-    @DatabaseField(canBeNull = false)
+    @DatabaseField(id = true, canBeNull = false)
     private String transactionID;
     @DatabaseField(canBeNull = false)
     private Integer accountNumber;
@@ -30,6 +30,8 @@ public class Transaction {
     private Status transactionStatus;
     @DatabaseField
     private Integer transferAccountNumber; // only used for TransferTransaction
+
+    Transaction(){}     // no-args constructor required for ormlite
 
     private Transaction (Type type){
         setTransactionStatus(Status.NOT_SET);

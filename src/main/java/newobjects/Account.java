@@ -16,7 +16,7 @@ public class Account {
     public enum Type {CLIENT, BUSINESS, COMMUNITY}
     private Customer customer;
     private Transaction transaction;
-    @DatabaseField(id = true)
+    @DatabaseField(generatedId = true)
     private Integer accountNumber;
     @DatabaseField(dataType = DataType.ENUM_NAME)
     private Type accountType;
@@ -26,6 +26,8 @@ public class Account {
     private BigDecimal overdraftLimit;
     @DatabaseField
     private Integer signatories;
+
+    Account(){}     // no-args constructor required for ormlite
 
     private Account(Type type){
         setAccountType(type);

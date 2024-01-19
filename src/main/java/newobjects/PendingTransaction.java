@@ -26,6 +26,8 @@ public class PendingTransaction {
     @DatabaseField
     private String customerName;
 
+    PendingTransaction(){}  // no-args constructor required for ormlite
+
     private PendingTransaction(Transaction transaction){
         setTransactionID(transaction.getTransactionID());
         setCustomerID(transaction.getCustomerID());

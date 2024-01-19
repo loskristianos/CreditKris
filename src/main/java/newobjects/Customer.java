@@ -6,7 +6,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "customers")
 public class Customer {
 
-    @DatabaseField(id = true, canBeNull = false, unique = true)
+    @DatabaseField(generatedId = true, canBeNull = false, unique = true)
     private String customerID;
     @DatabaseField(canBeNull = false, unique = true)
     private String username;
