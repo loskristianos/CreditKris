@@ -12,7 +12,7 @@ class AccountTest {
 
     @Test
     void validateTransaction() {
-        Account account = new Account(Account.Type.CLIENT);
+        Account account = Account.createClientAccount();
         account.setSignatories(1);
         Transaction transaction = new Transaction(Transaction.Type.DEPOSIT);
         transaction.setTransactionAmount(new BigDecimal("350.00"));
@@ -25,9 +25,9 @@ class AccountTest {
 
     @Test
     void overDraftLimitByType() {
-        Account clientAccount = new Account(Account.Type.CLIENT);
-        Account businessAccount = new Account(Account.Type.BUSINESS);
-        Account communityAccount = new Account(Account.Type.COMMUNITY);
+        Account clientAccount = Account.createClientAccount();
+        Account businessAccount = Account.createBusinessAccount();
+        Account communityAccount = Account.createCommunityAccount();
         assertEquals(new BigDecimal("1500.00"), clientAccount.getOverdraftLimit());
         assertEquals(new BigDecimal("1000.00"), businessAccount.getOverdraftLimit());
         assertEquals(new BigDecimal("2500.00"), communityAccount.getOverdraftLimit());
@@ -36,7 +36,7 @@ class AccountTest {
     @Test
     void signatoryCheckTest() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Transaction transaction = new Transaction();
-        Account account = new Account(Account.Type.CLIENT);
+        Account account = Account.createClientAccount();
         account.setSignatories(1);
         Method testMethod = account.getClass().getDeclaredMethod("signatoryCheck", Transaction.class);
         testMethod.setAccessible(true);
@@ -52,7 +52,7 @@ class AccountTest {
     void balanceCheckTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Transaction transaction = new Transaction(Transaction.Type.WITHDRAWAL);
         transaction.setTransactionAmount(new BigDecimal("2000.00"));
-        Account account = new Account(Account.Type.BUSINESS);
+        Account account = Account.createBusinessAccount();
         account.setCurrentBalance(new BigDecimal("250.00"));
         Method testMethod = account.getClass().getDeclaredMethod("balanceCheck", Transaction.class);
         testMethod.setAccessible(true);
@@ -73,7 +73,7 @@ class AccountTest {
 
     @Test
     void paymentInTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Account account = new Account(Account.Type.CLIENT);
+        Account account = Account.createClientAccount();
         account.setCurrentBalance(new BigDecimal("200.00"));
         Transaction transaction = new Transaction(Transaction.Type.DEPOSIT);
         transaction.setTransactionAmount(new BigDecimal("300.00"));
@@ -88,7 +88,7 @@ class AccountTest {
 
     @Test
     void paymentOutTest() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Account account = new Account(Account.Type.CLIENT);
+        Account account = Account.createClientAccount();
         account.setCurrentBalance(new BigDecimal("200.00"));
         Transaction transaction = new Transaction(Transaction.Type.WITHDRAWAL);
         transaction.setTransactionAmount(new BigDecimal("300.00"));

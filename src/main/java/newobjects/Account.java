@@ -18,9 +18,22 @@ public class Account {
     private BigDecimal overdraftLimit;
     private Integer signatories;
 
-    public Account(Type type){
+    private Account(Type type){
         setAccountType(type);
         setOverdraftLimit(type);
+    }
+
+    // static factory methods for different account types
+    public static Account createClientAccount(){
+        return new Account(Type.CLIENT);
+    }
+
+    public static Account createBusinessAccount(){
+        return new Account(Type.BUSINESS);
+    }
+
+    public static Account createCommunityAccount(){
+        return new Account(Type.COMMUNITY);
     }
 
     // set fields
