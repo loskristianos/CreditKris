@@ -16,7 +16,7 @@ public class Signatory {
         setAccountNumber(accountNumber);
     }
 
-    public Signatory createSignatory(Integer customerID, Integer AccountNumber){
+    public static Signatory createSignatory(Integer customerID, Integer accountNumber){
         return new Signatory(customerID, accountNumber);
     }
 

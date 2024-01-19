@@ -36,7 +36,7 @@ public class PendingTransaction {
 
     }
 
-    public PendingTransaction createPendingTransaction(Transaction transaction, Integer signatoryID){
+    public static PendingTransaction createPendingTransaction(Transaction transaction, Integer signatoryID){
         PendingTransaction pendingTransaction = new PendingTransaction(transaction);
         pendingTransaction.setSignatoryID(signatoryID);
         return pendingTransaction;
