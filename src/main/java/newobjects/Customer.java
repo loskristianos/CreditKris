@@ -3,6 +3,8 @@ package newobjects;
 public class Customer {
 
     private String customerID;
+    private String username;
+    private String password;
     private String firstName;
     private String lastName;
     private String dob;
@@ -17,6 +19,22 @@ public class Customer {
 
     public void setCustomerID(String customerID) {
         this.customerID = customerID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
