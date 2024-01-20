@@ -47,6 +47,18 @@ public class AccountService {
         }
     }
 
+    public Account getThisAccount(Account account){
+        try (ConnectionSource connection = getConnection()) {
+            accountDao = DaoManager.createDao(connection, Account.class);
+            List<Account> results = accountDao.queryForMatching(account);
+            if (results != null) return results.getFirst();
+            else return null;
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
     public void update(Account account){
         try (ConnectionSource connection = getConnection()){
             accountDao = DaoManager.createDao(connection, Account.class);
