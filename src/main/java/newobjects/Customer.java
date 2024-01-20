@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Customer {
 
     @DatabaseField(generatedId = true, canBeNull = false, unique = true)
-    private String customerID;
+    private Integer customerID;
     @DatabaseField(canBeNull = false, unique = true)
     private String username;
     @DatabaseField(canBeNull = false)
@@ -27,11 +27,11 @@ public class Customer {
     @DatabaseField
     private String postcode;
 
-    public String getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
-    public void setCustomerID(String customerID) {
+    public void setCustomerID(Integer customerID) {
         this.customerID = customerID;
     }
 
