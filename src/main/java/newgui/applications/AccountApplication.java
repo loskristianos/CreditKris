@@ -1,19 +1,32 @@
 package newgui.applications;
 
-import newdao.AccountDao;
-import newdao.AccountDaoImpl;
-import newdao.TransactionDaoImpl;
+import newdao.AccountService;
+import newdao.PendingTransactionService;
+import newdao.SignatoryService;
+import newdao.TransactionService;
+import newgui.controllers.AccountController;
 import newobjects.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
-import java.sql.SQLException;
+import java.util.List;
 
 public class AccountApplication extends Application {
 
     Account account;
     Account targetAccount;
+    Customer customer;
+    List<Transaction> transactionList;
+    AccountController accountController;
+    AccountService accountService;
+    TransactionService transactionService;
+    CustomerApplication customerApplication;
+
+    public AccountApplication(Account account, Customer customer){
+        this.account = account;
+        this.customer = customer;
+    }
 
 
     @Override
@@ -26,30 +39,39 @@ public class AccountApplication extends Application {
 
     public int createDeposit(String transactionAmount){
         Transaction deposit = Transaction.createDepositTransaction(new BigDecimal(transactionAmount));
+        deposit.setCustomerID(customer.getCustomerID());
         Transaction validatedDeposit = account.validateTransaction(deposit);
         int x = checkTransactionStatus(validatedDeposit);
         if (x==0) {
             saveData(account, validatedDeposit);
         }
+        if (x==-2) {createPendingTransactions(validatedDeposit);}
         return x;
     }
 
     public int createWithdrawal(String transactionAmount){
         Transaction withdrawal = Transaction.createWithdrawalTransaction(new BigDecimal(transactionAmount));
+        withdrawal.setCustomerID(customer.getCustomerID());
         Transaction validatedWithdrawal = account.validateTransaction(withdrawal);
         int x = checkTransactionStatus(validatedWithdrawal);
         if (x==0) {
             saveData(account, validatedWithdrawal);
+        }
+        if (x==-2) {
+            createPendingTransactions(validatedWithdrawal);
         }
         return x;
     }
 
     public int createTransfer(String transactionAmount){
         Transaction transferOut = Transaction.createTransferOutTransaction(new BigDecimal(transactionAmount));
+        transferOut.setCustomerID(customer.getCustomerID());
         Transaction validatedTransferOut = account.validateTransaction(transferOut);
         int x = checkTransactionStatus(validatedTransferOut);
+        if (x==-2) createPendingTransactions(validatedTransferOut);
         if (x < 0 ) return x;
         Transaction transferIn = Transaction.createTransferInTransaction(new BigDecimal(transactionAmount));
+        transferIn.setCustomerID(customer.getCustomerID());
         Transaction validatedTransferIn = account.validateTransaction(transferIn);
         int y = checkTransactionStatus(validatedTransferIn);
         if (y == 0) {
@@ -68,18 +90,21 @@ public class AccountApplication extends Application {
         }
     }
 
-    void saveData(Account account, Transaction transaction){
-        try {
-            AccountDaoImpl accountDao = AccountDaoImpl.getAccountDao();
-            TransactionDaoImpl transactionDao = TransactionDaoImpl.getTransactionDao();
-            transactionDao.create(transaction);
-            accountDao.update(account);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            AccountDaoImpl.closeConnection();
-            TransactionDaoImpl.closeConnection();
+    void createPendingTransactions(Transaction transaction){
+        SignatoryService signatoryService = SignatoryService.getSignatoryService();
+        PendingTransactionService pendingService = PendingTransactionService.getPendingTransactionService();
+        List<Signatory> sigList = signatoryService.getAccountSignatories(account);
+        for (Signatory signatory : sigList) {
+            PendingTransaction newPending = PendingTransaction.createPendingTransaction(transaction, signatory.getCustomerID());
+            pendingService.create(newPending);
         }
+    }
+
+    void saveData(Account account, Transaction transaction){
+        accountService = AccountService.getAccountService();
+        transactionService = TransactionService.getTransactionService();
+        accountService.update(account);
+        transactionService.create(transaction);
     }
 
     public void goBack(){
